@@ -13,20 +13,14 @@ import javax.swing.JRadioButton;
 
 public class Interface_image extends Panel{
 
-	public static void main(String[] args) {
-		
-		Interface_image e = new Interface_image();
-		Frame f = new Frame();
-		f.setLayout(new BorderLayout());
-		f.add(e, BorderLayout.SOUTH);
-		
-		f.setTitle("Image");
-		f.setSize(900, 700);
-		f.setVisible(true);
-	}
+
 	
 	public Interface_image() {
 		
+		setLayout(new BorderLayout());
+		this.setName("Image");
+		setSize(900, 700);
+		setVisible(true);		
 		this.setBackground(Color.GRAY);
 		
 		JRadioButton étoile1 = new JRadioButton("1 étoile ");
