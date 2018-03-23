@@ -10,12 +10,7 @@ public class Récupérateur {
         file = new File(filename);
     }
  
-    //Lire la date du fichier
-    public long getDate() {
-        return this.file.lastModified();
-    }
- 
-    //Afficher la date du fichier
+    //Afficher la date
     public String getFormatedDate() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:mm:ss");
         Date d = new Date(this.file.lastModified());
