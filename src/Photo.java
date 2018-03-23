@@ -10,7 +10,7 @@ public class Photo {
 	String date;
 
 	public Photo(){
-		System.out.println("Polina");
+		System.out.println("Polina2");
 	}
 
 }
