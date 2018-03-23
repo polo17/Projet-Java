@@ -27,6 +27,9 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 	
 	public static void main(String[] args) {
+		
+		Modèle modl = new Modèle();
+		Contrôleur ctrl = new Contrôleur(modl);
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();

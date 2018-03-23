@@ -26,13 +26,6 @@ public class Modèle extends Observable {
 		this.Tailles = new Hashtable<String, Integer>();
 		//this.Couleurs = new Hashtable<>;
 		this.Lieux = new Hashtable<String, String>();
-		
-		File repertoire=new File("Images");
-		String[] noms=repertoire.list();
-		this.images=new ArrayList<>();
-		for (int  i=0;i<noms.length;i++) {
-			this.images.add(new Photo(noms[i]));
-		}
 	}
 
 	public void selectionner(int index) {
