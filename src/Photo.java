@@ -1,6 +1,8 @@
 
 public class Photo {
 	
+	
+	
 	int taille;
 	
 	String nom;
@@ -8,7 +10,7 @@ public class Photo {
 	String date;
 
 	public Photo(){
-		
+		System.out.println("Polina");
 	}
 
 }
