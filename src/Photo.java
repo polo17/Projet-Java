@@ -1,16 +1,14 @@
 
-public class Photo {
-	
-	
+public class Photo {	
 	
 	int taille;
-	int dimensions;//Ludovic
+
 	String nom;
 	
 	String date;
 
-	public Photo(){
-		System.out.println("Polina2");
+	public Photo(String n){
+		this.nom=n;
 	}
 
 }
