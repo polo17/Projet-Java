@@ -7,26 +7,24 @@ import java.util.Date;
 
 public class Récupérateur {
 
-	private File file = null;
-
 	public Récupérateur(String filename) {
 		file = new File(filename);
 	}
 
 	//Afficher la date
-	public String getFormatedDate() {
+	public String getFormatedDate(File f) {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:mm:ss");
-		Date d = new Date(this.file.lastModified());
+		Date d = new Date(f.lastModified());
 		return sdf.format(d);
 	}
 
 	//Afficher la taille
-	public int getFormatedSize() {
-		int size = (int) (this.file.length() / 1024) + 1;
+	public static int getFormatedSize(File f) {
+		int size = (int) (f.length() / 1024) + 1;
 		return size;
 	}
 
-
+	//Récupère couleur dominante
 	public static MaxColor getMainColor(BufferedImage img){
 		int red = 0;
 		int green = 0;
