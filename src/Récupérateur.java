@@ -1,8 +1,11 @@
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JFileChooser;
- 
+import java.lang.Math;
+
 /**
  * Lire les propriétés d'un fichier
  * http://www.fobec.com/java/965/lire-proprietes-fichier.html
@@ -80,17 +83,35 @@ public class Récupérateur {
         } else {
             return filename;
         }
-    }  
+    } 
     
-    public static void main(String[] args) {
-    	  String file = "C:fichierlog.txt";
-    	  Récupérateur fileProperty = new Récupérateur(file);
-    	  System.out.println("Propriété du fichier: " + file);
-    	  System.out.println("Date: " + fileProperty.getFormatedDate());
-    	  System.out.println("Taille: " + fileProperty.getFormatedSize());
-    	  System.out.println("Type: " + fileProperty.getType());
-    	  System.out.println("Extension: " + Récupérateur.getFileExt(file));
+    public static MaxColor getMainColor(BufferedImage img){
+    	int red = 0;
+    	int green = 0;
+    	int blue = 0;
+    	for(int i = 0; i<img.getHeight(); i++){
+    		for(int j =0; j<img.getWidth(); j++){
+    			Color mycolor = new Color(img.getRGB(i, j));
+    			red+=mycolor.getRed();
+    			green+=mycolor.getGreen();
+    			blue+=mycolor.getBlue();
+    		}
     	}
+    	if(red>green && red>blue){
+    		MaxColor mc = new MaxColor(Color.red, red/(img.getHeight()*img.getWidth()));
+    		return mc;
+    	}
+    	else if(green>red && green>blue){
+    		MaxColor mc = new MaxColor(Color.green, green/(img.getHeight()*img.getWidth()));
+    		return mc;    		
+    	}
+    	else{
+    		MaxColor mc = new MaxColor(Color.blue, blue/(img.getHeight()*img.getWidth()));
+    		return mc;
+    	}
+    	
+    }
+
     
 }
 
