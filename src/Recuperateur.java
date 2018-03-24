@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class Récupérateur {
+public class Recuperateur {
 
-	public Récupérateur(String filename) {
-		file = new File(filename);
+	public Recuperateur(String filename) {
+		File file = new File(filename);
 	}
 
 	//Afficher la date
