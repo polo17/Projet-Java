@@ -11,12 +11,11 @@ public class Photo {
 	
 	String lieu;
 
-	public Photo(String n, int t, String d, String c, String l){
+	public Photo(String n, int t, String d, String c){
 		this.nom = n;
 		this.taille = t;
 		this.date = d;
 		this.couleur = c;
-		this.lieu = l;
 	}
 
 }
