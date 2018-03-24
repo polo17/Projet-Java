@@ -21,41 +21,41 @@ public class Interface_image extends Panel{
 		setVisible(true);		
 		this.setBackground(Color.GRAY);
 		
-		JRadioButton étoile1 = new JRadioButton("1 étoile ");
+		JRadioButton etoile1 = new JRadioButton("1 étoile ");
 	    //étoile1.setMnemonic(KeyEvent.VK_B);
 	    //étoile1.setActionCommand("1 étoile");
 	   // étoile1.setSelected(true);
 
-	    JRadioButton étoile2 = new JRadioButton("2 étoiles");
+	    JRadioButton etoile2 = new JRadioButton("2 étoiles");
 	    //étoile2.setMnemonic(KeyEvent.VK_C);
 	    //étoile2.setActionCommand("2 étoiles");
 
-	    JRadioButton étoile3 = new JRadioButton("3 étoiles");
+	    JRadioButton etoile3 = new JRadioButton("3 étoiles");
 	    //étoile3.setMnemonic(KeyEvent.VK_D);
 	    //étoile3.setActionCommand("3 étoiles");
 
-	    JRadioButton étoile4 = new JRadioButton("4 étoiles");
+	    JRadioButton etoile4 = new JRadioButton("4 étoiles");
 	    //étoile4.setMnemonic(KeyEvent.VK_R);
 	    //étoile4.setActionCommand("4 étoiles");
 
-	    JRadioButton étoile5 = new JRadioButton("5 étoiles");
+	    JRadioButton etoile5 = new JRadioButton("5 étoiles");
 	    //étoile5.setMnemonic(KeyEvent.VK_P);
 	    //étoile5.setActionCommand("5 étoiles");
 
 	    setLayout(new FlowLayout()); 
 	   
 	    ButtonGroup group = new ButtonGroup();
-	    group.add(étoile1);
-	    group.add(étoile2);
-	    group.add(étoile3);
-	    group.add(étoile4);
-	    group.add(étoile5);
+	    group.add(etoile1);
+	    group.add(etoile2);
+	    group.add(etoile3);
+	    group.add(etoile4);
+	    group.add(etoile4);
 	    
-	    add(étoile1);
-	    add(étoile2);
-	    add(étoile3);
-	    add(étoile4);
-	    add(étoile5);
+	    add(etoile1);
+	    add(etoile2);
+	    add(etoile3);
+	    add(etoile4);
+	    add(etoile5);
 	    
 	   //pack();
 	}
