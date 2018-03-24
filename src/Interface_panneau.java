@@ -28,8 +28,8 @@ String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 	
 	public static void main(String[] args) {
 		
-		Modèle modl = new Modèle();
-		Contrôleur ctrl = new Contrôleur(modl);
+		Modele modele = new Modele();
+		Controleur ctrl = new Controleur(modele);
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
