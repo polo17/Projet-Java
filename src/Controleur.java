@@ -1,23 +1,20 @@
 import java.io.File;
 import java.util.ArrayList;
 
-public class Contrôleur extends Récupérateur{
+public class Controleur extends Recuperateur{
 
-	Modèle modl;
+	Modele modele;
 
-	public Contrôleur (Modèle m){
-		this.modl = m ;
+	
+	public Controleur (Modele m){
+		this.modele = m ;
 		
 		File repertoire = new File("Images");
 		
 		String[] noms = repertoire.list();
-		
-		m.images = new ArrayList<>();
 	
-		
 		for (int  i=0 ; i < noms.length ; i++) {
-			
-			m.images.add(new Photo(m.Nom_Images.get(noms[i]),m.Tailles.get(key),m.Dates.get(key),m.Couleurs), m.Lieux.get(key));
+			m.images.add(new Photo(m.Nom_Images.get(noms[i]),m.Tailles.get(key),m.Dates.get(key),m.Couleurs, m.Lieux.get(key)));
 		}
 	}
 
