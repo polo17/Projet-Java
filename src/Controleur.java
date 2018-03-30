@@ -28,7 +28,7 @@ public class Controleur implements ActionListener, MouseListener{
 				MaxColor couleur = rim.getMainColor();
 				int taille = rim.obtenirTaille();
 				
-				modele.mot.put(noms[i], modele.images);
+				modele.Mot_clé.put(noms[i], modele.images);
 				modele.Couleurs.put(couleur, modele.images);
 				modele.Dates.put(date, modele.images);
 				modele.Tailles.put(taille, modele.images);

@@ -6,7 +6,7 @@ import java.util.Observable;
 
 public class Modele extends Observable {
 
-	public Hashtable<String, HashSet<Photo> > motclÃ©;
+	public Hashtable<String, HashSet<Photo> > Mot_clé;
 
 	public Hashtable<String, HashSet<Photo>> Dates;
 
@@ -20,7 +20,7 @@ public class Modele extends Observable {
 	HashSet<Photo> images;
 
 	public Modele() {
-		this.motclÃ© = new Hashtable<String, HashSet<Photo>>();
+		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<Integer, HashSet<Photo>>();
 		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();

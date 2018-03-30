@@ -24,7 +24,7 @@ public class Recuperateur {
 	/**
 	 * 
 	 * @param f
-	 * @return
+	 * @return la date en String
 	 */
 	public String getFormatedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:mm:ss");
@@ -32,13 +32,20 @@ public class Recuperateur {
 		return sdf.format(d);
 	}
 
-	//Afficher la taille
+	/**
+	 * 
+	 * @return la taille du fichier
+	 */
 		public int obtenirTaille() {
 			int size = (int) (this.file.length() / 1024) + 1;
 			return size;
 		}
 
-	//RÃ©cupÃ¨re couleur dominante
+	/**
+	 * 
+	 * @return Récupère la couleur dominante de l'image
+	 * @throws IOException
+	 */
 	public MaxColor getMainColor() throws IOException{
 		BufferedImage img = ImageIO.read(this.file);
 		int red = 0;
