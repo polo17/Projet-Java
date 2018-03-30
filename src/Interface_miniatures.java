@@ -10,8 +10,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +27,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Interface_miniatures extends Panel{
+public class Interface_miniatures extends Panel implements MouseListener{
 	
 	ArrayList images = new ArrayList<>();	
 	
@@ -38,35 +42,35 @@ public class Interface_miniatures extends Panel{
 		
 		for (int i=0; i<40;i++) {
 			BufferedImage myPicture = ImageIO.read(new File("Images/cellules.jpg"));
-			//JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 			ImagePanel cases = new ImagePanel(myPicture);
-			//picLabel.setSize(50, 30);
 			this.add(cases);
 		}
+		this.setVisible(true);	    
+	}
 
-		this.setVisible(true);
-
-	
+	@Override
+	public void mouseClicked(MouseEvent e) {
 		/*
-	    BufferedImage resizedImg = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2 = resizedImg.createGraphics();
+		int x=e.getX();
+		int y=e.getY();
+		Point p = new Point(x,y);
+		*/
+	}
 
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(new ImageIcon("Images/cellules.jpg").getImage(), 0, 0, 40, 40, null);
-	    g2.dispose();
-	    */
-	    
+	@Override
+	public void mouseEntered(MouseEvent e) {		
 	}
-	/*
-	public void paint (Graphics g) {
-		BufferedImage img;
-		try {
-			img = ImageIO.read(new File("Images/tigre.jpg"));
-			g.drawImage(img,0,0,50,50, null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+	@Override
+	public void mouseExited(MouseEvent e) {		
 	}
-*/
+
+	@Override
+	public void mousePressed(MouseEvent e) {		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {		
+	}
 
 }

@@ -12,8 +12,8 @@ import javax.imageio.ImageIO;
 
 public class ImagePanel extends Panel {
 	
-	private static int TAILLE_X = 160;
-	private static int TAILLE_Y = 100;
+	private static int TAILLE_X = 142;
+	private static int TAILLE_Y = 99;
 	
 	private BufferedImage imgFond;
 	
