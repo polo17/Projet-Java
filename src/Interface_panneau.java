@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
@@ -26,10 +27,10 @@ import javax.swing.JPanel;
 public class Interface_panneau extends Panel implements WindowListener, MouseListener{
 String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Modele modele = new Modele();
-		Controleur ctrl = new Controleur(modele);
+		//Controleur ctrl = new Controleur(modele);
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
@@ -48,7 +49,7 @@ String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 		p.addMouseListener(p);
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
-		f.setSize(900, 700);
+		f.setSize(1000, 800);
 		f.setVisible(true);
 	}
 

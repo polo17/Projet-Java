@@ -1,12 +1,17 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -15,58 +20,42 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Interface_miniatures extends Panel{
 	
-	ArrayList images = new ArrayList<>();
+	ArrayList images = new ArrayList<>();	
 	
-	
-	public Interface_miniatures() {
-		this.setName("Miniatures");
+	public Interface_miniatures() throws IOException {
 
-		setVisible(true);		
 		this.setBackground(Color.GRAY);
-		/*
-		GridLayout gl = new GridLayout();
-		gl.setColumns(2);
-		gl.setRows(3);
+
+		GridLayout gl = new GridLayout(7,0);	
 		this.setLayout(gl);
 		gl.setHgap(5); 
 		gl.setVgap(5);
 		
-
-		
-		JButton bouton1= new JButton(new ImageIcon("Images/cellules.jpg"));
-		JButton bouton2= new JButton(new ImageIcon("Images/tigre.jpg"));
-		JButton bouton3= new JButton(new ImageIcon("Images/espace.jpg"));
-		JButton bouton4= new JButton(new ImageIcon("Images/bretagne.jpg"));
-		JButton bouton5= new JButton(new ImageIcon("Images/lucane.jpg"));
-		JButton bouton6= new JButton(new ImageIcon("Images/paris.jpg"));
-		//bouton1.setPreferredSize(new Dimension(50,50));
-		//bouton1.setSize(50,50);
-		
-		add(bouton2);
-		add(bouton1);
-		add(bouton3);
-		add(bouton4);
-		add(bouton5);
-		add(bouton6);
-		setVisible(true);
-		*/
-		
-		for (int i=0; i<50; i++){
-		    JPanel cell1 = new JPanel();
-
-		    cell1.setBackground(Color.YELLOW);
-
-		    cell1.setPreferredSize(new Dimension(60, 40)); 
+		for (int i=0; i<40;i++) {
+			BufferedImage myPicture = ImageIO.read(new File("Images/cellules.jpg"));
+			//JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+			ImagePanel cases = new ImagePanel(myPicture);
+			//picLabel.setSize(50, 30);
+			this.add(cases);
 		}
-	    JPanel content = new JPanel();
 
-	    content.setPreferredSize(new Dimension(300, 120));
-	    //setContentPane(content);
+		this.setVisible(true);
 
+	
+		/*
+	    BufferedImage resizedImg = new BufferedImage(40, 40, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2 = resizedImg.createGraphics();
+
+	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+	    g2.drawImage(new ImageIcon("Images/cellules.jpg").getImage(), 0, 0, 40, 40, null);
+	    g2.dispose();
+	    */
+	    
 	}
 	/*
 	public void paint (Graphics g) {

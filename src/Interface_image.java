@@ -17,7 +17,8 @@ public class Interface_image extends Panel{
 		
 		setLayout(new BorderLayout());
 		this.setName("Image");
-		setSize(900, 700);
+		//
+		//setSize(900, 700);
 		setVisible(true);		
 		this.setBackground(Color.GRAY);
 		
