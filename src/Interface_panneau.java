@@ -19,7 +19,7 @@ String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 	public static void main(String[] args) throws IOException {
 		
 		Modele modele = new Modele();
-		//Controleur ctrl = new Controleur(modele);
+		Controleur ctrl = new Controleur(modele);
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
@@ -40,6 +40,7 @@ String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
 		f.setTitle("Gestionnaire d'images");
 		f.setSize(1000, 800);
 		f.setVisible(true);
+		
 	}
 
 	public Interface_panneau() {

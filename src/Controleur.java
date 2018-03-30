@@ -21,17 +21,20 @@ public class Controleur implements ActionListener, MouseListener{
 			
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
-				System.out.println(noms[i]);
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 				
-//				String date = rim.getFormatedDate(noms[i]);
-//				
-//				modele.Lieux.put("yellow", modele.images);
-//				modele.Dates.put("yellow", modele.images);
-//				modele.Couleurs.put("yellow", modele.images);
+				String date = rim.getFormatedDate();
+				MaxColor couleur = rim.getMainColor();
+				int taille = rim.obtenirTaille();
+				
+				modele.mot.put(noms[i], modele.images);
+				modele.Couleurs.put(couleur, modele.images);
+				modele.Dates.put(date, modele.images);
+				modele.Tailles.put(taille, modele.images);
 				
 				m.ajouterImage(rim);
+				
 			}
 		}
 	}

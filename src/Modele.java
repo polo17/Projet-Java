@@ -6,9 +6,9 @@ import java.util.Observable;
 
 public class Modele extends Observable {
 
-	public Hashtable<String, HashSet<Photo> > Nom_Images;
+	public Hashtable<String, HashSet<Photo> > motclé;
 
-	public Hashtable<SimpleDateFormat, HashSet<Photo>> Dates;
+	public Hashtable<String, HashSet<Photo>> Dates;
 
 	public Hashtable<Integer, HashSet<Photo>> Tailles;
 
@@ -20,11 +20,12 @@ public class Modele extends Observable {
 	HashSet<Photo> images;
 
 	public Modele() {
-		this.Nom_Images = new Hashtable<String, HashSet<Photo>>();
-		this.Dates = new Hashtable<SimpleDateFormat, HashSet<Photo>>();
+		this.motclé = new Hashtable<String, HashSet<Photo>>();
+		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<Integer, HashSet<Photo>>();
 		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();
 		this.Lieux = new Hashtable<String, HashSet<Photo>>();
+		
 		this.images = new HashSet<Photo>();
 	}
 
@@ -40,6 +41,15 @@ public class Modele extends Observable {
 				rim.obtenirTaille(),
 				rim.getFormatedDate(),
 				rim.getMainColor());
+		//Ajout dans la base des photos de l'appli.
+		this.images.add(photo);
+		
+		
+		//Ajout dans les différents index
+		MaxColor couleur = rim.getMainColor();
+		if (!this.Couleurs.containsKey(couleur)) 
+			this.Couleurs.put(couleur, new HashSet());
+		this.Couleurs.get(couleur).add(photo);
 		
 	}
 	
