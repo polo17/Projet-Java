@@ -1,43 +1,54 @@
-import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
 
-@SuppressWarnings("deprecation")
 public class Modele extends Observable {
 
-	public Hashtable<String, String> Nom_Images;
+	public Hashtable<String, HashSet<Photo> > Nom_Images;
 
-	public Hashtable<String, SimpleDateFormat> Dates;
+	public Hashtable<SimpleDateFormat, HashSet<Photo>> Dates;
 
-	public Hashtable<String, Integer> Tailles;
+	public Hashtable<Integer, HashSet<Photo>> Tailles;
 
-	public Hashtable Couleurs;
+	public Hashtable <MaxColor, HashSet<Photo>> Couleurs;
 
-	public Hashtable Lieux;
+	public Hashtable <String, HashSet<Photo>> Lieux;
 
 	int selectionne;
-	ArrayList<Photo> images;
+	HashSet<Photo> images;
 
 	public Modele() {
-		this.Nom_Images = new Hashtable<String, String>();
-		this.Dates = new Hashtable<String, SimpleDateFormat>();
-		this.Tailles = new Hashtable<String, Integer>();
-		//this.Couleurs = new Hashtable<>;
-		this.Lieux = new Hashtable<String, String>();
-		this.images = new ArrayList<Photo>();
+		this.Nom_Images = new Hashtable<String, HashSet<Photo>>();
+		this.Dates = new Hashtable<SimpleDateFormat, HashSet<Photo>>();
+		this.Tailles = new Hashtable<Integer, HashSet<Photo>>();
+		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();
+		this.Lieux = new Hashtable<String, HashSet<Photo>>();
+		this.images = new HashSet<Photo>();
 	}
 
 	public void selectionner(int index) {
 		this.selectionne=index;
-		this.notifyObservers(this.images.get(this.selectionne));
+		//this.notifyObservers(this.images.get(this.selectionne));
 		this.setChanged();
 	}
 
+	public void ajouterImage(Recuperateur rim) throws IOException {
+		Photo photo = new Photo(
+				rim.file.getName(),
+				rim.obtenirTaille(),
+				rim.getFormatedDate(),
+				rim.getMainColor());
+		
+	}
+	
+	
+	
+	/*
 	public void triAlpha(){
 		ArrayList<Photo> sorted = new ArrayList<Photo>();
-		ArrayList<Photo> sortinprogress = this.images;
+		HashSet<Photo> sortinprogress = this.images;
 		Photo maxi = sortinprogress.get(0);
 		while(sortinprogress.size()!=0) {
 			for(int j=1; j<sortinprogress.size(); j++) {
@@ -53,7 +64,7 @@ public class Modele extends Observable {
 			sortinprogress.remove(maxi);
 			sorted.add(maxi);
 			
+	
 		}
-	}
-
+	 */
 }
