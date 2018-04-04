@@ -1,9 +1,14 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
 
 public class Controleur implements ActionListener, MouseListener{
 
@@ -24,30 +29,28 @@ public class Controleur implements ActionListener, MouseListener{
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 				
-				String date = rim.getFormatedDate();
-				MaxColor couleur = rim.getMainColor();
-				int taille = rim.obtenirTaille();
+				//String date = rim.getFormatedDate();
+				//MaxColor couleur = rim.getMainColor();
+				//int taille = rim.obtenirTaille();
 				
 				modele.Mot_clé.put(noms[i], modele.images);
-				modele.Couleurs.put(couleur, modele.images);
-				modele.Dates.put(date, modele.images);
-				modele.Tailles.put(taille, modele.images);
+				//modele.Couleurs.put(couleur, modele.images);
+				//modele.Dates.put(date, modele.images);
+				//modele.Tailles.put(taille, modele.images);
 				
 				m.ajouterImage(rim);
 				
 			}
 		}
-	}
-
-	public void tri(){
-
-	}
-
-
-
-	public static void main(String[] args) {
 		
 	}
+
+	public void triCouleur(Color c){
+		Color Coul_r = c;
+		modele.Couleurs.get(Coul_r);
+		
+	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

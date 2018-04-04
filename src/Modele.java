@@ -10,7 +10,7 @@ public class Modele extends Observable {
 
 	public Hashtable<String, HashSet<Photo>> Dates;
 
-	public Hashtable<Integer, HashSet<Photo>> Tailles;
+	public Hashtable<String, HashSet<Photo>> Tailles;
 
 	public Hashtable <MaxColor, HashSet<Photo>> Couleurs;
 
@@ -22,7 +22,7 @@ public class Modele extends Observable {
 	public Modele() {
 		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
-		this.Tailles = new Hashtable<Integer, HashSet<Photo>>();
+		this.Tailles = new Hashtable<String, HashSet<Photo>>();
 		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();
 		this.Lieux = new Hashtable<String, HashSet<Photo>>();
 		
@@ -51,6 +51,28 @@ public class Modele extends Observable {
 			this.Couleurs.put(couleur, new HashSet());
 		this.Couleurs.get(couleur).add(photo);
 		
+		int taille = rim.obtenirTaille();
+		
+		if (taille < 300) {
+			if (!this.Tailles.containsKey("Petite"));
+				this.Tailles.put("Petite", new HashSet());
+			this.Tailles.get("Petite").add(photo);
+		}
+		if (351 < taille && taille < 600) {
+			if (!this.Tailles.containsKey("Moyenne"));
+				this.Tailles.put("Moyenne", new HashSet());
+			this.Tailles.get("Moyenne").add(photo);
+		}
+		if (taille > 601) {
+			if (!this.Tailles.containsKey("Grande"));
+				this.Tailles.put("Grande", new HashSet());
+			this.Tailles.get("Grande").add(photo);
+		}
+		
+		String date = rim.getFormatedDate();
+		this.Dates.put(date, this.images);
+		
+		System.out.println(this.Tailles);
 	}
 	
 	
