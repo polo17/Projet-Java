@@ -6,9 +6,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Set;
 
 public class Controleur implements ActionListener, MouseListener{
 
@@ -42,15 +40,21 @@ public class Controleur implements ActionListener, MouseListener{
 				
 			}
 		}
-		
+		System.out.println(modele.Dates);
 	}
 
 	public void triCouleur(Color c){
-		Color Coul_r = c;
-		modele.Couleurs.get(Coul_r);
-		
+		Set<Photo> couleurs_triés = modele.Couleurs.get(c);	
+	}
+	
+	public void triTaille(String t){
+		Set<Photo> tailles_triés = modele.Tailles.get(t);
 	}
 
+	public void triDate(String d){
+		Set<Photo> dates_triés;
+		
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

@@ -27,7 +27,7 @@ public class Recuperateur {
 	 * @return la date en String
 	 */
 	public String getFormatedDate() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date d = new Date(this.file.lastModified());
 		return sdf.format(d);
 	}
