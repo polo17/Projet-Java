@@ -87,6 +87,8 @@ public class Modele extends Observable {
 			this.Dates.put(date, new HashSet());
 		this.Dates.get(date).add(photo);
 	}
+	
+	
 /*	
 	public void triAlpha(){
 		ArrayList<Photo> sorted = new ArrayList<Photo>();
@@ -108,4 +110,5 @@ public class Modele extends Observable {
 			
 		}
 */
+	
 }

@@ -83,20 +83,25 @@ Controleur ctrl = new Controleur(modele);
 		pan.add(la4);
 		for (int i=0;i<tailles.length;i++) {
 			JRadioButton cocher_taille = new JRadioButton(tailles[i]);
+			cocher_taille.setName(tailles[i]);
+			cocher_taille.addActionListener(ctrl);
 			pan.add(cocher_taille);
 		}		
 		
 		Label la5 = new Label("Select. note :", Label.LEFT);
 		pan.add(la5);
-		ButtonGroup group = new ButtonGroup();
+		//ButtonGroup group = new ButtonGroup();
 		for (int i=0;i<notes.length;i++) {
 			JRadioButton cocher_note = new JRadioButton(notes[i]);
+			cocher_note.setName(notes[i]);
+			cocher_note.addActionListener(ctrl);
 			//group.add(cocher_note);
 			pan.add(cocher_note);
 		}
 		
 		Label la6 = new Label("Trier par : ", Label.LEFT);
 		JComboBox liste1 = new JComboBox(trieur);
+		liste1.addActionListener(ctrl);
 		pan.add(la6);
 		pan.add(liste1);
 		

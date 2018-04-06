@@ -10,46 +10,40 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 public class Controleur implements ActionListener, MouseListener{
 
 	public static String REPERTOIRE = "ImagesTest/"; //Images
-	
+
 	Modele modele;
-	
+
 
 	String[] noms;
 
-	
+
 	public Controleur (Modele m) throws IOException{
-		
+
 		this.modele = m ;
-		
+
 		File repertoire = new File(Controleur.REPERTOIRE);
-		
+
 		this.noms = repertoire.list();
-			
+
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
-				
-				//String date = rim.getFormatedDate();
-				//MaxColor couleur = rim.getMainColor();
-				//int taille = rim.obtenirTaille();
-				
-				modele.Mot_clé.put(noms[i], modele.images);
-				//modele.Couleurs.put(couleur, modele.images);
-				//modele.Dates.put(date, modele.images);
-				//modele.Tailles.put(taille, modele.images);
 
-				m.ajouterImage(rim);
+				modele.Mot_clé.put(noms[i], modele.images);
 				
+				m.ajouterImage(rim);
+
 			}
 		}
-		
-		
+
+
 		/*
 		Set<Photo> test = triCouleur(Color.red);
 		Iterator i = test.iterator();
@@ -58,25 +52,36 @@ public class Controleur implements ActionListener, MouseListener{
 		   System.out.println(tmp.nom);
 		}
 		//System.out.println(test.size());
-		
-		*/
+
+		 */
 	}
-	
+
+	private String nom;
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JRadioButton btn = (JRadioButton)e.getSource();
-		String nom = btn.getName();
-		if (btn.isSelected()){
-			System.out.println(nom);
+		if (e.getSource() instanceof JRadioButton){
+			JRadioButton btn = (JRadioButton)e.getSource();
+			nom = btn.getName();
+			if (btn.isSelected()){
+				System.out.println(nom);	
+			}
+			else{
+				System.out.println("non");
+			}
 		}
-	}
+		else{
+			JComboBox cb = (JComboBox)e.getSource();
+			nom = (String) cb.getSelectedItem();
+			}
+		}
+	
 
 	public Set<Photo> triCouleur(Color c){
 		Set<Photo> couleurs_triés = modele.Couleurs.get(c);
 		return couleurs_triés;
 	}
-	
+
 	public Set<Photo> triTaille(String t){
 		Set<Photo> tailles_triés = modele.Tailles.get(t);
 		return tailles_triés;
@@ -90,27 +95,27 @@ public class Controleur implements ActionListener, MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		
+
 	}
 
 
