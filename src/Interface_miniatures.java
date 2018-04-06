@@ -30,6 +30,8 @@ import javax.swing.JPanel;
 public class Interface_miniatures extends Panel implements MouseListener{
 	
 	ArrayList images = new ArrayList<>();	
+	Modele modele = new Modele();
+	Controleur ctrl = new Controleur(modele);
 	
 	public Interface_miniatures() throws IOException {
 
@@ -40,14 +42,16 @@ public class Interface_miniatures extends Panel implements MouseListener{
 		gl.setHgap(5); 
 		gl.setVgap(5);
 		
-		for (int i=0; i<40;i++) {
-			BufferedImage myPicture = ImageIO.read(new File("Images/cellules.jpg"));
+		for (int i=0; i<ctrl.noms.length;i++) {
+			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
 			this.add(cases);
 		}
 		this.setVisible(true);	    
 	}
 
+	
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		/*

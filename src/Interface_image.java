@@ -23,25 +23,10 @@ public class Interface_image extends Panel{
 		this.setBackground(Color.GRAY);
 		
 		JRadioButton etoile1 = new JRadioButton("1 étoile ");
-	    //étoile1.setMnemonic(KeyEvent.VK_B);
-	    //étoile1.setActionCommand("1 étoile");
-	   // étoile1.setSelected(true);
-
 	    JRadioButton etoile2 = new JRadioButton("2 étoiles");
-	    //étoile2.setMnemonic(KeyEvent.VK_C);
-	    //étoile2.setActionCommand("2 étoiles");
-
 	    JRadioButton etoile3 = new JRadioButton("3 étoiles");
-	    //étoile3.setMnemonic(KeyEvent.VK_D);
-	    //étoile3.setActionCommand("3 étoiles");
-
 	    JRadioButton etoile4 = new JRadioButton("4 étoiles");
-	    //étoile4.setMnemonic(KeyEvent.VK_R);
-	    //étoile4.setActionCommand("4 étoiles");
-
 	    JRadioButton etoile5 = new JRadioButton("5 étoiles");
-	    //étoile5.setMnemonic(KeyEvent.VK_P);
-	    //étoile5.setActionCommand("5 étoiles");
 
 	    setLayout(new FlowLayout()); 
 	   

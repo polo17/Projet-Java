@@ -16,7 +16,11 @@ public class Controleur implements ActionListener, MouseListener{
 	
 	Modele modele;
 	
+<<<<<<< HEAD
 	String[] noms;// = repertoire.list();
+=======
+	String[] noms;
+>>>>>>> 8a16cf3561675df155363747bdbbc29becfbdf59
 	
 	public Controleur (Modele m) throws IOException{
 		
@@ -30,8 +34,15 @@ public class Controleur implements ActionListener, MouseListener{
 			if (! modele.images.contains(noms[i])){
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
-
+				
+				//String date = rim.getFormatedDate();
+				//MaxColor couleur = rim.getMainColor();
+				//int taille = rim.obtenirTaille();
+				
 				modele.Mot_clé.put(noms[i], modele.images);
+				//modele.Couleurs.put(couleur, modele.images);
+				//modele.Dates.put(date, modele.images);
+				//modele.Tailles.put(taille, modele.images);
 
 				m.ajouterImage(rim);
 				
@@ -62,8 +73,8 @@ public class Controleur implements ActionListener, MouseListener{
 	public Set<Photo> triDate(String d){
 		Set<Photo> dates_triés = modele.Dates.get(d);
 		return dates_triés;
-		
 	}
+
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {

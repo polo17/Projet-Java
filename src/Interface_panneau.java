@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Panel;
@@ -8,32 +9,37 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class Interface_panneau extends Panel implements WindowListener, MouseListener{
-String[] trieur = {"nom","couleurs","note","taille","date","lieu"};
-String[] couleurs = {"rouge","orange","jaune","vert","bleu","violet"};
+public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
+	
+String[] trieur = {"ordre alphabétique","couleurs","note","taille","date","lieu"};
+String[] couleurs = {"rouge","vert","bleu"};
+String[] tailles = {"petites","moyennes","grandes"};
+String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
 
+Modele modele = new Modele();
+Controleur ctrl = new Controleur(modele);
 	
 	public static void main(String[] args) throws IOException {
 		
-		Modele modele = new Modele();
-		Controleur ctrl = new Controleur(modele);
+
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 		Interface_image e = new Interface_image();
-		
-		p.setSize(200,200);
-		
-		
+
 		Frame f = new Frame();
-		f.setLayout(new BorderLayout());
+		f.setLayout(new BorderLayout());		
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
 		f.add(e, BorderLayout.SOUTH);
@@ -47,43 +53,63 @@ String[] couleurs = {"rouge","orange","jaune","vert","bleu","violet"};
 		
 	}
 
-	public Interface_panneau() {
+	public Interface_panneau() throws IOException {
 		super();
+		Controleur ctrl = new Controleur(modele);
 		
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
 		
-		Label la2 = new Label("Select. couleur :", Label.LEFT);
+		Label la1 = new Label("Saisir nom :", Label.LEFT);
+		pan.add(la1);
+		JTextField saisie_nom = new JTextField("Veuillez saisir un nom");
+		pan.add(saisie_nom);
+		
+		Label la2 = new Label("Saisir lieu :", Label.LEFT);
 		pan.add(la2);
-		for (int i=0;i<6;i++) {
-			JRadioButton cocher_couleur = new JRadioButton(couleurs[i]);
-			pan.add(cocher_couleur);
-		}
-		Label la4 = new Label("Saisir lieu :", Label.LEFT);
-		pan.add(la4);
 		JTextField saisie_lieu = new JTextField("Veuillez saisir un lieu");
 		pan.add(saisie_lieu);
 		
-		Label la5 = new Label("Saisir date :", Label.LEFT);
+		Label la3 = new Label("Select. couleur :", Label.LEFT);
+		pan.add(la3);
+		for (int i=0;i<couleurs.length;i++) {
+			JRadioButton cocher_couleur = new JRadioButton(couleurs[i]);
+			cocher_couleur.addActionListener(ctrl);
+			pan.add(cocher_couleur);
+		}
+
+		Label la4 = new Label("Select. taille :", Label.LEFT);
+		pan.add(la4);
+		for (int i=0;i<tailles.length;i++) {
+			JRadioButton cocher_taille = new JRadioButton(tailles[i]);
+			pan.add(cocher_taille);
+		}		
+		
+		Label la5 = new Label("Select. note :", Label.LEFT);
 		pan.add(la5);
-		JTextField saisie_date = new JTextField("Veuillez saisir une date");
-		pan.add(saisie_date);
-
-
+		ButtonGroup group = new ButtonGroup();
+		for (int i=0;i<notes.length;i++) {
+			JRadioButton cocher_note = new JRadioButton(notes[i]);
+			//group.add(cocher_note);
+			pan.add(cocher_note);
+		}
 		
-		
-		Label la = new Label("Selectionner par", Label.LEFT);
+		Label la6 = new Label("Trier par : ", Label.LEFT);
 		JComboBox liste1 = new JComboBox(trieur);
-		pan.add(la);
+		pan.add(la6);
 		pan.add(liste1);
 		
 		JButton trier = new JButton("trier");
 		trier.setAlignmentX(CENTER_ALIGNMENT);
-		Label la3 = new Label("Trier par", Label.LEFT);
-		pan.add(la3);
 		pan.add(trier,BorderLayout.SOUTH);
 		
 		add(pan);
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override
@@ -145,5 +171,7 @@ String[] couleurs = {"rouge","orange","jaune","vert","bleu","violet"};
 	public void windowOpened(WindowEvent arg0) {
 		
 	}
+
+
 
 }
