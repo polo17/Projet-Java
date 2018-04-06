@@ -12,10 +12,10 @@ import javax.imageio.ImageIO;
 
 public class ImagePanel extends Panel {
 	
-	private static int TAILLE_X = 142;
-	private static int TAILLE_Y = 99;
+	public static int TAILLE_X = 142;
+	public static int TAILLE_Y = 99;
 	
-	private BufferedImage imgFond;
+	public BufferedImage imgFond;
 	
 	public ImagePanel(BufferedImage img) throws IOException {
 		super();
