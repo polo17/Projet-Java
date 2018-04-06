@@ -14,13 +14,15 @@ public class Controleur implements ActionListener, MouseListener{
 	
 	Modele modele;
 	
+	String[] noms;
+	
 	public Controleur (Modele m) throws IOException{
 		
 		this.modele = m ;
 		
 		File repertoire = new File(Controleur.REPERTOIRE);
 		
-		String[] noms = repertoire.list();
+		this.noms = repertoire.list();
 			
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
@@ -31,7 +33,7 @@ public class Controleur implements ActionListener, MouseListener{
 				//MaxColor couleur = rim.getMainColor();
 				//int taille = rim.obtenirTaille();
 				
-				modele.Mot_clé.put(noms[i], modele.images);
+				modele.Mot_clÃ©.put(noms[i], modele.images);
 				//modele.Couleurs.put(couleur, modele.images);
 				//modele.Dates.put(date, modele.images);
 				//modele.Tailles.put(taille, modele.images);
@@ -44,15 +46,15 @@ public class Controleur implements ActionListener, MouseListener{
 	}
 
 	public void triCouleur(Color c){
-		Set<Photo> couleurs_triés = modele.Couleurs.get(c);	
+		Set<Photo> couleurs_triÃ©s = modele.Couleurs.get(c);	
 	}
 	
 	public void triTaille(String t){
-		Set<Photo> tailles_triés = modele.Tailles.get(t);
+		Set<Photo> tailles_triÃ©s = modele.Tailles.get(t);
 	}
 
 	public void triDate(String d){
-		Set<Photo> dates_triés;
+		Set<Photo> dates_triÃ©s;
 		
 	}
 

@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class Modele extends Observable {
 
-	public Hashtable<String, HashSet<Photo> > Mot_clé;
+	public Hashtable<String, HashSet<Photo> > Mot_clÃ©;
 
 	public Hashtable<String, HashSet<Photo>> Dates;
 
@@ -21,7 +21,7 @@ public class Modele extends Observable {
 	HashSet<Photo> images;
 
 	public Modele() {
-		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
+		this.Mot_clÃ© = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<String, HashSet<Photo>>();
 		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();
@@ -79,7 +79,7 @@ public class Modele extends Observable {
 		this.Dates.put(date, this.images);
 		if (!this.Dates.containsKey(date))
 			this.Dates.put(date, new HashSet());
-		this.Couleurs.get(date).add(photo);
+		this.Dates.get(date).add(photo);
 	}
 /*	
 	public void triAlpha(){
