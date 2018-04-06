@@ -18,8 +18,9 @@ public class Controleur implements ActionListener, MouseListener{
 	
 	Modele modele;
 	
-	
+
 	String[] noms;
+
 	
 	public Controleur (Modele m) throws IOException{
 		

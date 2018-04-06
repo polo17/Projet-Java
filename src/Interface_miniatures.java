@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -45,6 +46,7 @@ public class Interface_miniatures extends Panel implements MouseListener{
 		for (int i=0; i<ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
+			cases.addMouseListener(this);
 			this.add(cases);
 		}
 		this.setVisible(true);	    
@@ -59,6 +61,7 @@ public class Interface_miniatures extends Panel implements MouseListener{
 		int y=e.getY();
 		Point p = new Point(x,y);
 		*/
+		
 	}
 
 	@Override
