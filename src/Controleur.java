@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JRadioButton;
+
 public class Controleur implements ActionListener, MouseListener{
 
 	public static String REPERTOIRE = "ImagesTest/"; //Images
@@ -46,6 +48,8 @@ public class Controleur implements ActionListener, MouseListener{
 				
 			}
 		}
+		
+		
 		/*
 		Set<Photo> test = triCouleur(Color.red);
 		Iterator i = test.iterator();
@@ -56,6 +60,16 @@ public class Controleur implements ActionListener, MouseListener{
 		//System.out.println(test.size());
 		
 		*/
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		JRadioButton btn = (JRadioButton)e.getSource();
+		String nom = btn.getName();
+		if (btn.isSelected()){
+			System.out.println(nom);
+		}
 	}
 
 	public Set<Photo> triCouleur(Color c){
@@ -99,9 +113,5 @@ public class Controleur implements ActionListener, MouseListener{
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
-	}
 
 }
