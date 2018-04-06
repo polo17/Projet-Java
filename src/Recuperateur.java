@@ -26,7 +26,7 @@ public class Recuperateur {
 	 * @param f
 	 * @return la date en String
 	 */
-	public String getFormatedDate() {
+	public String obtenirDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date d = new Date(this.file.lastModified());
 		return sdf.format(d);
@@ -43,10 +43,10 @@ public class Recuperateur {
 
 	/**
 	 * 
-	 * @return Récupère la couleur dominante de l'image
+	 * @return Recupere la couleur dominante de l'image
 	 * @throws IOException
 	 */
-	public MaxColor getMainColor() throws IOException{
+	public Color obtenirCouleur() throws IOException{
 		BufferedImage img = ImageIO.read(this.file);
 		int red = 0;
 		int green = 0;
@@ -60,16 +60,13 @@ public class Recuperateur {
 			}
 		}
 		if(red>green && red>blue){
-			MaxColor mc = new MaxColor(Color.red, red/(img.getHeight()*img.getWidth()));
-			return mc;
+			return Color.red;
 		}
 		else if(green>red && green>blue){
-			MaxColor mc = new MaxColor(Color.green, green/(img.getHeight()*img.getWidth()));
-			return mc;    		
+			return Color.green;    		
 		}
 		else{
-			MaxColor mc = new MaxColor(Color.blue, blue/(img.getHeight()*img.getWidth()));
-			return mc;
+			return Color.blue;
 		}
 
 	}

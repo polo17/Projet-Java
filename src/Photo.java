@@ -1,3 +1,4 @@
+import java.awt.Color;
 
 public class Photo {	
 	
@@ -7,7 +8,7 @@ public class Photo {
 	
 	String date;
 	
-	MaxColor couleur;
+	Color couleur;
 	
 	String lieu;
 
@@ -15,13 +16,13 @@ public class Photo {
 	 * @param n Nom de la photo
 	 * @param t Taille de photo
 	 * @param d Date de la photo
-	 * @param c Couleur dominante de la photo
+	 * @param color Couleur dominante de la photo
 	 */
-	public Photo(String n, int t, String d, MaxColor c){
+	public Photo(String n, int t, String d, Color color){
 		this.nom = n;
 		this.taille = t;
 		this.date = d;
-		this.couleur = c;
+		this.couleur = color;
 		this.lieu = null;
 	}
 	

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -5,15 +6,19 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+
+import org.omg.Messaging.SyncScopeHelper;
+
 public class Modele extends Observable {
 
-	public Hashtable<String, HashSet<Photo> > Mot_clÈ;
+	public Hashtable<String, HashSet<Photo> > Mot_cl√©;
 
 	public Hashtable<String, HashSet<Photo>> Dates;
 
 	public Hashtable<String, HashSet<Photo>> Tailles;
 
-	public Hashtable <MaxColor, HashSet<Photo>> Couleurs;
+	public Hashtable <Color, HashSet<Photo>> Couleurs;
 
 	public Hashtable <String, HashSet<Photo>> Lieux;
 
@@ -21,10 +26,10 @@ public class Modele extends Observable {
 	HashSet<Photo> images;
 
 	public Modele() {
-		this.Mot_clÈ = new Hashtable<String, HashSet<Photo>>();
+		this.Mot_cl√© = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<String, HashSet<Photo>>();
-		this.Couleurs = new Hashtable<MaxColor, HashSet<Photo>>();
+		this.Couleurs = new Hashtable<Color, HashSet<Photo>>();
 		this.Lieux = new Hashtable<String, HashSet<Photo>>();
 		
 		this.images = new HashSet<Photo>();
@@ -40,18 +45,19 @@ public class Modele extends Observable {
 		Photo photo = new Photo(
 				rim.file.getName(),
 				rim.obtenirTaille(),
-				rim.getFormatedDate(),
-				rim.getMainColor());
+				rim.obtenirDate(),
+				rim.obtenirCouleur());
 		//Ajout dans la base des photos de l'appli.
 		this.images.add(photo);
 		
 		
 		//Ajout dans les diff√©rents index
-		MaxColor couleur = rim.getMainColor();
+		Color couleur = rim.obtenirCouleur();
 		
 		if (!this.Couleurs.containsKey(couleur)) 
 			this.Couleurs.put(couleur, new HashSet());
 		this.Couleurs.get(couleur).add(photo);
+		
 		
 		int taille = rim.obtenirTaille();
 		
@@ -74,12 +80,12 @@ public class Modele extends Observable {
 			this.Tailles.get("Grande").add(photo);
 		}
 		
-		String date = rim.getFormatedDate();
+		String date = rim.obtenirDate();
 		
 		this.Dates.put(date, this.images);
 		if (!this.Dates.containsKey(date))
 			this.Dates.put(date, new HashSet());
-		this.Couleurs.get(date).add(photo);
+		this.Dates.get(date).add(photo);
 	}
 /*	
 	public void triAlpha(){

@@ -6,6 +6,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class Controleur implements ActionListener, MouseListener{
@@ -14,45 +16,52 @@ public class Controleur implements ActionListener, MouseListener{
 	
 	Modele modele;
 	
+	String[] noms;// = repertoire.list();
+	
 	public Controleur (Modele m) throws IOException{
 		
 		this.modele = m ;
 		
 		File repertoire = new File(Controleur.REPERTOIRE);
 		
-		String[] noms = repertoire.list();
+		this.noms = repertoire.list();
 			
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
-				
-				//String date = rim.getFormatedDate();
-				//MaxColor couleur = rim.getMainColor();
-				//int taille = rim.obtenirTaille();
-				
-				modele.Mot_clÈ.put(noms[i], modele.images);
-				//modele.Couleurs.put(couleur, modele.images);
-				//modele.Dates.put(date, modele.images);
-				//modele.Tailles.put(taille, modele.images);
-				
+
+				modele.Mot_cl√©.put(noms[i], modele.images);
+
 				m.ajouterImage(rim);
 				
 			}
 		}
-		System.out.println(modele.Dates);
+		/*
+		Set<Photo> test = triCouleur(Color.red);
+		Iterator i = test.iterator();
+		while(i.hasNext()){
+		   Photo tmp = (Photo)i.next();
+		   System.out.println(tmp.nom);
+		}
+		//System.out.println(test.size());
+		
+		*/
 	}
 
-	public void triCouleur(Color c){
-		Set<Photo> couleurs_triÈs = modele.Couleurs.get(c);	
+	public Set<Photo> triCouleur(Color c){
+		Set<Photo> couleurs_tri√©s = modele.Couleurs.get(c);
+		return couleurs_tri√©s;
 	}
 	
-	public void triTaille(String t){
-		Set<Photo> tailles_triÈs = modele.Tailles.get(t);
+	public Set<Photo> triTaille(String t){
+		Set<Photo> tailles_tri√©s = modele.Tailles.get(t);
+		return tailles_tri√©s;
 	}
 
-	public void triDate(String d){
-		Set<Photo> dates_triÈs;
+	public Set<Photo> triDate(String d){
+		Set<Photo> dates_tri√©s = modele.Dates.get(d);
+		return dates_tri√©s;
 		
 	}
 
