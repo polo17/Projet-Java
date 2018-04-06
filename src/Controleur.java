@@ -12,15 +12,13 @@ import java.util.Set;
 
 public class Controleur implements ActionListener, MouseListener{
 
-	public static String REPERTOIRE = "Images/";
+	public static String REPERTOIRE = "ImagesTest/"; //Images
 	
 	Modele modele;
 	
-<<<<<<< HEAD
-	String[] noms;// = repertoire.list();
-=======
+
 	String[] noms;
->>>>>>> 8a16cf3561675df155363747bdbbc29becfbdf59
+
 	
 	public Controleur (Modele m) throws IOException{
 		

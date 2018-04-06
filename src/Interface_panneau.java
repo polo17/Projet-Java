@@ -74,6 +74,7 @@ Controleur ctrl = new Controleur(modele);
 		pan.add(la3);
 		for (int i=0;i<couleurs.length;i++) {
 			JRadioButton cocher_couleur = new JRadioButton(couleurs[i]);
+			cocher_couleur.setName(couleurs[i]);
 			cocher_couleur.addActionListener(ctrl);
 			pan.add(cocher_couleur);
 		}
