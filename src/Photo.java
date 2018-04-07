@@ -1,6 +1,7 @@
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Photo {	
+public class Photo implements Serializable {	
 	
 	String nom;
 	
@@ -28,6 +29,10 @@ public class Photo {
 	
 	public void setLieu(String l) {
 		this.lieu = l;
+	}
+	
+	public String Nom() {
+		return this.nom;
 	}
 
 }

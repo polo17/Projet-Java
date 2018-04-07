@@ -16,13 +16,13 @@ import javax.swing.JRadioButton;
 public class Controleur implements ActionListener, MouseListener{
 
 	public static String REPERTOIRE = "ImagesTest/"; //Images
-	
-	public static String DATA = "Data/"; // Data de Serial
+
+	public static String DATA = "."; // Data de Serial
 
 	Modele modele;
 
 	private String nom; //nom récupéré de la vue
-	
+
 	String[] noms; //noms photos du répertoire
 
 	/**
@@ -35,23 +35,28 @@ public class Controleur implements ActionListener, MouseListener{
 
 		File repertoire = new File(Controleur.REPERTOIRE);
 		File data = new File(Controleur.DATA);
-		ArrayList<String> ContenuData = new ArrayList<String>();
+		String[] ContenuData = data.list();
 		Boolean DataEstPresent = false;
-		
+
 		//Test si fichier data exsite
-		for(String s:ContenuData) {
-			if(s.equals("data.dat"))
-				DataEstPresent=true;
+		for(String s : ContenuData) {
+			if(s.equals("photo.dat")) {
+				DataEstPresent= true;
+
+			}
 		}
-		
+
+		System.out.println(DataEstPresent);
+		Iterator<Photo> it = this.modele.images.iterator();
+		ArrayList<String> StringNom = new ArrayList<String>();
 		if(DataEstPresent) {
 			SerialPhoto sp = new SerialPhoto(modele.images);
-			modele.images=sp.Deserialisation();
+			modele.images=sp.DeserialPhoto();
+
 		}
-		else {
-			this.noms = repertoire.list();
-		}
-		
+
+
+		this.noms = repertoire.list();
 
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
@@ -59,32 +64,36 @@ public class Controleur implements ActionListener, MouseListener{
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
 				modele.Mot_clé.put(noms[i], modele.images);
-				
+
 				m.ajouterImage(rim);
 
 			}
-		}	
-				
-		/**
-		 * Permet de modifier le Set
-		 */
-		
+		}
+	}
+
+
+
+
+	/**
+	 * Permet de modifier le Set
+	 */
+
 	/*
 		Iterator i = ajouter.iterator();
-		
+
 		while(i.hasNext()){
 		   Photo tmp = (Photo)i.next();
-		   
+
 		   photos.add(tmp);
 		}
 		System.out.println(photos.size());
-*/
-		 
-	}
+	 */
 
-	
-	
-	
+
+
+
+
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -101,20 +110,20 @@ public class Controleur implements ActionListener, MouseListener{
 		else{
 			JComboBox cb = (JComboBox)e.getSource();
 			nom = (String) cb.getSelectedItem();
-			}
-		
+		}
+
 		modele.triage(nom);
 		System.out.println(modele.photos_triés);
-		
+
 		/*
 		Iterator i = modele.photos_triés.iterator();
-		
+
 		while(i.hasNext()){
 		   Photo tmp = (Photo)i.next();
 		   //System.out.println(tmp.nom);
 		}
-		*/
-		}
+		 */
+	}
 
 
 

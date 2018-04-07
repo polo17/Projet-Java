@@ -52,6 +52,14 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		gl.setVgap(5);
 		
 		//TODO Faire en sorte d'afficher les images selon les tri
+		Iterator<Photo> it = this.modele.images.iterator();
+		/*while(i.hasNext()) {
+			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+it.next().Nom()));
+			ImagePanel cases = new ImagePanel(myPicture);
+			cases.addMouseListener(this);
+			cases.setName(it.next().Nom());
+			this.add(cases);			
+		}*/
 		
 		for (int i=0; i < ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
@@ -60,6 +68,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			cases.setName(ctrl.noms[i]);
 			this.add(cases);
 		}
+		
 		this.setVisible(true);	    
 	}
 
@@ -116,8 +125,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		SerialPhoto sp = new SerialPhoto(this.ctrl.modele.images);
-		sp.Deserialisation();
+		SerialPhoto sp = new SerialPhoto(this.modele.images);
+		sp.SerialPhoto();
 		//System.exit(0);
 		drapeau=false;
 	}

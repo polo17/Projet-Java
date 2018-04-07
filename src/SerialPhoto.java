@@ -9,15 +9,17 @@ import java.util.HashSet;
 public class SerialPhoto {
 
 	HashSet<Photo> img;
+	String[] noms;
 	File data;
+	File NomsString;
 
-	public SerialPhoto(HashSet<Photo> images) {
-		this.img=images;
+	public SerialPhoto(HashSet<Photo> img) {
+		this.img=img;
 		this.data = new File("photo.dat");
 	}
 
 
-	public void Serialisation() {
+	public void SerialPhoto() {
 		try {
 			FileOutputStream fos = new FileOutputStream(data);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -30,8 +32,12 @@ public class SerialPhoto {
 			throw new RuntimeException("Impossible d'écrire les données");
 		}
 	}
+	
+	public void SerialString() {
+		
+	}
 
-	public HashSet<Photo> Deserialisation() {
+	public HashSet<Photo> DeserialPhoto() {
 		try {
 			FileInputStream fis = new FileInputStream(data);
 			ObjectInputStream ois = new ObjectInputStream(fis);
@@ -46,6 +52,8 @@ public class SerialPhoto {
 			throw new RuntimeException("Lecture des données impossible");
 		}
 	}
+	
+	
 
 
 }
