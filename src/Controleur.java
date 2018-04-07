@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -15,6 +16,8 @@ import javax.swing.JRadioButton;
 public class Controleur implements ActionListener, MouseListener{
 
 	public static String REPERTOIRE = "ImagesTest/"; //Images
+	
+	public static String DATA = "Data/"; // Data de Serial
 
 	Modele modele;
 
@@ -31,8 +34,24 @@ public class Controleur implements ActionListener, MouseListener{
 		this.modele = m ;
 
 		File repertoire = new File(Controleur.REPERTOIRE);
-
-		this.noms = repertoire.list();
+		File data = new File(Controleur.DATA);
+		ArrayList<String> ContenuData = new ArrayList<String>();
+		Boolean DataEstPresent = false;
+		
+		//Test si fichier data exsite
+		for(String s:ContenuData) {
+			if(s.equals("data.dat"))
+				DataEstPresent=true;
+		}
+		
+		if(DataEstPresent) {
+			SerialPhoto sp = new SerialPhoto(modele.images);
+			modele.images=sp.Deserialisation();
+		}
+		else {
+			this.noms = repertoire.list();
+		}
+		
 
 		for (int  i=0 ; i < noms.length ; i++) {
 			if (! modele.images.contains(noms[i])){
