@@ -5,7 +5,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -19,10 +18,14 @@ public class Controleur implements ActionListener, MouseListener{
 
 	Modele modele;
 
+	private String nom; //nom récupéré de la vue
+	
+	String[] noms; //noms photos du répertoire
 
-	String[] noms;
-
-
+	/**
+	 * Permet l'ajout des images dans le dico pricipal
+	 * @throws IOException
+	 */
 	public Controleur (Modele m) throws IOException{
 
 		this.modele = m ;
@@ -41,56 +44,59 @@ public class Controleur implements ActionListener, MouseListener{
 				m.ajouterImage(rim);
 
 			}
-		}
-
-
-		/*
-		Set<Photo> test = triCouleur(Color.red);
-		Iterator i = test.iterator();
+		}	
+				
+		/**
+		 * Permet de modifier le Set
+		 */
+		
+	/*
+		Iterator i = ajouter.iterator();
+		
 		while(i.hasNext()){
 		   Photo tmp = (Photo)i.next();
-		   System.out.println(tmp.nom);
+		   
+		   photos.add(tmp);
 		}
-		//System.out.println(test.size());
-
-		 */
+		System.out.println(photos.size());
+*/
+		 
 	}
 
-	private String nom;
+	
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof JRadioButton){
 			JRadioButton btn = (JRadioButton)e.getSource();
-			nom = btn.getName();
 			if (btn.isSelected()){
-				System.out.println(nom);	
+				nom = btn.getName();
 			}
 			else{
-				System.out.println("non");
+				nom = btn.getName()+"n";
 			}
+			//System.out.println(nom);
 		}
 		else{
 			JComboBox cb = (JComboBox)e.getSource();
 			nom = (String) cb.getSelectedItem();
 			}
+		
+		modele.triage(nom);
+		System.out.println(modele.photos_triés);
+		
+		/*
+		Iterator i = modele.photos_triés.iterator();
+		
+		while(i.hasNext()){
+		   Photo tmp = (Photo)i.next();
+		   //System.out.println(tmp.nom);
 		}
-	
+		*/
+		}
 
-	public Set<Photo> triCouleur(Color c){
-		Set<Photo> couleurs_triés = modele.Couleurs.get(c);
-		return couleurs_triés;
-	}
-
-	public Set<Photo> triTaille(String t){
-		Set<Photo> tailles_triés = modele.Tailles.get(t);
-		return tailles_triés;
-	}
-
-	public Set<Photo> triDate(String d){
-		Set<Photo> dates_triés = modele.Dates.get(d);
-		return dates_triés;
-	}
 
 
 	@Override

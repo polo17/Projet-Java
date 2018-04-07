@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
+import java.util.Set;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
@@ -14,18 +15,24 @@ public class Modele extends Observable {
 
 	public Hashtable<String, HashSet<Photo> > Mot_clé;
 
-	public Hashtable<String, HashSet<Photo>> Dates;
+	public static Hashtable<String, HashSet<Photo>> Dates;
 
-	public Hashtable<String, HashSet<Photo>> Tailles;
+	public static Hashtable<String, HashSet<Photo>> Tailles;
 
-	public Hashtable <Color, HashSet<Photo>> Couleurs;
+	public static Hashtable <Color, HashSet<Photo>> Couleurs;
 
 	public Hashtable <String, HashSet<Photo>> Lieux;
+	
+	public Set<Photo> photos_triés = new HashSet<Photo>();
 
 	int selectionne;
+	
 	HashSet<Photo> images;
 
 	public Modele() {
+
+		//this.photos_triés = new HashSet<Photo>();
+		
 		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<String, HashSet<Photo>>();
@@ -70,7 +77,7 @@ public class Modele extends Observable {
 		
 		if (351 < taille && taille < 600) {
 			if (!this.Tailles.containsKey("Moyenne"));
-				this.Tailles.put("Moyenne", new HashSet());
+				
 			this.Tailles.get("Moyenne").add(photo);
 		}
 		
@@ -86,6 +93,14 @@ public class Modele extends Observable {
 		if (!this.Dates.containsKey(date))
 			this.Dates.put(date, new HashSet());
 		this.Dates.get(date).add(photo);
+	}
+	
+	public void triage(String n){
+		
+		Trieur t = new Trieur(n,this.photos_triés);
+		this.photos_triés = t.tri();
+		this.setChanged();
+		this.notifyObservers(this.photos_triés);
 	}
 	
 	

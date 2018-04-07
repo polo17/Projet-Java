@@ -22,6 +22,9 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -31,7 +34,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Interface_miniatures extends Panel implements MouseListener, WindowListener{
+public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 	
 	ArrayList images = new ArrayList<>();	
 	Modele modele = new Modele();
@@ -48,7 +51,9 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		gl.setHgap(5); 
 		gl.setVgap(5);
 		
-		for (int i=0; i<ctrl.noms.length;i++) {
+		//TODO Faire en sorte d'afficher les images selon les tri
+		
+		for (int i=0; i < ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
@@ -77,6 +82,11 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	}
 
 	@Override
+	public void update(Observable arg0, Object arg1) {
+
+		}
+	
+	@Override
 	public void mouseEntered(MouseEvent e) {		
 	}
 
@@ -96,13 +106,11 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -114,13 +122,11 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -128,7 +134,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -136,7 +141,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
