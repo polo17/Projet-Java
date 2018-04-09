@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.util.Iterator;
 import java.util.Set;
 
 public class Trieur {
@@ -40,7 +39,12 @@ public class Trieur {
 				}
 			}
 			if (this.demande.equals("grandes")){
+				try{
 					this.photos_t.addAll(triTaille("Grande"));
+				}
+				catch(NullPointerException e){
+					System.out.println("Il n'y a pas d'images de taille grandes");
+				}
 			}
 			
 		if (! this.photos_t.isEmpty()){

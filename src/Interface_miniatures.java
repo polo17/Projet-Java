@@ -1,19 +1,9 @@
-import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -25,20 +15,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 	
-	ArrayList images = new ArrayList<>();	
+	private Set<Photo> images_triés; //images triés récupérées du modèle
+	
 	Modele modele = new Modele();
 	Controleur ctrl = new Controleur(modele);
+	
 	public boolean drapeau = true;
 	public BufferedImage img2;
 	
@@ -52,7 +41,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		gl.setVgap(5);
 		
 		//TODO Faire en sorte d'afficher les images selon les tri
-		Iterator<Photo> it = this.modele.images.iterator();
+		
 		/*while(i.hasNext()) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+it.next().Nom()));
 			ImagePanel cases = new ImagePanel(myPicture);
@@ -91,9 +80,18 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	}
 
 	@Override
-	public void update(Observable arg0, Object arg1) {
-
+	public void update(Observable o, Object photo_t) {
+		
+		images_triés = ((Set<Photo>) photo_t);
+		
+		Iterator<Photo> i = images_triés.iterator();
+		while(i.hasNext()){
+		   Photo tmp = (Photo)i.next();
+		   System.out.println(tmp.nom);
+		   
 		}
+		System.out.println(" ");
+	}
 	
 	@Override
 	public void mouseEntered(MouseEvent e) {		

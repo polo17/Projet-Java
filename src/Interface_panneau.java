@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Panel;
@@ -27,7 +26,7 @@ String[] couleurs = {"rouge","vert","bleu"};
 String[] tailles = {"petites","moyennes","grandes"};
 String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
 
-Modele modele = new Modele();
+static Modele modele = new Modele();
 Controleur ctrl = new Controleur(modele);
 	
 	public static void main(String[] args) throws IOException {
@@ -37,6 +36,8 @@ Controleur ctrl = new Controleur(modele);
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 		Interface_image e = new Interface_image();
+		
+		modele.addObserver(i);
 
 		Frame f = new Frame();
 		f.setLayout(new BorderLayout());		
