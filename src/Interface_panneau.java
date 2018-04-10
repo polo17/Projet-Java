@@ -31,8 +31,6 @@ Controleur ctrl = new Controleur(modele);
 	
 	public static void main(String[] args) throws IOException {
 		
-
-
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 		Interface_image e = new Interface_image();

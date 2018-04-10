@@ -22,15 +22,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
-	
+
 	private Set<Photo> images_triés; //images triés récupérées du modèle
-	
+
 	Modele modele = new Modele();
 	Controleur ctrl = new Controleur(modele);
-	
+
 	public boolean drapeau = true;
 	public BufferedImage img2;
-	
+
 	public Interface_miniatures() throws IOException {
 
 		this.setBackground(Color.GRAY);
@@ -39,17 +39,9 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		this.setLayout(gl);
 		gl.setHgap(5); 
 		gl.setVgap(5);
-		
+
 		//TODO Faire en sorte d'afficher les images selon les tri
-		
-		/*while(i.hasNext()) {
-			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+it.next().Nom()));
-			ImagePanel cases = new ImagePanel(myPicture);
-			cases.addMouseListener(this);
-			cases.setName(it.next().Nom());
-			this.add(cases);			
-		}*/
-		
+
 		for (int i=0; i < ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
@@ -57,7 +49,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			cases.setName(ctrl.noms[i]);
 			this.add(cases);
 		}
-		
+
 		this.setVisible(true);	    
 	}
 
@@ -75,24 +67,65 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		f.add(ip); 
 		f.add(ip);
 		if (drapeau) {
-		f.setVisible(true);}
+			f.setVisible(true);}
 		repaint();
 	}
 
 	@Override
 	public void update(Observable o, Object photo_t) {
-		
+
 		images_triés = ((Set<Photo>) photo_t);
-		
-		Iterator<Photo> i = images_triés.iterator();
-		while(i.hasNext()){
-		   Photo tmp = (Photo)i.next();
-		   System.out.println(tmp.nom);
-		   
+
+		if (images_triés.isEmpty()) {
+			this.removeAll();
+			for (int i=0; i < ctrl.noms.length;i++) {
+				
+				try {
+					BufferedImage myPicture;
+					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));				ImagePanel cases = new ImagePanel(myPicture);
+					cases.addMouseListener(this);
+					cases.setName(ctrl.noms[i]);
+					this.add(cases);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			revalidate();
 		}
-		System.out.println(" ");
+		else {
+
+			Iterator<Photo> i = images_triés.iterator();
+
+			this.removeAll();
+
+			BufferedImage myPicture;
+			ImagePanel cases;
+
+			while(i.hasNext()){
+				Photo tmp = (Photo)i.next();
+				try {
+					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+tmp.nom));
+					cases = new ImagePanel(myPicture);
+
+					cases.addMouseListener(this);
+					cases.setName(tmp.nom);
+					this.add(cases);
+
+					this.setVisible(true);
+				} catch (IOException e) {
+					e.printStackTrace();
+
+				}
+
+				revalidate();
+				this.setVisible(true);	
+
+			}
+		}
+
 	}
-	
+
+
 	@Override
 	public void mouseEntered(MouseEvent e) {		
 	}
@@ -113,12 +146,12 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-		
+
 	}
 
 	@Override
@@ -131,26 +164,26 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-		
+
 	}
 
 
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-		
+
 	}
 
 
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-		
+
 	}
 
 }
