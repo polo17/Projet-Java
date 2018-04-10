@@ -24,7 +24,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 String[] trieur = {"ordre alphabétique","couleurs","note","taille","date","lieu"};
 String[] couleurs = {"rouge","vert","bleu"};
 String[] tailles = {"petites","moyennes","grandes"};
-String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
+public static String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
 
 static Modele modele = new Modele();
 Controleur ctrl = new Controleur(modele);
@@ -33,7 +33,6 @@ Controleur ctrl = new Controleur(modele);
 		
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
-		Interface_image e = new Interface_image();
 		
 		modele.addObserver(i);
 
@@ -41,7 +40,6 @@ Controleur ctrl = new Controleur(modele);
 		f.setLayout(new BorderLayout());		
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
-		f.add(e, BorderLayout.SOUTH);
 		
 		p.setBackground(Color.WHITE);
 		p.addMouseListener(p);
@@ -61,12 +59,13 @@ Controleur ctrl = new Controleur(modele);
 		
 		Label la1 = new Label("Saisir nom :", Label.LEFT);
 		pan.add(la1);
-		JTextField saisie_nom = new JTextField("Veuillez saisir un nom");
+		JTextField saisie_nom = new JTextField();
+		saisie_nom.addActionListener(ctrl);
 		pan.add(saisie_nom);
 		
 		Label la2 = new Label("Saisir lieu :", Label.LEFT);
 		pan.add(la2);
-		JTextField saisie_lieu = new JTextField("Veuillez saisir un lieu");
+		JTextField saisie_lieu = new JTextField();
 		pan.add(saisie_lieu);
 		
 		Label la3 = new Label("Select. couleur :", Label.LEFT);

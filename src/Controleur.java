@@ -10,6 +10,7 @@ import java.util.Set;
 
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class Controleur implements ActionListener, MouseListener{
 
@@ -105,11 +106,17 @@ public class Controleur implements ActionListener, MouseListener{
 			}
 			//System.out.println(nom);
 		}
-		else{
+		else if(e.getSource() instanceof JComboBox){
 			JComboBox cb = (JComboBox)e.getSource();
 			nom = (String) cb.getSelectedItem();
 		}
+		else {
+			JTextField saisi = (JTextField)e.getSource();
+			nom = (String) saisi.getText();
+			
+		}
 
+		//System.out.println(nom);
 		modele.triage(nom);
 		//System.out.println(modele.photos_triés);
 

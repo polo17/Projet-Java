@@ -1,8 +1,10 @@
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Label;
 import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -18,8 +20,10 @@ import java.util.Observer;
 import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 
@@ -53,27 +57,47 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		this.setVisible(true);	    
 	}
 
+	/**
+	 * Créé une fenêtre pour afficher l'image
+	 * appelé à chaque clic sur un pannel
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		drapeau=true;
 		ImagePanel ip = ((ImagePanel)e.getSource());
 		System.out.println(ip.getName());
 		JFrame f = new JFrame();
-		f.setSize(700,400);
+		f.setSize(900,600);
 		f.addWindowListener(this);
 		img2=(BufferedImage)ip.imgFond;
 		ip.TAILLE_X=700;
 		ip.TAILLE_Y=400;
 		f.add(ip); 
-		f.add(ip);
+
+		Interface_image im;
+		try {
+			im = new Interface_image();
+			f.add(im, BorderLayout.SOUTH);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		if (drapeau) {
 			f.setVisible(true);}
-		repaint();
+		//repaint();
+		//revalidate();
 	}
 
+	/**
+	 * Fait le tri à chaque modification du modèle
+	 */
 	@Override
 	public void update(Observable o, Object photo_t) {
-
+		GridLayout gl = new GridLayout(7,0);	
+		this.setLayout(gl);
+		gl.setHgap(5); 
+		gl.setVgap(5);
 		images_triés = ((Set<Photo>) photo_t);
 
 		if (images_triés.isEmpty()) {
@@ -86,6 +110,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 					cases.addMouseListener(this);
 					cases.setName(ctrl.noms[i]);
 					this.add(cases);
+					this.setLayout(gl);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -110,7 +135,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 					cases.addMouseListener(this);
 					cases.setName(tmp.nom);
 					this.add(cases);
-
+					this.setLayout(gl);
 					this.setVisible(true);
 				} catch (IOException e) {
 					e.printStackTrace();

@@ -24,10 +24,8 @@ public class Modele extends Observable {
 	public Hashtable <String, HashSet<Photo>> Lieux;
 	
 	public Set<Photo> photos_triés = new HashSet<Photo>();
-
-	int selectionne;
 	
-	HashSet<Photo> images;
+	public static HashSet<Photo> images;
 
 	public Modele() {
 
@@ -40,12 +38,6 @@ public class Modele extends Observable {
 		this.Lieux = new Hashtable<String, HashSet<Photo>>();
 		
 		this.images = new HashSet<Photo>();
-	}
-
-	public void selectionner(int index) {
-		this.selectionne=index;
-		//this.notifyObservers(this.images.get(this.selectionne));
-		this.setChanged();
 	}
 
 	public void ajouterImage(Recuperateur rim) throws IOException {
