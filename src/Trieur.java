@@ -3,6 +3,10 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class Trieur {
+	
+	//TODO Faire en sorte que le tri par nom soit opérationnel
+	
+	String ancien_d;
 
 	String demande; //type de demande (rouge, moyenne, sans vert, etc ...)
 	Set<Photo> photos_t; //set de photo triés à envoyer a la vue
@@ -18,6 +22,7 @@ public class Trieur {
 	 * @return fini, le set de photos triés
 	 */
 	public Set<Photo> tri(){
+		this.photos_t.remove(this.ancien_d);
 		if (this.demande.equals("rouge")){
 			this.photos_t.addAll(triCouleur(Color.red));
 		}
@@ -71,15 +76,21 @@ public class Trieur {
 			}
 		}
 		else {
-			if (Modele.images.contains(this.demande)) {
-				Iterator<Photo> i = Modele.images.iterator();
-				while (i.hasNext()) {
-					String recherche = i.next().nom;
-					recherche.replaceAll(".jpg", "");
-					if((recherche).equals(this.demande));
-					this.photos_t.add(i.next());
+			this.photos_t.clear();
+			
+			//Si la demande est une recherche par nom
+			Iterator<Photo> i = Modele.images.iterator();
+			while (i.hasNext()) {
+				Photo tmp = (Photo)i.next();
+				String recherche = tmp.nom;
+				this.ancien_d = recherche;
+				recherche = recherche.replace(".jpg", "");
+				if((recherche).equals(this.demande)) {					
+					this.photos_t.add(tmp);
+					return this.photos_t;
 				}
 			}
+			
 		}
 		return this.photos_t;
 	}

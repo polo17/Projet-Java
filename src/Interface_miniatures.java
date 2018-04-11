@@ -44,8 +44,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		gl.setHgap(5); 
 		gl.setVgap(5);
 
-		//TODO Faire en sorte d'afficher les images selon les tri
-
 		for (int i=0; i < ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
@@ -79,7 +77,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			im = new Interface_image();
 			f.add(im, BorderLayout.SOUTH);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

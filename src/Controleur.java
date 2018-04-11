@@ -121,11 +121,11 @@ public class Controleur implements ActionListener, MouseListener{
 		//System.out.println(modele.photos_triés);
 
 		/*
-		Iterator i = modele.photos_triés.iterator();
+		Iterator i = modele.images.iterator();
 
 		while(i.hasNext()){
 		   Photo tmp = (Photo)i.next();
-		   //System.out.println(tmp.nom);
+		   System.out.println(tmp.nom);
 		}
 		 */
 	}
