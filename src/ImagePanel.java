@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -12,15 +13,15 @@ import javax.imageio.ImageIO;
 
 public class ImagePanel extends Panel {
 	
-	public static int TAILLE_X = 142;
-	public static int TAILLE_Y = 99;
+	public static int TAILLE_X = 160;
+	public static int TAILLE_Y = 90;
 	
 	public BufferedImage imgFond;
 	
 	public ImagePanel(BufferedImage img) throws IOException {
 		super();
 		this.imgFond = img;
-		this.setBackground(Color.gray);
+		this.setBackground(Color.black);
 	}
 	
 	public Dimension getPreferredSize() {

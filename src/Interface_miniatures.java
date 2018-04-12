@@ -26,24 +26,20 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
-
-	private Set<Photo> images_triés; //images triés récupérées du modèle
-
+	
 	Modele modele = new Modele();
 	Controleur ctrl = new Controleur(modele);
-
+	
+	private Set<Photo> images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
-	public BufferedImage img2;
 
 	public Interface_miniatures() throws IOException {
 
-		this.setBackground(Color.GRAY);
-
-		GridLayout gl = new GridLayout(7,0);	
+		this.setBackground(Color.black);
+		GridLayout gl = new GridLayout(0,5,5,5);	
 		this.setLayout(gl);
-		gl.setHgap(5); 
-		gl.setVgap(5);
 
+		// Affichage de toutes les images au lancement de l'applcation
 		for (int i=0; i < ctrl.noms.length;i++) {
 			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
 			ImagePanel cases = new ImagePanel(myPicture);
@@ -51,39 +47,34 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			cases.setName(ctrl.noms[i]);
 			this.add(cases);
 		}
-
 		this.setVisible(true);	    
 	}
 
 	/**
-	 * Créé une fenêtre pour afficher l'image
-	 * appelé à chaque clic sur un pannel
+	 * Crée une fenêtre pour afficher l'image
+	 * appelée à chaque clic sur un pannel
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
 		drapeau=true;
 		ImagePanel ip = ((ImagePanel)e.getSource());
-		System.out.println(ip.getName());
 		JFrame f = new JFrame();
-		f.setSize(900,600);
+		f.setSize(720,450);
 		f.addWindowListener(this);
-		img2=(BufferedImage)ip.imgFond;
 		ip.TAILLE_X=700;
 		ip.TAILLE_Y=400;
 		f.add(ip); 
 
-		Interface_image im;
+		Interface_etoiles im;
 		try {
-			im = new Interface_image();
+			im = new Interface_etoiles();
 			f.add(im, BorderLayout.SOUTH);
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
-		
+		}		
 		if (drapeau) {
-			f.setVisible(true);}
-		//repaint();
-		//revalidate();
+			f.setVisible(true);}		
 	}
 
 	/**
@@ -91,23 +82,21 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	 */
 	@Override
 	public void update(Observable o, Object photo_t) {
-		GridLayout gl = new GridLayout(7,0);	
-		this.setLayout(gl);
-		gl.setHgap(5); 
-		gl.setVgap(5);
+	
+		ImagePanel.TAILLE_X=160;
+		ImagePanel.TAILLE_Y=90;		
 		images_triés = ((Set<Photo>) photo_t);
 
 		if (images_triés.isEmpty()) {
 			this.removeAll();
 			for (int i=0; i < ctrl.noms.length;i++) {
-				
 				try {
 					BufferedImage myPicture;
-					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));				ImagePanel cases = new ImagePanel(myPicture);
+					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
+					ImagePanel cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
 					cases.setName(ctrl.noms[i]);
-					this.add(cases);
-					this.setLayout(gl);
+					this.add(cases);		
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -115,38 +104,26 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			revalidate();
 		}
 		else {
-
-			Iterator<Photo> i = images_triés.iterator();
-
 			this.removeAll();
-
+			Iterator<Photo> i = images_triés.iterator();
 			BufferedImage myPicture;
 			ImagePanel cases;
-
 			while(i.hasNext()){
 				Photo tmp = (Photo)i.next();
 				try {
 					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+tmp.nom));
 					cases = new ImagePanel(myPicture);
-
 					cases.addMouseListener(this);
 					cases.setName(tmp.nom);
 					this.add(cases);
-					this.setLayout(gl);
-					this.setVisible(true);
 				} catch (IOException e) {
 					e.printStackTrace();
-
 				}
-
-				revalidate();
-				this.setVisible(true);	
-
+				revalidate();	
 			}
 		}
-
+		this.setVisible(true);
 	}
-
 
 	@Override
 	public void mouseEntered(MouseEvent e) {		
@@ -164,8 +141,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public void mouseReleased(MouseEvent e) {		
 	}
 
-
-
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 
@@ -180,7 +155,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public void windowClosing(WindowEvent arg0) {
 		SerialPhoto sp = new SerialPhoto(this.modele.images);
 		sp.SerialPhoto();
-		//System.exit(0);
 		drapeau=false;
 	}
 
@@ -194,18 +168,13 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	}
 
-
-
 	@Override
 	public void windowIconified(WindowEvent arg0) {
 
 	}
 
-
-
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 
 	}
-
 }
