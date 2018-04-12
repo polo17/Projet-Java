@@ -21,7 +21,7 @@ public class ImagePanel extends Panel {
 	public ImagePanel(BufferedImage img) throws IOException {
 		super();
 		this.imgFond = img;
-		this.setBackground(Color.black);
+		this.setBackground(new Color(102,102,255));
 	}
 	
 	public Dimension getPreferredSize() {

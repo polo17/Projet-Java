@@ -40,7 +40,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		f.setLayout(new BorderLayout());		
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
-		p.setBackground(Color.WHITE);
+		p.setBackground(new Color(102,255,178));;
 		p.addMouseListener(p);
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
@@ -54,7 +54,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-
+		pan.setBackground(new Color(102,255,178));
 		Label la1 = new Label("Saisir nom :", Label.LEFT);
 		pan.add(la1);
 		JTextField saisie_nom = new JTextField();
@@ -71,6 +71,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<couleurs.length;i++) {
 			JRadioButton cocher_couleur = new JRadioButton(couleurs[i]);
 			cocher_couleur.setAlignmentX(CENTER_ALIGNMENT);
+			cocher_couleur.setBackground(new Color(102,255,178));
 			cocher_couleur.setName(couleurs[i]);
 			cocher_couleur.addActionListener(ctrl);
 			pan.add(cocher_couleur);
@@ -81,6 +82,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<tailles.length;i++) {
 			JRadioButton cocher_taille = new JRadioButton(tailles[i]);
 			cocher_taille.setAlignmentX(CENTER_ALIGNMENT);
+			cocher_taille.setBackground(new Color(102,255,178));
 			cocher_taille.setName(tailles[i]);
 			cocher_taille.addActionListener(ctrl);			
 			pan.add(cocher_taille);
@@ -91,6 +93,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<notes.length;i++) {
 			JRadioButton cocher_note = new JRadioButton(notes[i]);
 			cocher_note.setAlignmentX(CENTER_ALIGNMENT);
+			cocher_note.setBackground(new Color(102,255,178));
 			cocher_note.setName(notes[i]);
 			cocher_note.addActionListener(ctrl);
 			

@@ -35,7 +35,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	public Interface_miniatures() throws IOException {
 
-		this.setBackground(Color.black);
+		this.setBackground(new Color(102,102,255));
 		GridLayout gl = new GridLayout(0,5,5,5);	
 		this.setLayout(gl);
 
