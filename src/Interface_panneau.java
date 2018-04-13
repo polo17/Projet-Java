@@ -52,6 +52,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		f.add(scroll);
 		 */
+		//slider pour les etoiles
 		f.setVisible(true);
 	}
 

@@ -17,14 +17,12 @@ public class ImagePanel extends Panel {
 	public static int TAILLE_Y = 90;
 	
 	public BufferedImage imgFond;
+	public Photo photo;
 	
-	//TODO
-	//public ImagePanel(Photo img) throws IOException {
-	//this.photo = img;
-	//this.imgFond = new BufferedImage(...); 
-	public ImagePanel(BufferedImage img) throws IOException {
+	public ImagePanel(Photo img) throws IOException {
 		super();
-		this.imgFond = img;
+		this.photo = img;
+		this.imgFond = (BufferedImage)img.img; 		
 		this.setBackground(new Color(102,200,255));
 	}
 	
@@ -35,7 +33,7 @@ public class ImagePanel extends Panel {
 	public void paint(Graphics g) {
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 	    g.drawImage(imgFond, 10, 10, TAILLE_X, TAILLE_Y, null);
-	    g.drawString("image", 20, TAILLE_Y+20);
+	    g.drawString(photo.nom, 20, TAILLE_Y+20);
 	}
 
 }
