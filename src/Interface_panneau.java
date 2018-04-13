@@ -18,6 +18,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
@@ -46,12 +47,17 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
 		f.setSize(1000, 800);
+		/*
+		JScrollPane scroll = new JScrollPane(i);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		f.add(scroll);
+		 */
+		//slider pour les etoiles
 		f.setVisible(true);
 	}
 
 	public Interface_panneau() throws IOException {
 		super();
-		//Controleur ctrl = new Controleur(modele);
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));

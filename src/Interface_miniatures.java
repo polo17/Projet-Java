@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 	
@@ -36,15 +38,19 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public Interface_miniatures() throws IOException {
 
 		this.setBackground(new Color(102,102,255));
-		GridLayout gl = new GridLayout(0,5,5,5);	
+		//GridLayout gl = new GridLayout(0,5,5,5);
+		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
 		this.setLayout(gl);
 
 		// Affichage de toutes les images au lancement de l'applcation
-		for (int i=0; i < ctrl.noms.length;i++) {
-			BufferedImage myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
+		Iterator<Photo> i = modele.images.iterator();
+		Photo myPicture;
+		while(i.hasNext()){
+			Photo tmp = (Photo)i.next();
+			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
-			cases.setName(ctrl.noms[i]);
+			cases.setName(tmp.nom);
 			this.add(cases);
 		}
 		this.setVisible(true);	    
@@ -81,13 +87,15 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		if (images_triés.isEmpty()) {
 			this.removeAll();
-			for (int i=0; i < ctrl.noms.length;i++) {
+			Iterator<Photo> i = modele.images.iterator();
+			Photo myPicture;
+			while(i.hasNext()){
 				try {
-					BufferedImage myPicture;
-					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+ctrl.noms[i]));
+					Photo tmp = (Photo)i.next();
+					myPicture = tmp;
 					ImagePanel cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
-					cases.setName(ctrl.noms[i]);
+					cases.setName(tmp.nom);
 					this.add(cases);		
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -98,12 +106,13 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		else {
 			this.removeAll();
 			Iterator<Photo> i = images_triés.iterator();
-			BufferedImage myPicture;
+			Photo myPicture;
 			ImagePanel cases;
 			while(i.hasNext()){
 				Photo tmp = (Photo)i.next();
 				try {
-					myPicture = ImageIO.read(new File(ctrl.REPERTOIRE+tmp.nom));
+					myPicture = tmp;
+							//ImageIO.read(new File(ctrl.REPERTOIRE+tmp.nom));
 					cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
 					cases.setName(tmp.nom);
