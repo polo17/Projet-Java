@@ -6,9 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 
-import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -37,22 +36,22 @@ public class Controleur implements ActionListener, MouseListener{
 		String[] ContenuData = data.list();
 		Boolean DataEstPresent = false;
 
-		//Test si fichier data exsite
-		for(String s : ContenuData) {
-			if(s.equals("photo.dat")) {
-				DataEstPresent= true;
-
-			}
-		}
-
-		System.out.println(DataEstPresent);
-		Iterator<Photo> it = this.modele.images.iterator();
-		ArrayList<String> StringNom = new ArrayList<String>();
-		if(DataEstPresent) {
-			SerialPhoto sp = new SerialPhoto(modele.images);
-			modele.images=sp.DeserialPhoto();
-
-		}
+//		//Test si fichier data exsite
+//		for(String s : ContenuData) {
+//			if(s.equals("photo.dat")) {
+//				DataEstPresent= true;
+//
+//			}
+//		}
+//
+//		System.out.println(DataEstPresent);
+//		Iterator<Photo> it = this.modele.images.iterator();
+//		ArrayList<String> StringNom = new ArrayList<String>();
+//		if(DataEstPresent) {
+//			SerialPhoto sp = new SerialPhoto(modele.images);
+//			modele.images=sp.DeserialPhoto();
+//
+//		}
 
 
 		this.noms = repertoire.list();
@@ -68,29 +67,8 @@ public class Controleur implements ActionListener, MouseListener{
 
 			}
 		}
+
 	}
-
-
-
-
-	/**
-	 * Permet de modifier le Set
-	 */
-
-	/*
-		Iterator i = ajouter.iterator();
-
-		while(i.hasNext()){
-		   Photo tmp = (Photo)i.next();
-
-		   photos.add(tmp);
-		}
-		System.out.println(photos.size());
-	 */
-
-
-
-
 
 
 
@@ -100,20 +78,19 @@ public class Controleur implements ActionListener, MouseListener{
 			JRadioButton btn = (JRadioButton)e.getSource();
 			if (btn.isSelected()){
 				nom = btn.getName();
+				int note = nom.charAt(0)-48;
+				System.out.println(note);
+				//TODO Note de la photo = note;
+				Interface_miniatures im;
 			}
-			else{
-				nom = btn.getName();
-			}
-			//System.out.println(nom);
 		}
-		else if(e.getSource() instanceof JComboBox){
-			JComboBox cb = (JComboBox)e.getSource();
-			nom = (String) cb.getSelectedItem();
+		else if(e.getSource() instanceof JCheckBox){
+			JCheckBox cb = (JCheckBox)e.getSource();
+			nom = cb.getText();
 		}
 		else {
 			JTextField saisi = (JTextField)e.getSource();
 			nom = (String) saisi.getText();
-			
 		}
 
 		//System.out.println(nom);

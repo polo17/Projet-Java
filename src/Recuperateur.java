@@ -71,6 +71,15 @@ public class Recuperateur {
 
 	}
 
-
+	/**
+	 * 
+	 * @return L'image du file
+	 * @throws IOException
+	 */
+	public BufferedImage obtenirImage() throws IOException{
+		BufferedImage img = ImageIO.read(this.file);
+		return img;
+	}
+	
 }
 
