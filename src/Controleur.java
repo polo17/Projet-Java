@@ -102,7 +102,7 @@ public class Controleur implements ActionListener, MouseListener{
 				nom = btn.getName();
 			}
 			else{
-				nom = btn.getName()+"n";
+				nom = btn.getName();
 			}
 			//System.out.println(nom);
 		}

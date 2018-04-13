@@ -26,6 +26,8 @@ public class Modele extends Observable {
 	public Set<Photo> photos_triés = new HashSet<Photo>();
 	
 	public static HashSet<Photo> images;
+	
+	public static ArrayList<String> demandes = new ArrayList<String>();
 
 	public Modele() {
 
