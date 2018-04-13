@@ -1,15 +1,20 @@
 import java.awt.Color;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 public class Trieur {
-	
-	//TODO Faire en sorte que le tri par nom soit opérationnel
-	
-	String ancien_d;
+
 
 	String demande; //type de demande (rouge, moyenne, sans vert, etc ...)
+
 	Set<Photo> photos_t; //set de photo triés à envoyer a la vue
+
+	String[] carac_c = {"rouge","vert","bleu"};
+	String[] carac_t = {"petites","moyennes","grandes"};
+	
+	Color[] cou = {Color.red,Color.green,Color.blue};
+	String[] tail = {"Petite","Moyenne","Grande"};
 
 	public Trieur (String d, Set<Photo> f){
 		this.demande = d;
@@ -22,76 +27,96 @@ public class Trieur {
 	 * @return fini, le set de photos triés
 	 */
 	public Set<Photo> tri(){
-		this.photos_t.remove(this.ancien_d);
-		if (this.demande.equals("rouge")){
-			this.photos_t.addAll(triCouleur(Color.red));
-		}
-		if (this.demande.equals("bleu")){
-			this.photos_t.addAll(triCouleur(Color.blue));
-		}
-		if (this.demande.equals("vert")){
-			this.photos_t.addAll(triCouleur(Color.green));
-		}
 
-		if (this.demande.equals("petites")){
-			this.photos_t.addAll(triTaille("Petite"));
-		}
-		if (this.demande.equals("moyennes")){
-			try{
-				this.photos_t.addAll(triTaille("Moyenne"));
-			}
-			catch(NullPointerException e){
-				System.out.println("Il n'y a pas d'images de taille moyennes");
-			}
-		}
-		if (this.demande.equals("grandes")){
-			try{
-				this.photos_t.addAll(triTaille("Grande"));
-			}
-			catch(NullPointerException e){
-				System.out.println("Il n'y a pas d'images de taille grandes");
+		this.photos_t.clear();
+
+		Set<Photo> photos_t_c= new HashSet<Photo>();
+		Set<Photo> photos_t_t= new HashSet<Photo>();
+		Set<Photo> photos_t_e= new HashSet<Photo>();
+
+		//Recherche avec le nom :
+		Iterator<Photo> i = Modele.images.iterator();
+		while (i.hasNext()) {
+			Photo tmp = (Photo)i.next();
+			String recherche = tmp.nom;
+			recherche = recherche.replace(".jpg", "");
+			if((recherche).equals(this.demande)) {	
+				this.photos_t.add(tmp);
+				return this.photos_t;
 			}
 		}
 
-		if (! this.photos_t.isEmpty()){
-			//Enlever des photos
-			if (this.demande.equals("rougen")){
-				this.photos_t.removeAll(triCouleur(Color.red));
-			}
-			if (this.demande.equals("bleun")){
-				this.photos_t.removeAll(triCouleur(Color.blue));
-			}
-			if (this.demande.equals("vertn")){
-				this.photos_t.removeAll(triCouleur(Color.green));
-			}
+		//Ajout des demandes
+		if (! Modele.demandes.contains(this.demande)){
+			Modele.demandes.add(this.demande);
+		}
+		else{
+			Modele.demandes.remove(this.demande);
+		}
+		
+		System.out.println(Modele.demandes);
 
-			if (this.demande.equals("petitesn")){
-				this.photos_t.removeAll(triTaille("Petite"));
-			}
-			if (this.demande.equals("moyennesn")){
-				this.photos_t.removeAll(triTaille("Moyenne"));
-			}
-			if (this.demande.equals("grandesn")){
-				this.photos_t.removeAll(triTaille("Grande"));
+		//Tri en fonction des demandes
+		for (int c = 0; c < cou.length ; c++){
+			if (Modele.demandes.contains(carac_c[c])){
+				photos_t_c.addAll(triCouleur(cou[c]));
 			}
 		}
-		else {
-			this.photos_t.clear();
-			
-			//Si la demande est une recherche par nom
-			Iterator<Photo> i = Modele.images.iterator();
-			while (i.hasNext()) {
-				Photo tmp = (Photo)i.next();
-				String recherche = tmp.nom;
-				this.ancien_d = recherche;
-				recherche = recherche.replace(".jpg", "");
-				if((recherche).equals(this.demande)) {					
-					this.photos_t.add(tmp);
-					return this.photos_t;
+
+		for (int t = 0 ; t < tail.length ; t++){
+			if (Modele.demandes.contains(carac_t[t])){
+				try{
+					photos_t_t.addAll(triTaille(tail[t]));
+				}
+				catch(NullPointerException e){
+					System.out.println("Il n'y a pas d'images de taille "+carac_t[t]);
 				}
 			}
-			
 		}
+		//
+		//
+		//		if (Modele.demandes.contains("bleu")){
+		//			photos_t_c.addAll(triCouleur(Color.blue));
+		//		}
+		//
+		//
+		//		if (Modele.demandes.contains("vert")){
+		//			photos_t_c.addAll(triCouleur(Color.green));
+		//		}
+
+
+		//		if (Modele.demandes.contains("petites")){
+		//			photos_t_t.addAll(triTaille("Petite"));
+		//		}
+		//
+		//
+		//		if (Modele.demandes.contains("moyennes")){
+		//			try{
+		//				photos_t_t.addAll(triTaille("Moyenne"));
+		//			}
+		//			catch(NullPointerException e){
+		//				System.out.println("Il n'y a pas d'images de taille moyennes");
+		//			}
+		//		}
+		//
+		//		if (Modele.demandes.contains("grandes")){
+		//			try{
+		//				photos_t_t.addAll(triTaille("Grande"));
+		//			}
+		//			catch(NullPointerException e){
+		//				System.out.println("Il n'y a pas d'images de taille grandes");
+		//			}
+		//		}
+		
+		
+		if(! photos_t_c.isEmpty() && ! photos_t_t.isEmpty()){
+			photos_t_c.retainAll(photos_t_t);
+			this.photos_t.addAll(photos_t_c);
+		}
+		else if (! photos_t_c.isEmpty())
+			this.photos_t.addAll(photos_t_c);
+		else this.photos_t.addAll(photos_t_t);
+
 		return this.photos_t;
 	}
 

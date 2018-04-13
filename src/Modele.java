@@ -26,6 +26,8 @@ public class Modele extends Observable {
 	public Set<Photo> photos_triés = new HashSet<Photo>();
 	
 	public static HashSet<Photo> images;
+	
+	public static ArrayList<String> demandes = new ArrayList<String>();
 
 	public Modele() {
 
@@ -45,7 +47,8 @@ public class Modele extends Observable {
 				rim.file.getName(),
 				rim.obtenirTaille(),
 				rim.obtenirDate(),
-				rim.obtenirCouleur());
+				rim.obtenirCouleur(),
+				rim.obtenirImage());
 		//Ajout dans la base des photos de l'appli.
 		this.images.add(photo);
 		
