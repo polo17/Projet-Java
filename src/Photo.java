@@ -23,6 +23,7 @@ public class Photo implements Serializable {
 	 * @param t Taille de photo
 	 * @param d Date de la photo
 	 * @param color Couleur dominante de la photo
+	 * @param im L'image de la photo
 	 */
 	public Photo(String n, int t, String d, Color color, BufferedImage im){
 		this.nom = n;
