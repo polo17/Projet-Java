@@ -32,6 +32,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	Modele modele = new Modele();
 	Controleur ctrl = new Controleur(modele);
 	
+	public static ImagePanel panl;
+	
 	private Set<Photo> images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
 
@@ -63,7 +65,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		ImagePanel panl = (ImagePanel)e.getSource();
+		this.panl = (ImagePanel)e.getSource();
+		
 		try {
 			Interface_Agrandie im = new Interface_Agrandie(panl.imgFond);
 			if (drapeau) {
@@ -85,7 +88,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		ImagePanel.TAILLE_Y=90;		
 		images_triés = ((Set<Photo>) photo_t);
 
-		if (images_triés.isEmpty()) {
+		if (modele.demandes.isEmpty()) {
 			this.removeAll();
 			Iterator<Photo> i = modele.images.iterator();
 			Photo myPicture;
@@ -112,7 +115,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 				Photo tmp = (Photo)i.next();
 				try {
 					myPicture = tmp;
-							//ImageIO.read(new File(ctrl.REPERTOIRE+tmp.nom));
 					cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
 					cases.setName(tmp.nom);

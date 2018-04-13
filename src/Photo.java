@@ -34,6 +34,10 @@ public class Photo implements Serializable {
 		this.img=im;
 	}
 	
+	public void setNote(int n){
+		this.note = n;
+	}
+	
 	public void setLieu(String l) {
 		this.lieu = l;
 	}

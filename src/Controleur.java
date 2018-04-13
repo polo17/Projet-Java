@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.swing.JCheckBox;
@@ -36,22 +36,22 @@ public class Controleur implements ActionListener, MouseListener{
 		String[] ContenuData = data.list();
 		Boolean DataEstPresent = false;
 
-//		//Test si fichier data exsite
-//		for(String s : ContenuData) {
-//			if(s.equals("photo.dat")) {
-//				DataEstPresent= true;
-//
-//			}
-//		}
-//
-//		System.out.println(DataEstPresent);
-//		Iterator<Photo> it = this.modele.images.iterator();
-//		ArrayList<String> StringNom = new ArrayList<String>();
-//		if(DataEstPresent) {
-//			SerialPhoto sp = new SerialPhoto(modele.images);
-//			modele.images=sp.DeserialPhoto();
-//
-//		}
+		//		//Test si fichier data exsite
+		//		for(String s : ContenuData) {
+		//			if(s.equals("photo.dat")) {
+		//				DataEstPresent= true;
+		//
+		//			}
+		//		}
+		//
+		//		System.out.println(DataEstPresent);
+		//		Iterator<Photo> it = this.modele.images.iterator();
+		//		ArrayList<String> StringNom = new ArrayList<String>();
+		//		if(DataEstPresent) {
+		//			SerialPhoto sp = new SerialPhoto(modele.images);
+		//			modele.images=sp.DeserialPhoto();
+		//
+		//		}
 
 
 		this.noms = repertoire.list();
@@ -74,14 +74,35 @@ public class Controleur implements ActionListener, MouseListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		if (e.getSource() instanceof JRadioButton){
+			ImagePanel panl = Interface_miniatures.panl;
+			Photo p = panl.photo;
+			System.out.println(p.nom);
 			JRadioButton btn = (JRadioButton)e.getSource();
 			if (btn.isSelected()){
-				nom = btn.getName();
-				int note = nom.charAt(0)-48;
-				System.out.println(note);
-				//TODO Note de la photo = note;
-				Interface_miniatures im;
+				String note_s = btn.getName();
+				int note = note_s.charAt(0)-48;
+				
+				Iterator<Photo> i2 = Modele.images.iterator();
+				while(i2.hasNext()){
+					Photo tmp = (Photo)i2.next();
+					if (tmp.nom.equals(p.nom)){
+						
+						//TODO Attribuer la note à la photo et faire en sorte qu'elle reste
+						
+						tmp.setNote(note);
+						p.setNote(note);
+						Modele.images.remove(tmp);
+						Modele.images.add(p);
+						//tmp.note = note;
+						//System.out.println("oui");
+						//Modele.images = new HashSet<Photo>(Modele.images);
+						break;
+					}
+					
+				}
+				
 			}
 		}
 		else if(e.getSource() instanceof JCheckBox){
@@ -96,14 +117,14 @@ public class Controleur implements ActionListener, MouseListener{
 		//System.out.println(nom);
 		modele.triage(nom);
 
-		/*
+
 		Iterator i = modele.images.iterator();
 
 		while(i.hasNext()){
-		   Photo tmp = (Photo)i.next();
-		   System.out.println(tmp.nom);
+			Photo tmp = (Photo)i.next();
+			System.out.println(tmp.note);
 		}
-		 */
+
 	}
 
 

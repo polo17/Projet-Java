@@ -1,15 +1,10 @@
 import java.awt.Color;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
 import java.util.Set;
-
-import javax.swing.plaf.synth.SynthOptionPaneUI;
-
-import org.omg.Messaging.SyncScopeHelper;
 
 public class Modele extends Observable {
 
@@ -30,8 +25,6 @@ public class Modele extends Observable {
 	public static ArrayList<String> demandes = new ArrayList<String>();
 
 	public Modele() {
-
-		//this.photos_triés = new HashSet<Photo>();
 		
 		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
@@ -60,24 +53,22 @@ public class Modele extends Observable {
 			this.Couleurs.put(couleur, new HashSet());
 		this.Couleurs.get(couleur).add(photo);
 		
-		
 		int taille = rim.obtenirTaille();
 		
-		if (taille < 300) {
-			if (!this.Tailles.containsKey("Petite")){
+		if (taille < 150) {
+			if (!this.Tailles.containsKey("Petite"))
 				this.Tailles.put("Petite", new HashSet());
-				}
 			this.Tailles.get("Petite").add(photo);
 		}
 		
-		if (351 < taille && taille < 600) {
-			if (!this.Tailles.containsKey("Moyenne"));
-				
+		if (151 < taille && taille < 200) {
+			if (!this.Tailles.containsKey("Moyenne"))
+			this.Tailles.put("Moyenne", new HashSet());
 			this.Tailles.get("Moyenne").add(photo);
 		}
 		
-		if (taille > 601) {
-			if (!this.Tailles.containsKey("Grande"));
+		if (taille > 200) {
+			if (!this.Tailles.containsKey("Grande"))
 				this.Tailles.put("Grande", new HashSet());
 			this.Tailles.get("Grande").add(photo);
 		}

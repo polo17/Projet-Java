@@ -10,11 +10,14 @@ public class Trieur {
 
 	Set<Photo> photos_t; //set de photo triés à envoyer a la vue
 
-	String[] carac_c = {"rouge","vert","bleu"};
-	String[] carac_t = {"petites","moyennes","grandes"};
-	
-	Color[] cou = {Color.red,Color.green,Color.blue};
-	String[] tail = {"Petite","Moyenne","Grande"};
+	private String[] carac_c = {"rouge","vert","bleu"};
+	private String[] carac_t = {"petites","moyennes","grandes"};
+
+	private Color[] cou = {Color.red,Color.green,Color.blue};
+	private String[] tail = {"Petite","Moyenne","Grande"};
+
+	private String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
+	private Integer[] not = {1,2,3,4,5};
 
 	public Trieur (String d, Set<Photo> f){
 		this.demande = d;
@@ -53,8 +56,6 @@ public class Trieur {
 		else{
 			Modele.demandes.remove(this.demande);
 		}
-		
-		System.out.println(Modele.demandes);
 
 		//Tri en fonction des demandes
 		for (int c = 0; c < cou.length ; c++){
@@ -73,42 +74,17 @@ public class Trieur {
 				}
 			}
 		}
-		//
-		//
-		//		if (Modele.demandes.contains("bleu")){
-		//			photos_t_c.addAll(triCouleur(Color.blue));
-		//		}
-		//
-		//
-		//		if (Modele.demandes.contains("vert")){
-		//			photos_t_c.addAll(triCouleur(Color.green));
-		//		}
 
+		for (int n = 0 ; n < notes.length ; n++){
+			if (Modele.demandes.contains(notes[n]))
+				try{
+				photos_t_e.addAll(triNote(not[n]));
+				}
+			catch(NullPointerException e){
+				System.out.println("Il n'y a pas d'images de note " + not[n]);
+			}
+		}
 
-		//		if (Modele.demandes.contains("petites")){
-		//			photos_t_t.addAll(triTaille("Petite"));
-		//		}
-		//
-		//
-		//		if (Modele.demandes.contains("moyennes")){
-		//			try{
-		//				photos_t_t.addAll(triTaille("Moyenne"));
-		//			}
-		//			catch(NullPointerException e){
-		//				System.out.println("Il n'y a pas d'images de taille moyennes");
-		//			}
-		//		}
-		//
-		//		if (Modele.demandes.contains("grandes")){
-		//			try{
-		//				photos_t_t.addAll(triTaille("Grande"));
-		//			}
-		//			catch(NullPointerException e){
-		//				System.out.println("Il n'y a pas d'images de taille grandes");
-		//			}
-		//		}
-		
-		
 		if(! photos_t_c.isEmpty() && ! photos_t_t.isEmpty()){
 			photos_t_c.retainAll(photos_t_t);
 			this.photos_t.addAll(photos_t_c);
@@ -150,5 +126,16 @@ public class Trieur {
 		return dates_triés;
 	}
 
+	public Set<Photo> triNote(int n){
+		Set<Photo> notes_triés = null;
 
-}
+		Iterator<Photo> i = Modele.images.iterator();
+		while(i.hasNext()){
+			Photo tmp = (Photo)i.next();
+			if (tmp.note==n)
+				notes_triés.add(tmp);
+		}
+		return notes_triés;
+	}
+
+	}
