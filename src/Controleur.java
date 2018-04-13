@@ -95,7 +95,6 @@ public class Controleur implements ActionListener, MouseListener{
 
 		//System.out.println(nom);
 		modele.triage(nom);
-		//System.out.println(modele.photos_triés);
 
 		/*
 		Iterator i = modele.images.iterator();
