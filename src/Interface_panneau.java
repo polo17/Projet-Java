@@ -14,6 +14,7 @@ import java.util.Observer;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -69,7 +70,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		Label la3 = new Label("Séléctionner couleur :", Label.LEFT);
 		pan.add(la3);
 		for (int i=0;i<couleurs.length;i++) {
-			JRadioButton cocher_couleur = new JRadioButton(couleurs[i]);
+			JCheckBox cocher_couleur = new JCheckBox(couleurs[i]);
 			cocher_couleur.setAlignmentX(CENTER_ALIGNMENT);
 			cocher_couleur.setBackground(new Color(102,255,178));
 			cocher_couleur.setName(couleurs[i]);
@@ -80,7 +81,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		Label la4 = new Label("Séléctionner taille :", Label.LEFT);
 		pan.add(la4);
 		for (int i=0;i<tailles.length;i++) {
-			JRadioButton cocher_taille = new JRadioButton(tailles[i]);
+			JCheckBox cocher_taille = new JCheckBox(tailles[i]);
 			cocher_taille.setAlignmentX(CENTER_ALIGNMENT);
 			cocher_taille.setBackground(new Color(102,255,178));
 			cocher_taille.setName(tailles[i]);
@@ -91,7 +92,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		Label la5 = new Label("Séléctionner note :", Label.LEFT);
 		pan.add(la5);
 		for (int i=0;i<notes.length;i++) {
-			JRadioButton cocher_note = new JRadioButton(notes[i]);
+			JCheckBox cocher_note = new JCheckBox(notes[i]);
 			cocher_note.setAlignmentX(CENTER_ALIGNMENT);
 			cocher_note.setBackground(new Color(102,255,178));
 			cocher_note.setName(notes[i]);

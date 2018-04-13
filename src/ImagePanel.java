@@ -22,6 +22,7 @@ public class ImagePanel extends Panel {
 		super();
 		this.imgFond = img;
 		this.setBackground(new Color(102,102,255));
+		setSize(TAILLE_X,TAILLE_Y);
 	}
 	
 	public Dimension getPreferredSize() {

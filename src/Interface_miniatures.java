@@ -57,24 +57,16 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		drapeau=true;
-		ImagePanel ip = ((ImagePanel)e.getSource());
-		JFrame f = new JFrame();
-		f.setSize(720,450);
-		f.addWindowListener(this);
-		ip.TAILLE_X=700;
-		ip.TAILLE_Y=400;
-		f.add(ip); 
-
-		Interface_etoiles im;
+		ImagePanel panl = (ImagePanel)e.getSource();
 		try {
-			im = new Interface_etoiles();
-			f.add(im, BorderLayout.SOUTH);
+			Interface_Agrandie im = new Interface_Agrandie(panl.imgFond);
+			if (drapeau) {
+				im.setVisible(true);
+				revalidate();}
+
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}		
-		if (drapeau) {
-			f.setVisible(true);}		
+		}	
 	}
 
 	/**
