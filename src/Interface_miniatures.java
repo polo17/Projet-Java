@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -24,6 +25,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 	
@@ -36,7 +38,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public Interface_miniatures() throws IOException {
 
 		this.setBackground(new Color(102,102,255));
-		GridLayout gl = new GridLayout(0,5,5,5);	
+		//GridLayout gl = new GridLayout(0,5,5,5);
+		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
 		this.setLayout(gl);
 
 		// Affichage de toutes les images au lancement de l'applcation

@@ -18,20 +18,24 @@ public class ImagePanel extends Panel {
 	
 	public BufferedImage imgFond;
 	
+	//TODO
+	//public ImagePanel(Photo img) throws IOException {
+	//this.photo = img;
+	//this.imgFond = new BufferedImage(...); 
 	public ImagePanel(BufferedImage img) throws IOException {
 		super();
 		this.imgFond = img;
-		this.setBackground(new Color(102,102,255));
-		setSize(TAILLE_X,TAILLE_Y);
+		this.setBackground(new Color(102,200,255));
 	}
 	
 	public Dimension getPreferredSize() {
-		return new Dimension(TAILLE_X, TAILLE_Y);
+		return new Dimension(TAILLE_X+20, TAILLE_Y+50);
 	}
 	
 	public void paint(Graphics g) {
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g.drawImage(imgFond, 0, 0, TAILLE_X, TAILLE_Y, null);
+	    g.drawImage(imgFond, 10, 10, TAILLE_X, TAILLE_Y, null);
+	    g.drawString("image", 20, TAILLE_Y+20);
 	}
 
 }
