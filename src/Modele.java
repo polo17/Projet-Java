@@ -24,7 +24,7 @@ public class Modele extends Observable {
 	
 	public static ArrayList<String> demandes = new ArrayList<String>();
 
-	public Modele() {
+	public Modele(){
 		
 		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
@@ -35,7 +35,7 @@ public class Modele extends Observable {
 		this.images = new HashSet<Photo>();
 	}
 
-	public void ajouterImage(Recuperateur rim) throws IOException {
+	public void ajouterImage(Recuperateur rim) throws IOException{
 		Photo photo = new Photo(
 				rim.file.getName(),
 				rim.obtenirTaille(),
@@ -44,7 +44,6 @@ public class Modele extends Observable {
 				rim.obtenirImage());
 		//Ajout dans la base des photos de l'appli.
 		this.images.add(photo);
-		
 		
 		//Ajout dans les différents index
 		Color couleur = rim.obtenirCouleur();
@@ -83,7 +82,7 @@ public class Modele extends Observable {
 	
 	public void triage(String n){
 		
-		Trieur t = new Trieur(n,this.photos_triés);
+		Trieur t = new Trieur(n);
 		this.photos_triés = t.tri();
 		this.setChanged();
 		this.notifyObservers(this.photos_triés);

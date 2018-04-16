@@ -17,7 +17,7 @@ public class Controleur implements ActionListener, MouseListener{
 
 	public static String DATA = "."; // Data de Serial
 
-	Modele modele;
+	private Modele modele;
 
 	private String nom; //nom récupéré de la vue
 
@@ -27,7 +27,7 @@ public class Controleur implements ActionListener, MouseListener{
 	 * Permet l'ajout des images dans le dico pricipal
 	 * @throws IOException
 	 */
-	public Controleur (Modele m) throws IOException{
+	public Controleur (Modele m) {
 
 		this.modele = m ;
 
@@ -63,7 +63,11 @@ public class Controleur implements ActionListener, MouseListener{
 
 				modele.Mot_clé.put(noms[i], modele.images);
 
-				m.ajouterImage(rim);
+				try {
+					m.ajouterImage(rim);
+				} catch (IOException e) {
+
+				}
 
 			}
 		}
@@ -78,7 +82,6 @@ public class Controleur implements ActionListener, MouseListener{
 		if (e.getSource() instanceof JRadioButton){
 			ImagePanel panl = Interface_miniatures.panl;
 			Photo p = panl.photo;
-			System.out.println(p.nom);
 			JRadioButton btn = (JRadioButton)e.getSource();
 			if (btn.isSelected()){
 				String note_s = btn.getName();
@@ -95,9 +98,6 @@ public class Controleur implements ActionListener, MouseListener{
 						p.setNote(note);
 						Modele.images.remove(tmp);
 						Modele.images.add(p);
-						//tmp.note = note;
-						//System.out.println("oui");
-						//Modele.images = new HashSet<Photo>(Modele.images);
 						break;
 					}
 					
@@ -107,24 +107,26 @@ public class Controleur implements ActionListener, MouseListener{
 		}
 		else if(e.getSource() instanceof JCheckBox){
 			JCheckBox cb = (JCheckBox)e.getSource();
-			nom = cb.getText();
+			nom = cb.getName();
 		}
 		else {
 			JTextField saisi = (JTextField)e.getSource();
 			nom = (String) saisi.getText();
 		}
 
-		//System.out.println(nom);
+		
 		modele.triage(nom);
 
-
+		//System.out.println(modele.demandes);
+		
+		/*
 		Iterator i = modele.images.iterator();
 
 		while(i.hasNext()){
 			Photo tmp = (Photo)i.next();
-			System.out.println(tmp.note);
+			System.out.println(tmp.nom + " " + tmp.note);
 		}
-
+		 */
 	}
 
 

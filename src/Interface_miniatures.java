@@ -29,8 +29,8 @@ import javax.swing.JScrollPane;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 	
-	Modele modele = new Modele();
-	Controleur ctrl = new Controleur(modele);
+	Modele modele = Interface_panneau.modele;
+	Controleur ctrl = Interface_panneau.ctrl;
 	
 	public static ImagePanel panl;
 	
@@ -88,7 +88,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		ImagePanel.TAILLE_Y=90;		
 		images_triés = ((Set<Photo>) photo_t);
 
-		if (modele.demandes.isEmpty()) {
+		if (modele.photos_triés.isEmpty() && modele.demandes.isEmpty()) {
 			this.removeAll();
 			Iterator<Photo> i = modele.images.iterator();
 			Photo myPicture;
@@ -105,6 +105,9 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 				}
 			}
 			revalidate();
+		}
+		else if (modele.photos_triés.isEmpty() && ! modele.demandes.isEmpty()) {
+			this.removeAll();
 		}
 		else {
 			this.removeAll();

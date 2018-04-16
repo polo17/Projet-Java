@@ -8,7 +8,7 @@ public class Trieur {
 
 	String demande; //type de demande (rouge, moyenne, sans vert, etc ...)
 
-	Set<Photo> photos_t; //set de photo triés à envoyer a la vue
+	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue
 
 	private String[] carac_c = {"rouge","vert","bleu"};
 	private String[] carac_t = {"petites","moyennes","grandes"};
@@ -19,9 +19,9 @@ public class Trieur {
 	private String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
 	private Integer[] not = {1,2,3,4,5};
 
-	public Trieur (String d, Set<Photo> f){
+	public Trieur (String d){
 		this.demande = d;
-		this.photos_t = f;
+		//this.photos_t = f;
 	}
 
 
@@ -31,7 +31,8 @@ public class Trieur {
 	 */
 	public Set<Photo> tri(){
 
-		this.photos_t.clear();
+
+		//this.photos_t.clear();
 
 		Set<Photo> photos_t_c= new HashSet<Photo>();
 		Set<Photo> photos_t_t= new HashSet<Photo>();
@@ -44,7 +45,9 @@ public class Trieur {
 			String recherche = tmp.nom;
 			recherche = recherche.replace(".jpg", "");
 			if((recherche).equals(this.demande)) {	
+				System.out.println("passé");
 				this.photos_t.add(tmp);
+				System.out.println(this.photos_t);
 				return this.photos_t;
 			}
 		}
@@ -76,22 +79,35 @@ public class Trieur {
 		}
 
 		for (int n = 0 ; n < notes.length ; n++){
-			if (Modele.demandes.contains(notes[n]))
-				try{
-				photos_t_e.addAll(triNote(not[n]));
-				}
-			catch(NullPointerException e){
-				System.out.println("Il n'y a pas d'images de note " + not[n]);
+			if (Modele.demandes.contains(notes[n])){
+				Set<Photo> notés = triNote(not[n]);
+				if (! notés.isEmpty()) photos_t_e.addAll(triNote(not[n]));
+				else System.out.println("Il n'y a pas d'images de note " + not[n]);
 			}
 		}
 
-		if(! photos_t_c.isEmpty() && ! photos_t_t.isEmpty()){
+		if(! photos_t_c.isEmpty() && ! photos_t_t.isEmpty() && ! photos_t_e.isEmpty()){
 			photos_t_c.retainAll(photos_t_t);
+			photos_t_c.retainAll(photos_t_e);
 			this.photos_t.addAll(photos_t_c);
 		}
-		else if (! photos_t_c.isEmpty())
+
+		else if (! photos_t_c.isEmpty() && ! photos_t_t.isEmpty()){
+			photos_t_c.retainAll(photos_t_t);
 			this.photos_t.addAll(photos_t_c);
-		else this.photos_t.addAll(photos_t_t);
+		}	
+		else if(! photos_t_c.isEmpty() && ! photos_t_e.isEmpty()){
+			photos_t_c.retainAll(photos_t_e);
+			this.photos_t.addAll(photos_t_c);
+		}
+
+		else if(! photos_t_c.isEmpty())
+			this.photos_t.addAll(photos_t_c);
+
+		else if(! photos_t_t.isEmpty())
+			this.photos_t.addAll(photos_t_t);	
+
+		else this.photos_t.addAll(photos_t_e);
 
 		return this.photos_t;
 	}
@@ -127,7 +143,7 @@ public class Trieur {
 	}
 
 	public Set<Photo> triNote(int n){
-		Set<Photo> notes_triés = null;
+		Set<Photo> notes_triés = new HashSet<Photo>();
 
 		Iterator<Photo> i = Modele.images.iterator();
 		while(i.hasNext()){
@@ -137,5 +153,4 @@ public class Trieur {
 		}
 		return notes_triés;
 	}
-
-	}
+}

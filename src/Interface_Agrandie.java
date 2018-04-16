@@ -15,8 +15,8 @@ import javax.swing.JRadioButton;
 
 public class Interface_Agrandie extends JFrame{
 
-	Modele modele = new Modele();
-	Controleur ctrl = new Controleur(modele);
+	Modele modele = Interface_panneau.modele;
+	Controleur ctrl = Interface_panneau.ctrl;
 	public BufferedImage select;
 
 	public Interface_Agrandie (BufferedImage img) throws IOException{

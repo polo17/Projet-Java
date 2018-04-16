@@ -28,8 +28,8 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	String[] tailles = {"petites","moyennes","grandes"};
 	public static String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
 
-	static Modele modele = new Modele();
-	Controleur ctrl = new Controleur(modele);
+	public static Modele modele = new Modele();
+	public static Controleur ctrl = new Controleur(modele);
 
 	public static void main(String[] args) throws IOException {
 
