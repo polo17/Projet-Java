@@ -80,6 +80,7 @@ public class Controleur implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() instanceof JRadioButton){
+			System.out.println("JradioButton");
 			ImagePanel panl = Interface_miniatures.panl;
 			Photo p = panl.photo;
 			JRadioButton btn = (JRadioButton)e.getSource();
@@ -105,19 +106,24 @@ public class Controleur implements ActionListener, MouseListener{
 				
 			}
 		}
+		
 		else if(e.getSource() instanceof JCheckBox){
+			System.out.println("Jchechbox");
 			JCheckBox cb = (JCheckBox)e.getSource();
 			nom = cb.getName();
+			modele.triage(nom);
 		}
+		
 		else {
 			JTextField saisi = (JTextField)e.getSource();
 			nom = (String) saisi.getText();
+			modele.triage(nom);
 		}
 
 		
-		modele.triage(nom);
+		//modele.triage(nom);
 
-		//System.out.println(modele.demandes);
+		System.out.println(modele.demandes);
 		
 		/*
 		Iterator i = modele.images.iterator();
