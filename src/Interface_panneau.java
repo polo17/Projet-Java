@@ -114,6 +114,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		pan.add(l_trier);
 
 		JButton trier = new JButton("trier");
+		trier.addActionListener(ctrl);
 		trier.setAlignmentX(CENTER_ALIGNMENT);
 		pan.add(trier,BorderLayout.SOUTH);
 

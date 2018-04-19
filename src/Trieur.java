@@ -2,14 +2,16 @@ import java.awt.Color;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Trieur {
 
 
-	String demande; //type de demande (rouge, moyenne, sans vert, etc ...)
+	String demande; //type de demande (rouge, moyenne, nbr étoiles, etc ...)
 
 	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue
 
+	private String[] trieur = {"ordre alphabétique","couleurs","note","taille","date","lieu"};
 	private String[] carac_c = {"rouge","vert","bleu"};
 	private String[] carac_t = {"petites","moyennes","grandes"};
 
@@ -21,7 +23,6 @@ public class Trieur {
 
 	public Trieur (String d){
 		this.demande = d;
-		//this.photos_t = f;
 	}
 
 
@@ -30,9 +31,6 @@ public class Trieur {
 	 * @return fini, le set de photos triés
 	 */
 	public Set<Photo> tri(){
-
-
-		//this.photos_t.clear();
 
 		Set<Photo> photos_t_c= new HashSet<Photo>();
 		Set<Photo> photos_t_t= new HashSet<Photo>();
@@ -52,12 +50,28 @@ public class Trieur {
 			}
 		}
 
+		for (int j=0; j < trieur.length ; j++){
+			if (Modele.demandes.contains(trieur[j])) Modele.demandes.remove(trieur[j]);
+		}
+
+
 		//Ajout des demandes
 		if (! Modele.demandes.contains(this.demande)){
 			Modele.demandes.add(this.demande);
 		}
 		else{
 			Modele.demandes.remove(this.demande);
+		}
+
+		if (Modele.demandes.contains("ordre alphabétique")){
+
+			this.photos_t.addAll(triAlpha());
+			System.out.println(this.photos_t);
+			Iterator<Photo> i2 = this.photos_t.iterator();
+			while(i2.hasNext()){
+				Photo tmp2 = (Photo)i.next();
+				System.out.println(tmp2.nom);
+			}
 		}
 
 		//Tri en fonction des demandes
@@ -95,8 +109,14 @@ public class Trieur {
 		else if (! photos_t_c.isEmpty() && ! photos_t_t.isEmpty()){
 			photos_t_c.retainAll(photos_t_t);
 			this.photos_t.addAll(photos_t_c);
-		}	
-		else if(! photos_t_c.isEmpty() && ! photos_t_e.isEmpty()){
+		}
+
+		else if (! photos_t_e.isEmpty() && ! photos_t_t.isEmpty()){
+			photos_t_t.retainAll(photos_t_e);
+			this.photos_t.addAll(photos_t_t);
+		}
+
+		else if (! photos_t_c.isEmpty() && ! photos_t_e.isEmpty()){
 			photos_t_c.retainAll(photos_t_e);
 			this.photos_t.addAll(photos_t_c);
 		}
@@ -153,4 +173,61 @@ public class Trieur {
 		}
 		return notes_triés;
 	}
+
+	/**
+	 * 
+	 * @return Liste des images
+	 */
+	public Set<Photo> triAlpha(){
+		//		Set<Photo> alpha_trié = new HashSet<Photo>();
+		//
+		//		List<Photo> trieur = new ArrayList<>();
+		//
+		//		Iterator<Photo> i = Modele.images.iterator();
+		//		while(i.hasNext()){
+		//			Photo tmp = (Photo)i.next();
+		//			trieur.add(tmp);
+		//		}
+		//
+		//		Collections.sort(trieur, new Comparator<Photo>() {
+		//			@Override
+		//			public int compare(Photo p1, Photo p2) {
+		//				return p1.nom.compareTo(p2.nom);
+		//			}
+		//		});
+		//		alpha_trié.addAll(trieur);
+		//		return alpha_trié;
+		//	}
+
+		TreeSet<Photo> P;
+		P = new TreeSet<Photo>(new ComparerNom());
+		P.addAll(Modele.images);
+
+//		Iterator<Photo> i = P.iterator();
+//		while(i.hasNext()){
+//			Photo tmp = (Photo)i.next();
+//			System.out.println(tmp.nom);
+//		}
+		return P;
+	}
 }
+
+//public void triAlpha(){
+//	ArrayList<Photo> sorted = new ArrayList<Photo>();
+//	HashSet<Photo> sortinprogress = this.images;
+//	Photo maxi = sortinprogress.get(0);
+//	while(sortinprogress.size()!=0) {
+//		for(int j=1; j<sortinprogress.size(); j++) {
+//			String s1=sortinprogress.get(j).nom;
+//			int k =0;
+//			while(k<5 && maxi.nom.charAt(k)==s1.charAt(k)) {
+//				k+=1;
+//			}
+//			if(maxi.nom.charAt(k)<s1.charAt(k)) {
+//				maxi.nom = s1;
+//			}
+//		}
+//		sortinprogress.remove(maxi);
+//		sorted.add(maxi);
+//		
+//	}

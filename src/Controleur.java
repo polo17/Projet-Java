@@ -4,10 +4,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -78,9 +79,10 @@ public class Controleur implements ActionListener, MouseListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		//TODO Tri par ordre alphabétique à faire
 
 		if (e.getSource() instanceof JRadioButton){
-			System.out.println("JradioButton");
 			ImagePanel panl = Interface_miniatures.panl;
 			Photo p = panl.photo;
 			JRadioButton btn = (JRadioButton)e.getSource();
@@ -91,10 +93,7 @@ public class Controleur implements ActionListener, MouseListener{
 				Iterator<Photo> i2 = Modele.images.iterator();
 				while(i2.hasNext()){
 					Photo tmp = (Photo)i2.next();
-					if (tmp.nom.equals(p.nom)){
-						
-						//TODO Attribuer la note à la photo et faire en sorte qu'elle reste
-						
+					if (tmp.nom.equals(p.nom)){						
 						tmp.setNote(note);
 						p.setNote(note);
 						Modele.images.remove(tmp);
@@ -108,9 +107,16 @@ public class Controleur implements ActionListener, MouseListener{
 		}
 		
 		else if(e.getSource() instanceof JCheckBox){
-			System.out.println("Jchechbox");
 			JCheckBox cb = (JCheckBox)e.getSource();
 			nom = cb.getName();
+			modele.triage(nom);
+		}
+		
+		else if(e.getSource() instanceof JComboBox){
+			JComboBox cob = (JComboBox)e.getSource();
+			nom = (String)cob.getSelectedItem();
+			System.out.println(nom);
+			//if (e.getSource() instanceof JButton)
 			modele.triage(nom);
 		}
 		
@@ -123,7 +129,7 @@ public class Controleur implements ActionListener, MouseListener{
 		
 		//modele.triage(nom);
 
-		System.out.println(modele.demandes);
+		//System.out.println(modele.demandes);
 		
 		/*
 		Iterator i = modele.images.iterator();

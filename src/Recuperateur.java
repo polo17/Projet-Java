@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 
-
 /**
  * 
  * @author ltourn01
