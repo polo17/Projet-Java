@@ -9,9 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 
 public class Interface_Agrandie extends JFrame{
 
@@ -27,6 +30,7 @@ public class Interface_Agrandie extends JFrame{
 		setBackground(new Color(204, 255, 255));
 
 		Panel etoiles = new Panel();
+		etoiles.setLayout(new BoxLayout(etoiles, BoxLayout.Y_AXIS));
 		etoiles.setBackground(new Color(204, 255, 255));
 		add(etoiles);
 		
@@ -43,6 +47,20 @@ public class Interface_Agrandie extends JFrame{
 			group.add(cocher_etoile);
 			etoiles.add(cocher_etoile);
 		}
+		Panel tags = new Panel();
+		tags.setLayout(new BoxLayout(tags, BoxLayout.Y_AXIS));
+		tags.setBackground(new Color(204, 255, 255));
+		add(tags);
+		
+		Label la2 = new Label("Saisir tag :", Label.LEFT);
+		tags.add(la2);
+		JTextField saisie_tag = new JTextField();
+		saisie_tag.setName("tageur");
+		saisie_tag.addActionListener(ctrl);
+		tags.add(saisie_tag);
+		//String tag = "Tags de la photo : " + 
+		//Label tags = new Label("Tags de la photo :" , Label.RIGHT);
+		//Label note = new Label("Note de la photo :", Label.RIGHT);
 		revalidate();
 		setVisible(true);
 	}

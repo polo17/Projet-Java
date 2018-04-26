@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Photo implements Serializable {	
 	
@@ -12,11 +13,13 @@ public class Photo implements Serializable {
 	
 	Color couleur;
 	
-	String lieu;
+	ArrayList<String> tags;
 	
 	int note;
 	
 	BufferedImage img;
+	
+	//TODO Faire l'ajout de tag et le tri
 
 	/**
 	 * @param n Nom de la photo
@@ -30,7 +33,7 @@ public class Photo implements Serializable {
 		this.taille = t;
 		this.date = d;
 		this.couleur = color;
-		this.lieu = null;
+		this.tags = new ArrayList<String>();
 		this.note = 0;
 		this.img=im;
 	}
@@ -39,8 +42,8 @@ public class Photo implements Serializable {
 		this.note = n;
 	}
 	
-	public void setLieu(String l) {
-		this.lieu = l;
+	public void setTag(String t) {
+		this.tags.add(t);
 	}
 	
 	public String Nom() {

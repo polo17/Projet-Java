@@ -88,4 +88,11 @@ public class Modele extends Observable {
 		this.notifyObservers(this.photos_triés);
 	}
 	
+	public void triage_tag(String n) {
+		Trieur_tag t = new Trieur_tag(n);
+		this.photos_triés = t.tri();
+		this.setChanged();
+		this.notifyObservers(this.photos_triés);
+	}
+	
 }

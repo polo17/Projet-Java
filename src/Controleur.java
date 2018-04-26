@@ -102,6 +102,40 @@ public class Controleur implements ActionListener, MouseListener{
 				}
 
 			}
+
+		}
+
+		else if (e.getSource() instanceof JTextField) {
+			JTextField saisie = (JTextField)e.getSource();
+			if (saisie.getName().equals("tageur")) {
+				String tag = saisie.getText();
+				ImagePanel panl = Interface_miniatures.panl;
+				Photo p = panl.photo;
+
+				Iterator<Photo> i2 = Modele.images.iterator();
+				while(i2.hasNext()){
+					Photo tmp = (Photo)i2.next();
+					if (tmp.nom.equals(p.nom)){						
+						tmp.setTag(tag);
+						p.setTag(tag);
+						Modele.images.remove(tmp);
+						Modele.images.add(p);
+						break;
+					}
+				}
+			}
+			else if (saisie.getName().equals("nameur")){
+				nom = (String) saisie.getText();
+				modele.triage(nom);
+				Modele.ancienne_demande = nom;
+			}
+			else {
+				nom = (String) saisie.getText();
+				modele.triage_tag(nom);
+				Modele.ancienne_demande = nom;
+			}
+
+
 		}
 
 		else if(e.getSource() instanceof JCheckBox){
@@ -116,34 +150,36 @@ public class Controleur implements ActionListener, MouseListener{
 			//if (e.getSource() instanceof JButton)
 			//modele.triage(nom);
 		}
+
 		else if (e.getSource() instanceof JButton) {
 			for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
 				if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
 			}
 		}
-		else {
-			JTextField saisi = (JTextField)e.getSource();
-			nom = (String) saisi.getText();
-			modele.triage(nom);
-			Modele.ancienne_demande = nom;
-		}
-		
-		 
-		
+
+		//			else {
+		//				JTextField saisi = (JTextField)e.getSource();
+		//				nom = (String) saisi.getText();
+		//				modele.triage(nom);
+		//				Modele.ancienne_demande = nom;
+		//			}
 
 
-		//modele.triage(nom);
-		//System.out.println(Modele.demandes);
-		//System.out.println(Modele.photos_triés);
+	}
 
-		/*
+
+	//modele.triage(nom);
+	//System.out.println(Modele.demandes);
+	//System.out.println(Modele.photos_triés);
+
+	/*
 		Iterator i = modele.images.iterator();
 		while(i.hasNext()){
 			Photo tmp = (Photo)i.next();
 			System.out.println(tmp.date instanceof String);
 		}
-		 */
-	}
+	 */
+
 
 
 

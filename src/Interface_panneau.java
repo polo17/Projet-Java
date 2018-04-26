@@ -66,12 +66,15 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		pan.add(la1);
 		JTextField saisie_nom = new JTextField();
 		saisie_nom.addActionListener(ctrl);
+		saisie_nom.setName("nameur");
 		pan.add(saisie_nom);
 
-		Label la2 = new Label("Saisir lieu :", Label.LEFT);
+		Label la2 = new Label("Saisir tag :", Label.LEFT);
 		pan.add(la2);
-		JTextField saisie_lieu = new JTextField();
-		pan.add(saisie_lieu);
+		JTextField saisie_tag = new JTextField();
+		saisie_tag.addActionListener(ctrl);
+		saisie_tag.setName("cherch_tag");
+		pan.add(saisie_tag);
 
 		Label la3 = new Label("Séléctionner couleur :", Label.LEFT);
 		pan.add(la3);

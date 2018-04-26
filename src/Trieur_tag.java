@@ -1,0 +1,41 @@
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Trieur_tag {
+
+
+	String demande; //type de demande (rouge, moyenne, nbr étoiles, etc ...)
+
+	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue
+
+	public Trieur_tag (String d){
+		this.demande = d;
+	}
+
+	/**
+	 * 
+	 * @return fini, le set de photos triés
+	 */
+	public Set tri(){
+
+		Modele.demandes.remove(Modele.ancienne_demande);
+
+		//Recherche avec le tag :
+		Iterator<Photo> i = Modele.images.iterator();
+		while (i.hasNext()) {
+			Photo tmp = (Photo)i.next();
+			for (int j = 0; j<tmp.tags.size();j++) {
+				String recherche = tmp.tags.get(j);
+				if((recherche).equals(this.demande)) {	
+					this.photos_t.add(tmp);
+					
+				}
+			}
+		}
+		return this.photos_t;
+	}
+}
