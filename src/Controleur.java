@@ -21,6 +21,7 @@ public class Controleur implements ActionListener, MouseListener{
 	private Modele modele;
 
 	private String nom; //nom récupéré de la vue
+	private String nom_tri = "ordre alphabétique";
 
 	String[] noms; //noms photos du répertoire
 
@@ -79,7 +80,7 @@ public class Controleur implements ActionListener, MouseListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		//TODO Tri par ordre alphabétique à faire
 
 		if (e.getSource() instanceof JRadioButton){
@@ -89,7 +90,7 @@ public class Controleur implements ActionListener, MouseListener{
 			if (btn.isSelected()){
 				String note_s = btn.getName();
 				int note = note_s.charAt(0)-48;
-				
+
 				Iterator<Photo> i2 = Modele.images.iterator();
 				while(i2.hasNext()){
 					Photo tmp = (Photo)i2.next();
@@ -100,37 +101,44 @@ public class Controleur implements ActionListener, MouseListener{
 						Modele.images.add(p);
 						break;
 					}
-					
+
 				}
-				
+
 			}
 		}
-		
+
 		else if(e.getSource() instanceof JCheckBox){
 			JCheckBox cb = (JCheckBox)e.getSource();
 			nom = cb.getName();
 			modele.triage(nom);
 		}
-		
+
 		else if(e.getSource() instanceof JComboBox){
 			JComboBox cob = (JComboBox)e.getSource();
-			nom = (String)cob.getSelectedItem();
-			System.out.println(nom);
+			nom_tri = (String)cob.getSelectedItem();
 			//if (e.getSource() instanceof JButton)
-			modele.triage(nom);
+			//modele.triage(nom);
 		}
-		
+		else if (e.getSource() instanceof JButton) {
+			for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
+				if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
+			}
+		}
 		else {
 			JTextField saisi = (JTextField)e.getSource();
 			nom = (String) saisi.getText();
 			modele.triage(nom);
+			Modele.ancienne_demande = nom;
 		}
-
 		
+		 
+		
+
+
 		//modele.triage(nom);
+		//System.out.println(Modele.demandes);
+		//System.out.println(Modele.photos_triés);
 
-		//System.out.println(modele.demandes);
-		
 		/*
 		Iterator i = modele.images.iterator();
 

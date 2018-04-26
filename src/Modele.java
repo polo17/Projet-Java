@@ -19,11 +19,12 @@ public class Modele extends Observable {
 
 	public Hashtable <String, HashSet<Photo>> Lieux;
 	
-	public Set<Photo> photos_triés = new HashSet<Photo>();
+	public static Object photos_triés = new Object();
 	
 	public static HashSet<Photo> images;
 	
 	public static ArrayList<String> demandes = new ArrayList<String>();
+	public static String ancienne_demande;
 
 	public Modele(){
 		

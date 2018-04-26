@@ -6,19 +6,21 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
-	
+
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
-	
+
 	public static ImagePanel panl;
-	
-	private Set<Photo> images_triés; //images triées récupérées du modèle
+
+	private Object images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
 
 	public Interface_miniatures() throws IOException {
@@ -48,9 +50,9 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		
+
 		this.panl = (ImagePanel)e.getSource();
-		
+
 		try {
 			Interface_Agrandie im = new Interface_Agrandie(panl.imgFond);
 			if (drapeau) {
@@ -67,44 +69,67 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	 */
 	@Override
 	public void update(Observable o, Object photo_t) {
-	
+
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;		
-		images_triés = ((Set<Photo>) photo_t);
+		
 
-		if (modele.photos_triés.isEmpty() && modele.demandes.isEmpty()) {
-			this.removeAll();
-			Iterator<Photo> i = modele.images.iterator();
-			Photo myPicture;
-			while(i.hasNext()){
-				try {
+		if (modele.photos_triés instanceof Set) {
+			
+			images_triés =  (Set<Photo>)photo_t;
+			
+			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty()) {
+				this.removeAll();
+				Iterator<Photo> i = modele.images.iterator();
+				Photo myPicture;
+				while(i.hasNext()){
+					try {
+						Photo tmp = (Photo)i.next();
+						myPicture = tmp;
+						ImagePanel cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(tmp.nom);
+						this.add(cases);		
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				revalidate();
+			}
+			else if (((Set<Photo>) modele.photos_triés).isEmpty() && ! modele.demandes.isEmpty()) {
+				this.removeAll();
+			}
+			else {
+				this.removeAll();
+				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
+				Photo myPicture;
+				ImagePanel cases;
+				while(i.hasNext()){
 					Photo tmp = (Photo)i.next();
-					myPicture = tmp;
-					ImagePanel cases = new ImagePanel(myPicture);
-					cases.addMouseListener(this);
-					cases.setName(tmp.nom);
-					this.add(cases);		
-				} catch (IOException e) {
-					e.printStackTrace();
+					try {
+						myPicture = tmp;
+						cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(tmp.nom);
+						this.add(cases);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					revalidate();	
 				}
 			}
-			revalidate();
-		}
-		else if (modele.photos_triés.isEmpty() && ! modele.demandes.isEmpty()) {
-			this.removeAll();
 		}
 		else {
 			this.removeAll();
-			Iterator<Photo> i = images_triés.iterator();
+			ArrayList<Photo> actu = (ArrayList<Photo>)modele.photos_triés;
 			Photo myPicture;
 			ImagePanel cases;
-			while(i.hasNext()){
-				Photo tmp = (Photo)i.next();
+			for(int i = 0; i<actu.size();i++) {
 				try {
-					myPicture = tmp;
+					myPicture = actu.get(i);
 					cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
-					cases.setName(tmp.nom);
+					cases.setName(actu.get(i).nom);
 					this.add(cases);
 				} catch (IOException e) {
 					e.printStackTrace();

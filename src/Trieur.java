@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,12 +26,15 @@ public class Trieur {
 		this.demande = d;
 	}
 
-
 	/**
 	 * 
 	 * @return fini, le set de photos triés
 	 */
-	public Set<Photo> tri(){
+	public Object tri(){
+
+		if (this.demande.equals("")) Modele.demandes.remove(Modele.ancienne_demande);
+
+		Modele.demandes.remove(Modele.ancienne_demande);
 
 		Set<Photo> photos_t_c= new HashSet<Photo>();
 		Set<Photo> photos_t_t= new HashSet<Photo>();
@@ -43,9 +47,7 @@ public class Trieur {
 			String recherche = tmp.nom;
 			recherche = recherche.replace(".jpg", "");
 			if((recherche).equals(this.demande)) {	
-				System.out.println("passé");
 				this.photos_t.add(tmp);
-				System.out.println(this.photos_t);
 				return this.photos_t;
 			}
 		}
@@ -63,15 +65,13 @@ public class Trieur {
 			Modele.demandes.remove(this.demande);
 		}
 
-		if (Modele.demandes.contains("ordre alphabétique")){
+		Modele.demandes.remove("");
 
-			this.photos_t.addAll(triAlpha());
-			System.out.println(this.photos_t);
-			Iterator<Photo> i2 = this.photos_t.iterator();
-			while(i2.hasNext()){
-				Photo tmp2 = (Photo)i.next();
-				System.out.println(tmp2.nom);
-			}
+		if (Modele.demandes.contains("ordre alphabétique")){
+			return triAlpha();
+		}
+		if (Modele.demandes.contains("taille")) {
+			return triGrandeur();
 		}
 
 		//Tri en fonction des demandes
@@ -129,8 +129,10 @@ public class Trieur {
 
 		else this.photos_t.addAll(photos_t_e);
 
+
 		return this.photos_t;
 	}
+
 
 	/**
 	 * 
@@ -162,6 +164,11 @@ public class Trieur {
 		return dates_triés;
 	}
 
+	/**
+	 * 
+	 * @param n : Note à tirer
+	 * @return Ensemble des photos avec la note sélectionnée
+	 */
 	public Set<Photo> triNote(int n){
 		Set<Photo> notes_triés = new HashSet<Photo>();
 
@@ -176,58 +183,26 @@ public class Trieur {
 
 	/**
 	 * 
-	 * @return Liste des images
+	 * @return Liste des photos triées par ordre alphabétique
 	 */
-	public Set<Photo> triAlpha(){
-		//		Set<Photo> alpha_trié = new HashSet<Photo>();
-		//
-		//		List<Photo> trieur = new ArrayList<>();
-		//
-		//		Iterator<Photo> i = Modele.images.iterator();
-		//		while(i.hasNext()){
-		//			Photo tmp = (Photo)i.next();
-		//			trieur.add(tmp);
-		//		}
-		//
-		//		Collections.sort(trieur, new Comparator<Photo>() {
-		//			@Override
-		//			public int compare(Photo p1, Photo p2) {
-		//				return p1.nom.compareTo(p2.nom);
-		//			}
-		//		});
-		//		alpha_trié.addAll(trieur);
-		//		return alpha_trié;
-		//	}
-
+	public ArrayList<Photo> triAlpha(){
 		TreeSet<Photo> P;
 		P = new TreeSet<Photo>(new ComparerNom());
 		P.addAll(Modele.images);
-
-//		Iterator<Photo> i = P.iterator();
-//		while(i.hasNext()){
-//			Photo tmp = (Photo)i.next();
-//			System.out.println(tmp.nom);
-//		}
-		return P;
+		ArrayList<Photo> fin = new ArrayList<Photo>(P);
+		return fin;
 	}
-}
 
-//public void triAlpha(){
-//	ArrayList<Photo> sorted = new ArrayList<Photo>();
-//	HashSet<Photo> sortinprogress = this.images;
-//	Photo maxi = sortinprogress.get(0);
-//	while(sortinprogress.size()!=0) {
-//		for(int j=1; j<sortinprogress.size(); j++) {
-//			String s1=sortinprogress.get(j).nom;
-//			int k =0;
-//			while(k<5 && maxi.nom.charAt(k)==s1.charAt(k)) {
-//				k+=1;
-//			}
-//			if(maxi.nom.charAt(k)<s1.charAt(k)) {
-//				maxi.nom = s1;
-//			}
-//		}
-//		sortinprogress.remove(maxi);
-//		sorted.add(maxi);
-//		
-//	}
+	/**
+	 * 
+	 * @return Liste des photos triés par taille
+	 */
+	public ArrayList<Photo> triGrandeur(){
+		ArrayList<Photo> fin = new ArrayList<Photo>();
+		for (int j = 0 ; j < this.tail.length ; j++) {
+			fin.addAll(triTaille(this.tail[j]));
+		}
+		return fin;
+	}
+
+}
