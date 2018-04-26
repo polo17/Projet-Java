@@ -77,11 +77,8 @@ public class Controleur implements ActionListener, MouseListener{
 	}
 
 
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		//TODO Tri par ordre alphabétique à faire
 
 		if (e.getSource() instanceof JRadioButton){
 			ImagePanel panl = Interface_miniatures.panl;
@@ -141,10 +138,9 @@ public class Controleur implements ActionListener, MouseListener{
 
 		/*
 		Iterator i = modele.images.iterator();
-
 		while(i.hasNext()){
 			Photo tmp = (Photo)i.next();
-			System.out.println(tmp.nom + " " + tmp.note);
+			System.out.println(tmp.date instanceof String);
 		}
 		 */
 	}

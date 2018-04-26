@@ -27,8 +27,9 @@ public class Interface_Agrandie extends JFrame{
 		setBackground(new Color(204, 255, 255));
 
 		Panel etoiles = new Panel();
-		add(etoiles);
 		etoiles.setBackground(new Color(204, 255, 255));
+		add(etoiles);
+		
 
 		ButtonGroup group = new ButtonGroup();
 		Label lab = new Label("Notez l'image :", Label.LEFT);

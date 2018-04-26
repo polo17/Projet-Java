@@ -32,8 +32,6 @@ public class Trieur {
 	 */
 	public Object tri(){
 
-		if (this.demande.equals("")) Modele.demandes.remove(Modele.ancienne_demande);
-
 		Modele.demandes.remove(Modele.ancienne_demande);
 
 		Set<Photo> photos_t_c= new HashSet<Photo>();
@@ -72,6 +70,12 @@ public class Trieur {
 		}
 		if (Modele.demandes.contains("taille")) {
 			return triGrandeur();
+		}
+		if (Modele.demandes.contains("note")) {
+			return triNotation();
+		}
+		if (Modele.demandes.contains("date")) {
+			return triDatation();
 		}
 
 		//Tri en fonction des demandes
@@ -128,8 +132,7 @@ public class Trieur {
 			this.photos_t.addAll(photos_t_t);	
 
 		else this.photos_t.addAll(photos_t_e);
-
-
+		
 		return this.photos_t;
 	}
 
@@ -202,6 +205,30 @@ public class Trieur {
 		for (int j = 0 ; j < this.tail.length ; j++) {
 			fin.addAll(triTaille(this.tail[j]));
 		}
+		return fin;
+	}
+	
+	/**
+	 * 
+	 * @return Liste des photos triés par note
+	 */
+	public ArrayList<Photo> triNotation(){
+		ArrayList<Photo> fin = new ArrayList<Photo>();
+		for (int n = 1 ; n < 6 ; n++){
+			fin.addAll(triNote(n));
+		}
+		return fin;
+	}
+	
+	/**
+	 * 
+	 * @return Liste des photos triés par date, si la date est identique, le tri se fait par nom
+	 */
+	public ArrayList<Photo> triDatation(){
+		TreeSet<Photo> P;
+		P = new TreeSet<Photo>(new ComparerDate());
+		P.addAll(Modele.images);
+		ArrayList<Photo> fin = new ArrayList<Photo>(P);
 		return fin;
 	}
 
