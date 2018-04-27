@@ -1,7 +1,13 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Photo implements Serializable {	
 	
@@ -18,6 +24,8 @@ public class Photo implements Serializable {
 	int note;
 	
 	BufferedImage img;
+	
+	byte[] bufferedToByte;
 	
 	//TODO Faire l'ajout de tag et le tri
 
@@ -48,6 +56,34 @@ public class Photo implements Serializable {
 	
 	public String Nom() {
 		return this.nom;
+	}
+	
+	public int getNote() {
+		return this.note;
+	}
+	
+	public void toByte() throws IOException {
+		try {
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ImageIO.write(img, "jpg", baos);
+		baos.flush();
+		this.bufferedToByte = baos.toByteArray();
+		baos.close();
+		this.img=null;
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	public void toBuffered() {
+		try {
+			InputStream ips = new ByteArrayInputStream(this.bufferedToByte);
+			this.img = ImageIO.read(ips);
+			
+		}catch(IOException e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

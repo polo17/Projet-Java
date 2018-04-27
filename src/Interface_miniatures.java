@@ -193,8 +193,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		SerialPhoto sp = new SerialPhoto(this.modele.images);
-		sp.SerialPhoto();
 		drapeau=false;
 	}
 

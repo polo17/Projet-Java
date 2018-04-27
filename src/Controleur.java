@@ -16,7 +16,6 @@ public class Controleur implements ActionListener, MouseListener{
 
 	public static String REPERTOIRE = "ImagesTest/"; //Images
 
-	public static String DATA = "."; // Data de Serial
 
 	private Modele modele;
 
@@ -30,13 +29,15 @@ public class Controleur implements ActionListener, MouseListener{
 	 * @throws IOException
 	 */
 	public Controleur (Modele m) {
+		
+		
 
 		this.modele = m ;
 
 		File repertoire = new File(Controleur.REPERTOIRE);
-		File data = new File(Controleur.DATA);
-		String[] ContenuData = data.list();
-		Boolean DataEstPresent = false;
+//		File data = new File(Controleur.DATA);
+//		String[] ContenuData = data.list();
+//		Boolean DataEstPresent = false;
 
 		//		//Test si fichier data exsite
 		//		for(String s : ContenuData) {
