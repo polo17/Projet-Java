@@ -72,12 +72,12 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;		
-		
+
 
 		if (modele.photos_triés instanceof Set) {
-			
+
 			images_triés =  (Set<Photo>)photo_t;
-			
+
 			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty()) {
 				this.removeAll();
 				Iterator<Photo> i = modele.images.iterator();
@@ -120,21 +120,46 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			}
 		}
 		else {
-			this.removeAll();
-			ArrayList<Photo> actu = (ArrayList<Photo>)modele.photos_triés;
-			Photo myPicture;
-			ImagePanel cases;
-			for(int i = 0; i<actu.size();i++) {
-				try {
-					myPicture = actu.get(i);
-					cases = new ImagePanel(myPicture);
-					cases.addMouseListener(this);
-					cases.setName(actu.get(i).nom);
-					this.add(cases);
-				} catch (IOException e) {
-					e.printStackTrace();
+			if(((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+				this.removeAll();
+			}
+			else if (! ((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+				this.removeAll();
+				ArrayList<Photo> actu = (ArrayList<Photo>)modele.photos_triés;
+				Photo myPicture;
+				ImagePanel cases;
+				for(int i = 0; i<actu.size();i++) {
+					try {
+						myPicture = actu.get(i);
+						cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(actu.get(i).nom);
+						this.add(cases);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					revalidate();	
 				}
-				revalidate();	
+			}
+			else{
+				this.removeAll();
+				Iterator<Photo> i = modele.images.iterator();
+				Photo myPicture;
+				ImagePanel cases;
+				while(i.hasNext()){
+					Photo tmp = (Photo)i.next();
+					try {
+						myPicture = tmp;
+						cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(tmp.nom);
+						this.add(cases);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					revalidate();	
+				}
+			
 			}
 		}
 		this.setVisible(true);

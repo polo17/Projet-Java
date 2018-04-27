@@ -23,6 +23,8 @@ public class Modele extends Observable {
 	
 	public static ArrayList<String> demandes = new ArrayList<String>();
 	public static String ancienne_demande;
+	
+	public static String demande_tag = "";
 
 	public Modele(){
 		
@@ -89,6 +91,7 @@ public class Modele extends Observable {
 	}
 	
 	public void triage_tag(String n) {
+		this.demande_tag = n;
 		Trieur_tag t = new Trieur_tag(n);
 		this.photos_triés = t.tri();
 		this.setChanged();

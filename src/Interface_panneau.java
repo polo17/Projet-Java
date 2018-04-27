@@ -23,7 +23,7 @@ import javax.swing.JTextField;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
 
-	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date","lieu"};
+	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date"};
 	String[] couleurs = {"rouge","vert","bleu"};
 	String[] tailles = {"petites","moyennes","grandes"};
 	public static String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};

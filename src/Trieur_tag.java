@@ -8,9 +8,10 @@ import java.util.TreeSet;
 public class Trieur_tag {
 
 
-	String demande; //type de demande (rouge, moyenne, nbr étoiles, etc ...)
+	public static String demande; //type de demande (rouge, moyenne, nbr étoiles, etc ...)
 
-	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue
+	ArrayList<Photo> photos_t = new ArrayList<Photo>(); //set de photo triés à envoyer a la vue
+	Set set = new HashSet() ; //Set temporaire
 
 	public Trieur_tag (String d){
 		this.demande = d;
@@ -20,7 +21,7 @@ public class Trieur_tag {
 	 * 
 	 * @return fini, le set de photos triés
 	 */
-	public Set tri(){
+	public ArrayList<Photo> tri(){
 
 		Modele.demandes.remove(Modele.ancienne_demande);
 
@@ -36,6 +37,8 @@ public class Trieur_tag {
 				}
 			}
 		}
-		return this.photos_t;
+		this.set.addAll(photos_t);
+		ArrayList liste_finale = new ArrayList(set); //Supprime les doubons de la liste
+		return liste_finale;
 	}
 }

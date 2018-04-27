@@ -147,8 +147,6 @@ public class Controleur implements ActionListener, MouseListener{
 		else if(e.getSource() instanceof JComboBox){
 			JComboBox cob = (JComboBox)e.getSource();
 			nom_tri = (String)cob.getSelectedItem();
-			//if (e.getSource() instanceof JButton)
-			//modele.triage(nom);
 		}
 
 		else if (e.getSource() instanceof JButton) {
@@ -157,12 +155,6 @@ public class Controleur implements ActionListener, MouseListener{
 			}
 		}
 
-		//			else {
-		//				JTextField saisi = (JTextField)e.getSource();
-		//				nom = (String) saisi.getText();
-		//				modele.triage(nom);
-		//				Modele.ancienne_demande = nom;
-		//			}
 
 
 	}
