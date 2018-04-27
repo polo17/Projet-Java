@@ -26,7 +26,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public Interface_miniatures() throws IOException {
 
 		this.setBackground(new Color(102,102,255));
-		//GridLayout gl = new GridLayout(0,5,5,5);
 		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
 		this.setLayout(gl);
 
@@ -54,7 +53,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		this.panl = (ImagePanel)e.getSource();
 
 		try {
-			Interface_Agrandie im = new Interface_Agrandie(panl.imgFond);
+			Interface_Agrandie im = new Interface_Agrandie(panl.photo);
 			if (drapeau) {
 				im.setVisible(true);
 				revalidate();}
@@ -158,8 +157,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						e.printStackTrace();
 					}
 					revalidate();	
-				}
-			
+				}		
 			}
 		}
 		this.setVisible(true);
@@ -183,12 +181,10 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-
 	}
 
 	@Override
@@ -200,21 +196,17 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-
 	}
 }

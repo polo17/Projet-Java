@@ -21,20 +21,22 @@ public class Interface_Agrandie extends JFrame{
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
 	public BufferedImage select;
+	public Photo photo;
 
-	public Interface_Agrandie (BufferedImage img) throws IOException{
+	public Interface_Agrandie (Photo img) throws IOException{
 		super();
-		this.select = img;
+		this.photo = img;
+		this.select = (BufferedImage)img.img; 
 		setLayout(new FlowLayout());
-		setSize(700,490);
+		setSize(900,490);
 		setBackground(new Color(204, 255, 255));
+		setTitle(photo.nom);
 
 		Panel etoiles = new Panel();
 		etoiles.setLayout(new BoxLayout(etoiles, BoxLayout.Y_AXIS));
 		etoiles.setBackground(new Color(204, 255, 255));
 		add(etoiles);
 		
-
 		ButtonGroup group = new ButtonGroup();
 		Label lab = new Label("Notez l'image :", Label.LEFT);
 		etoiles.add(lab);
@@ -52,15 +54,24 @@ public class Interface_Agrandie extends JFrame{
 		tags.setBackground(new Color(204, 255, 255));
 		add(tags);
 		
-		Label la2 = new Label("Saisir tag :", Label.LEFT);
+		Label la2 = new Label("Ajouter un tag :", Label.LEFT);
 		tags.add(la2);
 		JTextField saisie_tag = new JTextField();
 		saisie_tag.setName("tageur");
 		saisie_tag.addActionListener(ctrl);
 		tags.add(saisie_tag);
-		//String tag = "Tags de la photo : " + 
-		//Label tags = new Label("Tags de la photo :" , Label.RIGHT);
-		//Label note = new Label("Note de la photo :", Label.RIGHT);
+
+		Panel list_tags = new Panel();
+		list_tags.setLayout(new BoxLayout(list_tags, BoxLayout.Y_AXIS));
+		list_tags.setBackground(new Color(204, 255, 255));
+		Label les_tags = new Label("Liste des tags : ", Label.LEFT);
+		list_tags.add(les_tags);
+		add(list_tags);
+		
+		for (int i=0; i<photo.tags.size()-1;i++){
+			Label la0 = new Label(photo.tags.get(i), Label.LEFT);
+			list_tags.add(la0);
+		}
 		revalidate();
 		setVisible(true);
 	}
