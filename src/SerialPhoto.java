@@ -19,40 +19,36 @@ public class SerialPhoto {
 	}
 
 
-	public void SerialPhoto() {
-		try {
-			FileOutputStream fos = new FileOutputStream(data);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-			oos.writeObject(this.img);
-
-			oos.close();
-			fos.close();
-		}catch (IOException e) {
-			throw new RuntimeException("Impossible d'écrire les données");
-		}
-	}
-	
-	public void SerialString() {
-		
-	}
-
-	public HashSet<Photo> DeserialPhoto() {
-		try {
-			FileInputStream fis = new FileInputStream(data);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-
-			HashSet<Photo> SetReturn = new HashSet<Photo>();
-			SetReturn = (HashSet<Photo>) ois.readObject();
-
-			ois.close();
-			fis.close();
-			return SetReturn;
-		}catch (IOException | ClassNotFoundException e) {
-			throw new RuntimeException("Lecture des données impossible");
-		}
-	}
-	
+//	public void serialPhoto() {
+//		try {
+//			FileOutputStream fos = new FileOutputStream(data);
+//			ObjectOutputStream oos = new ObjectOutputStream(fos);
+//
+//			oos.writeObject(this.img);
+//
+//			oos.close();
+//			fos.close();
+//		}catch (IOException e) {
+//			throw new RuntimeException("Impossible d'écrire les données");
+//		}
+//	}
+//	
+//	public HashSet<Photo> deserialPhoto() {
+//		try {
+//			FileInputStream fis = new FileInputStream(data);
+//			ObjectInputStream ois = new ObjectInputStream(fis);
+//
+//			HashSet<Photo> SetReturn = new HashSet<Photo>();
+//			SetReturn = (HashSet<Photo>) ois.readObject();
+//
+//			ois.close();
+//			fis.close();
+//			return SetReturn;
+//		}catch (IOException | ClassNotFoundException e) {
+//			throw new RuntimeException("Lecture des données impossible");
+//		}
+//	}
+//	
 	
 
 

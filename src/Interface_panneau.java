@@ -7,7 +7,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,6 +34,42 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public static Controleur ctrl = new Controleur(modele);
 
 	public static void main(String[] args) throws IOException {
+		
+		
+		/*
+		 * Deserialisation du fichier .dat
+		 */
+		File data = new File(".");
+		String[] ContenuData = data.list();
+		Boolean DataEstPresent = false;
+
+				//Test si fichier data exsite
+				for(String s : ContenuData) {
+					if(s.equals("Photo.dat")) {
+						DataEstPresent= true;
+					}
+				}
+		
+				System.out.println(DataEstPresent);
+				
+				if(DataEstPresent) {
+					System.out.println("Chargement des images depuis le fichier .dat");
+					Modele.deserialPhoto();
+					Iterator<Photo> it = Modele.images.iterator();
+					while(it.hasNext()) {
+						Photo myCurrentPhoto = it.next();
+						myCurrentPhoto.toBuffered();
+						//Test de serial en affichant les notes
+						System.out.println(myCurrentPhoto.getNote());
+					}
+				}
+
+			
+		
+		
+		
+		
+		
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
@@ -166,6 +204,17 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+		Iterator<Photo> it = Modele.images.iterator();
+		while(it.hasNext()) {
+			Photo myCurrentPhoto = it.next();
+			try {
+				myCurrentPhoto.toByte();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		Modele.serialPhoto();
 		System.exit(0);		
 	}
 
