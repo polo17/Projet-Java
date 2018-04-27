@@ -10,14 +10,11 @@ import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
-
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
@@ -42,17 +39,14 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		f.setLayout(new BorderLayout());		
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
-		p.setBackground(new Color(102,255,178));;
+		p.setBackground(new Color(204,255,204));;
 		p.addMouseListener(p);
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
 		f.setSize(1000, 800);
-		/*
-		JScrollPane scroll = new JScrollPane(i);
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		f.add(scroll);
-		 */
-		//slider pour les etoiles
+		
+
+		 
 		f.setVisible(true);
 	}
 
@@ -61,7 +55,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
-		pan.setBackground(new Color(102,255,178));
+		pan.setBackground(new Color(204,255,204));
 		Label la1 = new Label("Saisir nom :", Label.LEFT);
 		pan.add(la1);
 		JTextField saisie_nom = new JTextField();
@@ -81,7 +75,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<couleurs.length;i++) {
 			JCheckBox cocher_couleur = new JCheckBox(couleurs[i]);
 			cocher_couleur.setAlignmentX(CENTER_ALIGNMENT);
-			cocher_couleur.setBackground(new Color(102,255,178));
+			cocher_couleur.setBackground(new Color(204,255,204));
 			cocher_couleur.setName(couleurs[i]);
 			cocher_couleur.addActionListener(ctrl);
 			pan.add(cocher_couleur);
@@ -92,7 +86,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<tailles.length;i++) {
 			JCheckBox cocher_taille = new JCheckBox(tailles[i]);
 			cocher_taille.setAlignmentX(CENTER_ALIGNMENT);
-			cocher_taille.setBackground(new Color(102,255,178));
+			cocher_taille.setBackground(new Color(204,255,204));
 			cocher_taille.setName(tailles[i]);
 			cocher_taille.addActionListener(ctrl);			
 			pan.add(cocher_taille);
@@ -103,10 +97,10 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		for (int i=0;i<notes.length;i++) {
 			JCheckBox cocher_note = new JCheckBox(notes[i]);
 			cocher_note.setAlignmentX(CENTER_ALIGNMENT);
-			cocher_note.setBackground(new Color(102,255,178));
+			cocher_note.setBackground(new Color(204,255,204));
 			cocher_note.setName(notes[i]);
 			cocher_note.addActionListener(ctrl);
-			
+
 			pan.add(cocher_note);
 		}
 

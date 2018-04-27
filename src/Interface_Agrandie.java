@@ -20,23 +20,29 @@ public class Interface_Agrandie extends JFrame{
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
+	
 	public BufferedImage select;
 	public Photo photo;
+	
+	public static int TAILLE_X = 700;
+	public static int TAILLE_Y = 390;
 
 	public Interface_Agrandie (Photo img) throws IOException{
+		
 		super();
 		this.photo = img;
 		this.select = (BufferedImage)img.img; 
 		setLayout(new FlowLayout());
-		setSize(900,490);
+		setSize(TAILLE_X+200,TAILLE_Y+100);
 		setBackground(new Color(204, 255, 255));
 		setTitle(photo.nom);
+		this.setBackground(Color.black);
 
 		Panel etoiles = new Panel();
 		etoiles.setLayout(new BoxLayout(etoiles, BoxLayout.Y_AXIS));
 		etoiles.setBackground(new Color(204, 255, 255));
 		add(etoiles);
-		
+
 		ButtonGroup group = new ButtonGroup();
 		Label lab = new Label("Notez l'image :", Label.LEFT);
 		etoiles.add(lab);
@@ -49,12 +55,13 @@ public class Interface_Agrandie extends JFrame{
 			group.add(cocher_etoile);
 			etoiles.add(cocher_etoile);
 		}
+		
 		Panel tags = new Panel();
 		tags.setLayout(new BoxLayout(tags, BoxLayout.Y_AXIS));
 		tags.setBackground(new Color(204, 255, 255));
 		add(tags);
-		
-		Label la2 = new Label("Ajouter un tag :", Label.LEFT);
+
+		Label la2 = new Label("Ajoutez un tag :", Label.LEFT);
 		tags.add(la2);
 		JTextField saisie_tag = new JTextField();
 		saisie_tag.setName("tageur");
@@ -67,7 +74,7 @@ public class Interface_Agrandie extends JFrame{
 		Label les_tags = new Label("Liste des tags : ", Label.LEFT);
 		list_tags.add(les_tags);
 		add(list_tags);
-		
+
 		for (int i=0; i<photo.tags.size()-1;i++){
 			Label la0 = new Label(photo.tags.get(i), Label.LEFT);
 			list_tags.add(la0);
@@ -75,10 +82,10 @@ public class Interface_Agrandie extends JFrame{
 		revalidate();
 		setVisible(true);
 	}
-	
+
 	public void paint(Graphics g) {
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g.drawImage(select, 0, 100, 700, 390, null);
+		g.drawImage(select, 0, 100, TAILLE_X, TAILLE_Y, null);
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -7,11 +7,12 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+
+import javax.swing.JScrollPane;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 
@@ -25,7 +26,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	public Interface_miniatures() throws IOException {
 
-		this.setBackground(new Color(102,102,255));
+		this.setBackground(new Color(204,229,255));
 		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
 		this.setLayout(gl);
 
@@ -40,6 +41,11 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			cases.setName(tmp.nom);
 			this.add(cases);
 		}
+		/*
+		JScrollPane scroll = new JScrollPane();
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		add(scroll);
+		*/
 		this.setVisible(true);	    
 	}
 
@@ -57,7 +63,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			if (drapeau) {
 				im.setVisible(true);
 				revalidate();}
-
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}	
@@ -71,7 +76,6 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;		
-
 
 		if (modele.photos_triés instanceof Set) {
 
