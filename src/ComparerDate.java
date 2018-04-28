@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class ComparerDate implements Comparator {
+public class ComparerDate implements Comparator<Object> {
 	public int compare(Object p1, Object p2) {
 		int result =  ((Photo)p1).date.compareTo(((Photo)p2).date);
 		if(result == 0){

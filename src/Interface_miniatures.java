@@ -12,8 +12,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-import javax.swing.JScrollPane;
-
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 
 	Modele modele = Interface_panneau.modele;
@@ -45,7 +43,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		JScrollPane scroll = new JScrollPane();
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(scroll);
-		*/
+		 */
 		this.setVisible(true);	    
 	}
 
@@ -75,14 +73,15 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
-		ImagePanel.TAILLE_Y=90;		
-
+		ImagePanel.TAILLE_Y=90;	
+		
+		this.removeAll();
+		
 		if (modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
-			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty()) {
-				this.removeAll();
+			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
 				Iterator<Photo> i = modele.images.iterator();
 				Photo myPicture;
 				while(i.hasNext()){
@@ -98,12 +97,26 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 					}
 				}
 				revalidate();
-			}
-			else if (((Set<Photo>) modele.photos_triés).isEmpty() && ! modele.demandes.isEmpty()) {
-				this.removeAll();
+			}			
+			else if (! ((Set<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
+				Photo myPicture;
+				ImagePanel cases;
+				while(i.hasNext()){
+					Photo tmp = (Photo)i.next();
+					try {
+						myPicture = tmp;
+						cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(tmp.nom);
+						this.add(cases);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					revalidate();		
+				}
 			}
 			else {
-				this.removeAll();
 				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
 				Photo myPicture;
 				ImagePanel cases;
@@ -122,48 +135,24 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 				}
 			}
 		}
-		else {
-			if(((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
-				this.removeAll();
-			}
-			else if (! ((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
-				this.removeAll();
-				ArrayList<Photo> actu = (ArrayList<Photo>)modele.photos_triés;
-				Photo myPicture;
-				ImagePanel cases;
-				for(int i = 0; i<actu.size();i++) {
-					try {
-						myPicture = actu.get(i);
-						cases = new ImagePanel(myPicture);
-						cases.addMouseListener(this);
-						cases.setName(actu.get(i).nom);
-						this.add(cases);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					revalidate();	
+		else { //si c'est par ordre particulier avec la combo box
+			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
+			Photo myPicture;
+			ImagePanel cases;
+			for(int i = 0; i<actu.size();i++) {
+				try {
+					myPicture = actu.get(i);
+					cases = new ImagePanel(myPicture);
+					cases.addMouseListener(this);
+					cases.setName(actu.get(i).nom);
+					this.add(cases);
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			}
-			else{
-				this.removeAll();
-				Iterator<Photo> i = modele.images.iterator();
-				Photo myPicture;
-				ImagePanel cases;
-				while(i.hasNext()){
-					Photo tmp = (Photo)i.next();
-					try {
-						myPicture = tmp;
-						cases = new ImagePanel(myPicture);
-						cases.addMouseListener(this);
-						cases.setName(tmp.nom);
-						this.add(cases);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					revalidate();	
-				}		
-			}
+				revalidate();
+			}		
 		}
+
 		this.setVisible(true);
 	}
 

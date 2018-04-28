@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 public class ImagePanel extends Panel {
 
 	public static int TAILLE_X = 160;

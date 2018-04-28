@@ -29,15 +29,13 @@ public class Controleur implements ActionListener, MouseListener{
 	 * @throws IOException
 	 */
 	public Controleur (Modele m) {
-		
-		
 
 		this.modele = m ;
 
 		File repertoire = new File(Controleur.REPERTOIRE);
-//		File data = new File(Controleur.DATA);
-//		String[] ContenuData = data.list();
-//		Boolean DataEstPresent = false;
+		//		File data = new File(Controleur.DATA);
+		//		String[] ContenuData = data.list();
+		//		Boolean DataEstPresent = false;
 
 		//		//Test si fichier data exsite
 		//		for(String s : ContenuData) {
@@ -64,8 +62,6 @@ public class Controleur implements ActionListener, MouseListener{
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
-				modele.Mot_clé.put(noms[i], modele.images);
-
 				try {
 					m.ajouterImage(rim);
 				} catch (IOException e) {
@@ -74,13 +70,11 @@ public class Controleur implements ActionListener, MouseListener{
 
 			}
 		}
-
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (e.getSource() instanceof JRadioButton){
 			ImagePanel panl = Interface_miniatures.panl;
 			Photo p = panl.photo;
@@ -99,11 +93,8 @@ public class Controleur implements ActionListener, MouseListener{
 						Modele.images.add(p);
 						break;
 					}
-
 				}
-
 			}
-
 		}
 
 		else if (e.getSource() instanceof JTextField) {
@@ -135,8 +126,6 @@ public class Controleur implements ActionListener, MouseListener{
 				modele.triage_tag(nom);
 				Modele.ancienne_demande = nom;
 			}
-
-
 		}
 
 		else if(e.getSource() instanceof JCheckBox){
@@ -159,21 +148,6 @@ public class Controleur implements ActionListener, MouseListener{
 
 
 	}
-
-
-	//modele.triage(nom);
-	//System.out.println(Modele.demandes);
-	//System.out.println(Modele.photos_triés);
-
-	/*
-		Iterator i = modele.images.iterator();
-		while(i.hasNext()){
-			Photo tmp = (Photo)i.next();
-			System.out.println(tmp.date instanceof String);
-		}
-	 */
-
-
 
 
 	@Override

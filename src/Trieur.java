@@ -7,7 +7,6 @@ import java.util.TreeSet;
 
 public class Trieur {
 
-
 	String demande; //type de demande (rouge, moyenne, nbr étoiles, etc ...)
 
 	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue

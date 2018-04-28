@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
@@ -33,7 +33,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public static void main(String[] args) throws IOException {
 		
 		
-		/*
+		/**
 		 * Deserialisation du fichier .dat
 		 */
 		File data = new File(".");
@@ -63,11 +63,6 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 			
 		
-		
-		
-		
-		
-
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 
@@ -204,7 +199,6 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			try {
 				myCurrentPhoto.toByte();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

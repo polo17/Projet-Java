@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("serial")
 public class Photo implements Serializable {	
 	
 	String nom;
@@ -27,8 +28,6 @@ public class Photo implements Serializable {
 	
 	byte[] bufferedToByte;
 	
-	//TODO Faire l'ajout de tag et le tri
-
 	/**
 	 * @param n Nom de la photo
 	 * @param t Taille de photo

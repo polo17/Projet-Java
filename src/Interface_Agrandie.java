@@ -12,10 +12,10 @@ import java.io.IOException;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+@SuppressWarnings("serial")
 public class Interface_Agrandie extends JFrame{
 
 	Modele modele = Interface_panneau.modele;
