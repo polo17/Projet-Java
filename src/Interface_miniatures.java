@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -24,11 +25,13 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	public Interface_miniatures() throws IOException {
 
-		this.setBackground(new Color(204,229,255));
-		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
-		this.setLayout(gl);
+		setBackground(new Color(204,229,255));
+		//FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
+		
+		GridLayout gl = new GridLayout(0,4,10,10);
+		setLayout(gl);	
 
-		// Affichage de toutes les images au lancement de l'applcation
+		// Affichage de toutes les images au lancement de l'application
 		Iterator<Photo> i = modele.images.iterator();
 		Photo myPicture;
 		while(i.hasNext()){
@@ -37,20 +40,16 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
-			this.add(cases);
+			add(cases);
 		}
-		/*
-		JScrollPane scroll = new JScrollPane();
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		add(scroll);
-		 */
 		this.setVisible(true);	    
 	}
 
 	/**
 	 * Crée une fenêtre pour afficher l'image
-	 * appelée à chaque clic sur un pannel
+	 * appelée à chaque clic sur un panel
 	 */
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 
@@ -69,6 +68,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	/**
 	 * Fait le tri à chaque modification du modèle
 	 */
+	
 	@Override
 	public void update(Observable o, Object photo_t) {
 
@@ -153,6 +153,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			}		
 		}
 
+		repaint();
 		this.setVisible(true);
 	}
 
