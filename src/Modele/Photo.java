@@ -1,3 +1,5 @@
+package Modele;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -9,26 +11,25 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("serial")
 public class Photo implements Serializable {	
 	
-	String nom;
+	public String nom;
 	
 	int taille;
 	
-	String date;
+	public String date;
 	
 	Color couleur;
 	
-	ArrayList<String> tags;
+	public ArrayList<String> tags;
 	
-	int note;
+	public int note;
 	
-	BufferedImage img;
+	public BufferedImage img;
 	
 	byte[] bufferedToByte;
 	
-	//TODO Faire l'ajout de tag et le tri
-
 	/**
 	 * @param n Nom de la photo
 	 * @param t Taille de photo
@@ -54,7 +55,14 @@ public class Photo implements Serializable {
 		this.tags.add(t);
 	}
 	
+
+
+	public void rmTags() {
+		while(this.tags.size() != 0) this.tags.remove(0);
+	}
+	
 	public String getNom() {
+
 		return this.nom;
 	}
 	

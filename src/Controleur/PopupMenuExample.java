@@ -1,3 +1,6 @@
+package Controleur;
+import Modele.ImagePanel;
+import Modele.Modele;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -14,6 +17,8 @@ import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
+
+import Modele.Photo;
 
 public class PopupMenuExample  extends JPanel{
 

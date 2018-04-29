@@ -1,3 +1,6 @@
+package Vue;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -11,11 +14,16 @@ import java.io.IOException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import Controleur.Controleur;
+import Modele.Modele;
+import Modele.Photo;
+
+@SuppressWarnings("serial")
 public class Interface_Agrandie extends JFrame{
 
 	Modele modele = Interface_panneau.modele;
@@ -35,7 +43,10 @@ public class Interface_Agrandie extends JFrame{
 		setLayout(new FlowLayout());
 		setSize(TAILLE_X+200,TAILLE_Y+100);
 		setBackground(new Color(204, 255, 255));
-		setTitle(photo.nom);
+		String titre = photo.nom;
+		titre = titre.replace(".jpg", "");
+		setTitle(titre);
+
 		this.setBackground(Color.black);
 
 		Panel etoiles = new Panel();
@@ -67,6 +78,11 @@ public class Interface_Agrandie extends JFrame{
 		saisie_tag.setName("tageur");
 		saisie_tag.addActionListener(ctrl);
 		tags.add(saisie_tag);
+		JButton effacer = new JButton("effacer les tags");
+		effacer.setName("b_effacer");
+		effacer.addActionListener(ctrl);
+		effacer.setAlignmentX(CENTER_ALIGNMENT);
+		tags.add(effacer,BorderLayout.SOUTH);
 
 		Panel list_tags = new Panel();
 		list_tags.setLayout(new BoxLayout(list_tags, BoxLayout.Y_AXIS));

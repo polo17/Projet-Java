@@ -1,3 +1,5 @@
+package Vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -25,8 +28,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JPopupMenu;
 
+import Controleur.Controleur;
+import Modele.Modele;
+import Modele.Photo;
+
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
-	
+
 
 	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date"};
 	String[] couleurs = {"rouge","vert","bleu"};
@@ -67,6 +74,9 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		}
 
 
+
+
+
 		JFrame f = new JFrame();
 
 
@@ -76,22 +86,33 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 		modele.addObserver(i);
 
-		
+
 		f.setLayout(new BorderLayout());
-		
+
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
-		
+
+
+		p.setBackground(new Color(204,255,204));
+
+
 		p.setBackground(new Color(204,255,204));
 
 		p.addMouseListener(p);
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
-		f.setSize(1000, 800);
-		
+		f.setSize(950, 780);
+
+		JScrollPane scroll = new JScrollPane(i);
+		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		f.add(scroll, BorderLayout.CENTER);
+
+
+		f.revalidate();
+		f.repaint();
 
 		f.setVisible(true);
-	
+
 
 
 	}
@@ -102,6 +123,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
 		pan.setBackground(new Color(204,255,204));
+
 		Label la1 = new Label("Saisir nom :", Label.LEFT);
 		pan.add(la1);
 		JTextField saisie_nom = new JTextField();
@@ -146,7 +168,6 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			cocher_note.setBackground(new Color(204,255,204));
 			cocher_note.setName(notes[i]);
 			cocher_note.addActionListener(ctrl);
-
 			pan.add(cocher_note);
 		}
 
@@ -157,6 +178,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		pan.add(l_trier);
 
 		JButton trier = new JButton("trier");
+		trier.setName("b_trier");
 		trier.addActionListener(ctrl);
 		trier.setAlignmentX(CENTER_ALIGNMENT);
 		pan.add(trier,BorderLayout.SOUTH);
@@ -166,43 +188,34 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-
-
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-
 	}
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
-
 	}
 
 	@Override
@@ -213,7 +226,6 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			try {
 				myCurrentPhoto.toByte();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -223,23 +235,21 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowIconified(WindowEvent arg0) {
-
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0) {
-
 	}
-	
+
+
 
 }
+

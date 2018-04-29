@@ -1,3 +1,5 @@
+package Controleur;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -9,12 +11,12 @@ import javax.imageio.ImageIO;
 
 /**
  * 
- * @author ltourn01
- *
+ * @author Ludovic
+ * Classe permettant de récupérer toutes les propriétés d'un fichier
  */
 public class Recuperateur {
 
-	File file;
+	public File file;
 	
 	public Recuperateur(String filename) {
 		this.file = new File(filename);
@@ -42,7 +44,7 @@ public class Recuperateur {
 
 	/**
 	 * 
-	 * @return Recupere la couleur dominante de l'image
+	 * @return la couleur dominante de l'image
 	 * @throws IOException
 	 */
 	public Color obtenirCouleur() throws IOException{
@@ -72,7 +74,7 @@ public class Recuperateur {
 
 	/**
 	 * 
-	 * @return L'image du file
+	 * @return l'image du fichier
 	 * @throws IOException
 	 */
 	public BufferedImage obtenirImage() throws IOException{

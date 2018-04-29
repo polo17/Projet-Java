@@ -1,3 +1,5 @@
+package Modele;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -10,6 +12,8 @@ import java.io.IOException;
 import javax.swing.JPanel;
 
 public class ImagePanel extends JPanel {
+
+
 
 	public static int TAILLE_X = 160;
 	public static int TAILLE_Y = 90;

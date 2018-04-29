@@ -1,3 +1,5 @@
+package Controleur;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,6 +13,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import Modele.ImagePanel;
+import Modele.Modele;
+import Modele.Photo;
+import Vue.Interface_miniatures;
+import Vue.Interface_panneau;
 
 public class Controleur implements ActionListener, MouseListener{
 
@@ -29,15 +37,13 @@ public class Controleur implements ActionListener, MouseListener{
 	 * @throws IOException
 	 */
 	public Controleur (Modele m) {
-		
-		
 
 		this.modele = m ;
 
 		File repertoire = new File(Controleur.REPERTOIRE);
-//		File data = new File(Controleur.DATA);
-//		String[] ContenuData = data.list();
-//		Boolean DataEstPresent = false;
+		//		File data = new File(Controleur.DATA);
+		//		String[] ContenuData = data.list();
+		//		Boolean DataEstPresent = false;
 
 		//		//Test si fichier data exsite
 		//		for(String s : ContenuData) {
@@ -64,7 +70,6 @@ public class Controleur implements ActionListener, MouseListener{
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
-				modele.Mot_clé.put(noms[i], Modele.images);
 
 				try {
 					m.ajouterImage(rim);
@@ -74,13 +79,11 @@ public class Controleur implements ActionListener, MouseListener{
 
 			}
 		}
-
 	}
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		if (e.getSource() instanceof JRadioButton){
 			ImagePanel panl = Interface_miniatures.panl;
 			Photo p = panl.photo;
@@ -99,11 +102,8 @@ public class Controleur implements ActionListener, MouseListener{
 						Modele.images.add(p);
 						break;
 					}
-
 				}
-
 			}
-
 		}
 
 		else if (e.getSource() instanceof JTextField) {
@@ -135,8 +135,6 @@ public class Controleur implements ActionListener, MouseListener{
 				modele.triage_tag(nom);
 				Modele.ancienne_demande = nom;
 			}
-
-
 		}
 
 		else if(e.getSource() instanceof JCheckBox){
@@ -151,29 +149,33 @@ public class Controleur implements ActionListener, MouseListener{
 		}
 
 		else if (e.getSource() instanceof JButton) {
-			for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
-				if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
+			JButton bt = (JButton) e.getSource();
+			if (bt.getName().equals("b_trier")) {
+				for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
+					if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
+				}
 			}
+			else {
+				ImagePanel panl = Interface_miniatures.panl;
+				Photo p = panl.photo;
+
+				Iterator<Photo> i2 = Modele.images.iterator();
+				while(i2.hasNext()){
+					Photo tmp = (Photo)i2.next();
+					if (tmp.nom.equals(p.nom)){						
+						tmp.rmTags();
+						p.rmTags();
+						Modele.images.remove(tmp);
+						Modele.images.add(p);
+						break;
+					}
+
+				}
+			}
+
 		}
-
-
 
 	}
-
-
-	//modele.triage(nom);
-	//System.out.println(Modele.demandes);
-	//System.out.println(Modele.photos_triés);
-
-	/*
-		Iterator i = modele.images.iterator();
-		while(i.hasNext()){
-			Photo tmp = (Photo)i.next();
-			System.out.println(tmp.date instanceof String);
-		}
-	 */
-
-
 
 
 	@Override

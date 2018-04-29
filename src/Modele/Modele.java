@@ -1,3 +1,5 @@
+package Modele;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,21 +12,19 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
 
+import Controleur.Recuperateur;
+import Controleur.Trieur;
+import Controleur.Trieur_tag;
+
 public class Modele extends Observable {
 
-	public Hashtable<String, HashSet<Photo> > Mot_clé;
-
 	public static Hashtable<String, HashSet<Photo>> Dates;
-
 	public static Hashtable<String, HashSet<Photo>> Tailles;
-
 	public static Hashtable <Color, HashSet<Photo>> Couleurs;
-
-	public Hashtable <String, HashSet<Photo>> Lieux;
 
 	public static Object photos_triés = new Object();
 
-	public static HashSet<Photo> images;
+	public static HashSet<Photo> images; //Ensemble principal des photos
 
 	public static ArrayList<String> demandes = new ArrayList<String>();
 	public static String ancienne_demande;
@@ -35,11 +35,9 @@ public class Modele extends Observable {
 
 	public Modele(){
 
-		this.Mot_clé = new Hashtable<String, HashSet<Photo>>();
 		this.Dates = new Hashtable<String, HashSet<Photo>>();
 		this.Tailles = new Hashtable<String, HashSet<Photo>>();
 		this.Couleurs = new Hashtable<Color, HashSet<Photo>>();
-		this.Lieux = new Hashtable<String, HashSet<Photo>>();
 
 		this.images = new HashSet<Photo>();
 		this.data=new File("Photo.dat");
@@ -91,7 +89,6 @@ public class Modele extends Observable {
 	}
 
 	public void triage(String n){
-
 		Trieur t = new Trieur(n);
 		this.photos_triés = t.tri();
 		this.setChanged();

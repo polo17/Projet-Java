@@ -1,5 +1,8 @@
+package Vue;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +23,13 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
+import Controleur.Controleur;
+import Controleur.PopupMenuExample;
+import Modele.ImagePanel;
+import Modele.Modele;
+import Modele.Photo;
+
+
 public class Interface_miniatures extends JPanel implements MouseListener, WindowListener, Observer{
 
 	Modele modele = Interface_panneau.modele;
@@ -29,55 +39,55 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	private Object images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
 	public Interface_miniatures() throws IOException {
-		//		ActionListener menuListener = new ActionListener() {
-		//			public void actionPerformed(ActionEvent event) {
-		//				System.out.println(event.getActionCommand());
-		//			}
-		//
-		//		};
+
+
 
 
 		// Affichage de toutes les images au lancement de l'applcation
 		Iterator<Photo> i = Modele.images.iterator();
+
+		setBackground(new Color(204,229,255));
+		//FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
+
+		GridLayout gl = new GridLayout(0,4,10,10);
+		setLayout(gl);	
+
+
 		Photo myPicture;
 		while(i.hasNext()){
-			
+
 			Photo tmp = (Photo)i.next();
 			PopupMenuExample popup = new PopupMenuExample(tmp);
 			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
+
 			cases.setComponentPopupMenu(popup.popup);
-			this.add(cases);
-			
-			//		}
-			//		JMenuItem item;
-			//		popup = new JPopupMenu();
-			//		item = new JMenuItem("Click me");
-			//		item.addActionListener(menuListener);
-			//		popup.add(item);
-			//Interface_panneau.f.add(popup);
-			/*
+			this.add(cases);}
+
+		//		}
+		//		JMenuItem item;
+		//		popup = new JPopupMenu();
+		//		item = new JMenuItem("Click me");
+		//		item.addActionListener(menuListener);
+		//		popup.add(item);
+		//Interface_panneau.f.add(popup);
+		/*
 		JScrollPane scroll = new JScrollPane();
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(scroll);
-			 */
+		 */
 
-		}
-
-		this.setBackground(new Color(204,229,255));
-		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
-		this.setLayout(gl);
-		
-		
-		this.setVisible(true);	    
 	}
+
+
 
 	/**
 	 * Crée une fenêtre pour afficher l'image
-	 * appelée à chaque clic sur un pannel
+	 * appelée à chaque clic sur un panel
 	 */
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton()==1) {
@@ -92,7 +102,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 				e1.printStackTrace();
 			}	
 		}
-		
+
 
 
 
@@ -103,18 +113,20 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	/**
 	 * Fait le tri à chaque modification du modèle
 	 */
+
 	@Override
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
-		ImagePanel.TAILLE_Y=90;		
+		ImagePanel.TAILLE_Y=90;	
+
+		this.removeAll();
 
 		if (modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
-			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty()) {
-				this.removeAll();
+			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
 				Iterator<Photo> i = modele.images.iterator();
 				Photo myPicture;
 				while(i.hasNext()){
@@ -130,12 +142,26 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 					}
 				}
 				revalidate();
-			}
-			else if (((Set<Photo>) modele.photos_triés).isEmpty() && ! modele.demandes.isEmpty()) {
-				this.removeAll();
+			}			
+			else if (! ((Set<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
+				Photo myPicture;
+				ImagePanel cases;
+				while(i.hasNext()){
+					Photo tmp = (Photo)i.next();
+					try {
+						myPicture = tmp;
+						cases = new ImagePanel(myPicture);
+						cases.addMouseListener(this);
+						cases.setName(tmp.nom);
+						this.add(cases);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					revalidate();		
+				}
 			}
 			else {
-				this.removeAll();
 				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
 				Photo myPicture;
 				ImagePanel cases;
@@ -154,48 +180,25 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 				}
 			}
 		}
-		else {
-			if(((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
-				this.removeAll();
-			}
-			else if (! ((ArrayList<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
-				this.removeAll();
-				ArrayList<Photo> actu = (ArrayList<Photo>)modele.photos_triés;
-				Photo myPicture;
-				ImagePanel cases;
-				for(int i = 0; i<actu.size();i++) {
-					try {
-						myPicture = actu.get(i);
-						cases = new ImagePanel(myPicture);
-						cases.addMouseListener(this);
-						cases.setName(actu.get(i).nom);
-						this.add(cases);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					revalidate();	
+		else { //si c'est par ordre particulier avec la combo box
+			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
+			Photo myPicture;
+			ImagePanel cases;
+			for(int i = 0; i<actu.size();i++) {
+				try {
+					myPicture = actu.get(i);
+					cases = new ImagePanel(myPicture);
+					cases.addMouseListener(this);
+					cases.setName(actu.get(i).nom);
+					this.add(cases);
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			}
-			else{
-				this.removeAll();
-				Iterator<Photo> i = modele.images.iterator();
-				Photo myPicture;
-				ImagePanel cases;
-				while(i.hasNext()){
-					Photo tmp = (Photo)i.next();
-					try {
-						myPicture = tmp;
-						cases = new ImagePanel(myPicture);
-						cases.addMouseListener(this);
-						cases.setName(tmp.nom);
-						this.add(cases);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					revalidate();	
-				}		
-			}
+				revalidate();
+			}		
 		}
+
+		repaint();
 		this.setVisible(true);
 	}
 
