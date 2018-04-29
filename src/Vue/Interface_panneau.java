@@ -1,3 +1,5 @@
+package Vue;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Frame;
@@ -20,6 +22,10 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+
+import Controleur.Controleur;
+import Modele.Modele;
+import Modele.Photo;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
 
@@ -168,6 +174,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		pan.add(l_trier);
 
 		JButton trier = new JButton("trier");
+		trier.setName("b_trier");
 		trier.addActionListener(ctrl);
 		trier.setAlignmentX(CENTER_ALIGNMENT);
 		pan.add(trier,BorderLayout.SOUTH);

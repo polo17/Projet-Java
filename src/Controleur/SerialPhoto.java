@@ -1,5 +1,9 @@
+package Controleur;
+
 import java.io.File;
 import java.util.HashSet;
+
+import Modele.Photo;
 
 public class SerialPhoto {
 

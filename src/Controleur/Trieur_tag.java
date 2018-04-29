@@ -1,6 +1,10 @@
+package Controleur;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import Modele.Modele;
+import Modele.Photo;
 
 public class Trieur_tag {
 

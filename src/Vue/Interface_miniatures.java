@@ -1,5 +1,6 @@
+package Vue;
+
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.event.MouseEvent;
@@ -12,6 +13,11 @@ import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
+
+import Controleur.Controleur;
+import Modele.ImagePanel;
+import Modele.Modele;
+import Modele.Photo;
 
 public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 

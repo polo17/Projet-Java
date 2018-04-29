@@ -1,9 +1,14 @@
+package Controleur;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
+
+import Modele.Photo;
+import Modele.Modele;
 
 public class Trieur {
 
@@ -64,18 +69,12 @@ public class Trieur {
 
 		Modele.demandes.remove("");
 
-		if (Modele.demandes.contains("ordre alphabétique")){
-			return triAlpha();
-		}
-		if (Modele.demandes.contains("taille")) {
-			return triGrandeur();
-		}
-		if (Modele.demandes.contains("note")) {
-			return triNotation();
-		}
-		if (Modele.demandes.contains("date")) {
-			return triDatation();
-		}
+		//Demandes particulières
+		if (Modele.demandes.contains("ordre alphabétique")) return triAlpha();
+		if (Modele.demandes.contains("taille")) return triGrandeur();
+		if (Modele.demandes.contains("note")) return triNotation();
+		if (Modele.demandes.contains("date")) return triDatation();
+		if (Modele.demandes.contains("couleurs")) return triColorer();
 
 		//Tri en fonction des demandes
 		for (int c = 0; c < cou.length ; c++){
@@ -131,7 +130,7 @@ public class Trieur {
 			this.photos_t.addAll(photos_t_t);	
 
 		else this.photos_t.addAll(photos_t_e);
-		
+
 		return this.photos_t;
 	}
 
@@ -206,7 +205,7 @@ public class Trieur {
 		}
 		return fin;
 	}
-	
+
 	/**
 	 * 
 	 * @return Liste des photos triés par note
@@ -218,7 +217,7 @@ public class Trieur {
 		}
 		return fin;
 	}
-	
+
 	/**
 	 * 
 	 * @return Liste des photos triés par date, si la date est identique, le tri se fait par nom
@@ -228,6 +227,18 @@ public class Trieur {
 		P = new TreeSet<Photo>(new ComparerDate());
 		P.addAll(Modele.images);
 		ArrayList<Photo> fin = new ArrayList<Photo>(P);
+		return fin;
+	}
+
+	/**
+	 * 
+	 * @return Liste des photos triés par couleur
+	 */
+	public ArrayList<Photo> triColorer() {
+		ArrayList<Photo> fin = new ArrayList<Photo>();
+		for (int c = 0 ; c < cou.length ; c++){
+			fin.addAll(triCouleur(cou[c]));
+		}
 		return fin;
 	}
 

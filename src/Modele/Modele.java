@@ -1,3 +1,5 @@
+package Modele;
+
 import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,6 +11,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Observable;
+
+import Controleur.Recuperateur;
+import Controleur.Trieur;
+import Controleur.Trieur_tag;
 
 public class Modele extends Observable {
 

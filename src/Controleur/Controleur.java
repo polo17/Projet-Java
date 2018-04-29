@@ -1,3 +1,5 @@
+package Controleur;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -11,6 +13,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import Modele.ImagePanel;
+import Modele.Modele;
+import Modele.Photo;
+import Vue.Interface_miniatures;
+import Vue.Interface_panneau;
 
 public class Controleur implements ActionListener, MouseListener{
 
@@ -140,12 +148,31 @@ public class Controleur implements ActionListener, MouseListener{
 		}
 
 		else if (e.getSource() instanceof JButton) {
-			for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
-				if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
+			JButton bt = (JButton) e.getSource();
+			if (bt.getName().equals("b_trier")) {
+				for (int k = 0 ; k < Interface_panneau.trieur.length ; k++) {
+					if (Interface_panneau.trieur[k].equals(nom_tri)) modele.triage(nom_tri);
+				}
 			}
+			else {
+				ImagePanel panl = Interface_miniatures.panl;
+				Photo p = panl.photo;
+
+				Iterator<Photo> i2 = Modele.images.iterator();
+				while(i2.hasNext()){
+					Photo tmp = (Photo)i2.next();
+					if (tmp.nom.equals(p.nom)){						
+						tmp.rmTags();
+						p.rmTags();
+						Modele.images.remove(tmp);
+						Modele.images.add(p);
+						break;
+					}
+
+				}
+			}
+
 		}
-
-
 
 	}
 

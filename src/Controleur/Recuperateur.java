@@ -1,3 +1,5 @@
+package Controleur;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,7 +16,7 @@ import javax.imageio.ImageIO;
  */
 public class Recuperateur {
 
-	File file;
+	public File file;
 	
 	public Recuperateur(String filename) {
 		this.file = new File(filename);
