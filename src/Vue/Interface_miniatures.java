@@ -34,7 +34,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
 	public static ImagePanel panl;
-
+	private PopupMenuContext popup;
 	private Object images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
 	public Interface_miniatures() throws IOException {
@@ -56,7 +56,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 		while(i.hasNext()){
 
 			Photo tmp = (Photo)i.next();
-			PopupMenuContext popup = new PopupMenuContext(tmp);
+			this.popup = new PopupMenuContext(tmp);
 			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
@@ -123,7 +123,8 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						ImagePanel cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.add(cases);		
+						this.add(cases);
+						cases.setComponentPopupMenu(popup.popup);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -142,6 +143,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
 						this.add(cases);
+						cases.setComponentPopupMenu(popup.popup);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -160,6 +162,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
 						this.add(cases);
+						cases.setComponentPopupMenu(popup.popup);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -178,6 +181,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 					cases.addMouseListener(this);
 					cases.setName(actu.get(i).nom);
 					this.add(cases);
+					cases.setComponentPopupMenu(popup.popup);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
