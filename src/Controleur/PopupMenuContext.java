@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -60,7 +62,7 @@ public class PopupMenuContext  extends JPanel{
 				
 				else if(event.getActionCommand().equals("supprimertag")){
 					if(photo.tags.size()==0) {
-						JOptionPane.showMessageDialog(null, "Cette photo ne comporte pas de tags", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Cette photo ne comporte pas de tags", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 					else {
 						Object[] tags = (Object[]) photo.tags.toArray();
@@ -87,14 +89,18 @@ public class PopupMenuContext  extends JPanel{
 						JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+				else if(event.getActionCommand().equals("ajouterphoto")) {
+					ChoixImage ci = new ChoixImage();
+					
+					}
 				
 				else if(event.getActionCommand().equals("supprimer")) {
 					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(suppres == JOptionPane.OK_OPTION) {
-						Modele.images.remove(photo);
 						Modele.Couleurs.remove(photo.getColor());
 						Modele.Tailles.remove(photo.getTaille());
 						Modele.Dates.remove(photo.getDate());
+						Modele.images.remove(photo);
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
@@ -119,6 +125,11 @@ public class PopupMenuContext  extends JPanel{
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
 		item.setActionCommand("modifierdate");
 		item.addActionListener(menuListener);
+		popup.add(item = new JMenuItem("Ajouter une photo"));
+		item.setHorizontalTextPosition(JMenuItem.RIGHT);
+		item.setActionCommand("ajouterphoto");
+		item.addActionListener(menuListener);
+		popup.addSeparator();
 		popup.add(item = new JMenuItem("Supprimer photo"));
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
 		item.setActionCommand("supprimer");
