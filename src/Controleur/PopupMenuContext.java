@@ -31,10 +31,12 @@ public class PopupMenuContext  extends JPanel{
 		this.photo=p;
 		popup = new JPopupMenu();
 		ActionListener menuListener = new ActionListener() {
+			
+			
 			public void actionPerformed(ActionEvent event) {
+				
 				if(event.getActionCommand().equals("renommer")) {
 					String nombase = photo.getNom();
-
 					String nom = JOptionPane.showInputDialog(null, "Modifiez le nom de la photo", "Renommer photo", JOptionPane.QUESTION_MESSAGE);
 					System.out.println(nom);
 					if(!nom.equals(null) &&!nom.equals("") &&!nom.equals(nombase)) {
@@ -87,6 +89,7 @@ public class PopupMenuContext  extends JPanel{
 						JOptionPane.showMessageDialog(null, "Date modifiée avec succès", "Date modifiée", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else {
+						
 						JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -115,6 +118,18 @@ public class PopupMenuContext  extends JPanel{
 						Modele.images.remove(photo);
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
 					}
+				}
+				
+				else {
+					String info = "Nom de l'image : "+photo.getNom()+"\n"
+							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+"\n"
+									+ "Date de la photo : "+photo.getDate()+"\n"
+											+ "Couleur principale : "+photo.getColor().toString()+"\n"
+													+ "Liste de tags : "+photo.getTags().toString()+"\n"
+															+ "Note de l'image : "+String.valueOf(photo.getNote()));
+					JOptionPane.showMessageDialog(null, info, "Information de l'image", JOptionPane.INFORMATION_MESSAGE);
+													
+							
 				}
 
 			}

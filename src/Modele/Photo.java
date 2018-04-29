@@ -82,6 +82,10 @@ public class Photo implements Serializable {
 		return this.taille;
 	}
 	
+	public ArrayList<String> getTags(){
+		return this.tags;
+	}
+	
 	public void toByte() throws IOException {
 		try {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

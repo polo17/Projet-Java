@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Vector;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -36,6 +37,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 
 	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date"};
+	public static Vector<String> trieurbis = new Vector<String>();
 	String[] couleurs = {"rouge","vert","bleu"};
 	String[] tailles = {"petites","moyennes","grandes"};
 	public static String[] notes = {"1 étoile","2 étoiles","3 étoiles","4 étoiles","5 étoiles"};
@@ -57,7 +59,8 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
-
+		trieurbis.add("ordre alphabétique"); trieurbis.add("couleurs"); trieurbis.add("note"); trieurbis.add("taille");
+		trieurbis.add("date");
 		modele.addObserver(i);
 
 
@@ -147,7 +150,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 		Label la6 = new Label("Trier par : ", Label.LEFT);
 		pan.add(la6);
-		JComboBox l_trier = new JComboBox(trieur);
+		JComboBox l_trier = new JComboBox(trieurbis);
 		l_trier.addActionListener(ctrl);		
 		pan.add(l_trier);
 
