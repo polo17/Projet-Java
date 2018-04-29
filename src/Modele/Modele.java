@@ -43,7 +43,7 @@ public class Modele extends Observable {
 		Modele.data=new File("Photo.dat");
 	}
 
-	public void ajouterImage(Recuperateur rim) throws IOException{
+	public static void ajouterImage(Recuperateur rim) throws IOException{
 		Photo photo = new Photo(
 				rim.file.getName(),
 				rim.obtenirTaille(),

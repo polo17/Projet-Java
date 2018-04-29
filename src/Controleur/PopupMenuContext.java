@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -38,7 +39,7 @@ public class PopupMenuContext  extends JPanel{
 					System.out.println(nom);
 					if(!nom.equals(null) &&!nom.equals("") &&!nom.equals(nombase)) {
 						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
-						
+
 					}
 					else if(nom.equals("")){
 						JOptionPane.showMessageDialog(null, "Veuillez entrer un nom correct", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -47,19 +48,19 @@ public class PopupMenuContext  extends JPanel{
 						JOptionPane.showMessageDialog(null, "Veuillez entrer un nom différent de l'ancien", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
-				
+
 				else if(event.getActionCommand().equals("ajoutertag")) {
 					int l = photo.tags.size();
 					String tag = JOptionPane.showInputDialog(null, "Veuillez entrer tag"   , "Ajout de tag", JOptionPane.QUESTION_MESSAGE);
 					photo.tags.add(tag);
 					if(photo.tags.size() == l+1) {
-					JOptionPane.showMessageDialog(null, "Tag ajouté !", "Ajout tag", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Tag ajouté !", "Ajout tag", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else if (photo.tags.size() != l+1 || tag.equals("")){
 						JOptionPane.showMessageDialog(null, "Le tag n'a pas été ajouté, veuillez re-essayer", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				}
-				
+
 				else if(event.getActionCommand().equals("supprimertag")){
 					if(photo.tags.size()==0) {
 						JOptionPane.showMessageDialog(null, "Cette photo ne comporte pas de tags", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -71,29 +72,40 @@ public class PopupMenuContext  extends JPanel{
 						JOptionPane.showMessageDialog(null, nom + " a bien été retiré de la liste des tags", "Suppresion effectuée", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
-				
+
 				else if(event.getActionCommand().equals("modifierdate")) {
 					String date = JOptionPane.showInputDialog(null, "Veuillez entrer une date au format jj/mm/aaaa", "Modifier la date", JOptionPane.QUESTION_MESSAGE);
 					if(date.charAt(2)=='/' && date.charAt(5)=='/' && date.length()==10) {
-					HashSet<Photo> hs = Modele.Dates.get(photo.getDate());
-					Iterator<Photo> it = hs.iterator();
-					while(it.hasNext()) {
-						if(it.next().equals(photo)) {
-							it.next().date=date;
+						HashSet<Photo> hs = Modele.Dates.get(photo.getDate());
+						Iterator<Photo> it = hs.iterator();
+						while(it.hasNext()) {
+							if(it.next().equals(photo)) {
+								it.next().date=date;
+							}
 						}
-					}
-					photo.date=date;
-					JOptionPane.showMessageDialog(null, "Date modifiée avec succès", "Date modifiée", JOptionPane.INFORMATION_MESSAGE);
+						photo.date=date;
+						JOptionPane.showMessageDialog(null, "Date modifiée avec succès", "Date modifiée", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Veuillez entrer une date valide", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 				}
+
+
 				else if(event.getActionCommand().equals("ajouterphoto")) {
 					ChoixImage ci = new ChoixImage();
-					
+					File f = ci.imageSelected();
+					if(ci.fileIsNotIsNoGood(f)) {
+						Recuperateur r = new Recuperateur(f.getPath());
+						try {
+							Modele.ajouterImage(r);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 					}
-				
+				}
+
 				else if(event.getActionCommand().equals("supprimer")) {
 					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(suppres == JOptionPane.OK_OPTION) {
@@ -104,7 +116,7 @@ public class PopupMenuContext  extends JPanel{
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
-				
+
 			}
 		};
 		JMenuItem item;
@@ -112,7 +124,7 @@ public class PopupMenuContext  extends JPanel{
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
 		item.setActionCommand("renommer");
 		item.addActionListener(menuListener);
-		
+
 		popup.add(item = new JMenuItem("Ajouter un tag"));
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
 		item.setActionCommand("ajoutertag");
@@ -143,7 +155,7 @@ public class PopupMenuContext  extends JPanel{
 
 
 		addMouseListener(new MousePopupListener());
-		
+
 	}
 
 	class MousePopupListener extends MouseAdapter {

@@ -45,33 +45,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public static void main(String[] args) throws IOException {
 
 
-		/*
-		 * Deserialisation du fichier .dat
-		 */
-		File data = new File(".");
-		String[] ContenuData = data.list();
-		Boolean DataEstPresent = false;
 
-		//Test si fichier data exsite
-		for(String s : ContenuData) {
-			if(s.equals("Photo.dat")) {
-				DataEstPresent= true;
-			}
-		}
-
-		System.out.println(DataEstPresent);
-
-		if(DataEstPresent) {
-			System.out.println("Chargement des images depuis le fichier .dat");
-			Modele.deserialPhoto();
-			Iterator<Photo> it = Modele.images.iterator();
-			while(it.hasNext()) {
-				Photo myCurrentPhoto = it.next();
-				myCurrentPhoto.toBuffered();
-				//Test de serial en affichant les notes
-				System.out.println(myCurrentPhoto.getNote());
-			}
-		}
 
 
 
