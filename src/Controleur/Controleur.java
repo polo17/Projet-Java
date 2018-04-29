@@ -41,26 +41,7 @@ public class Controleur implements ActionListener, MouseListener{
 		this.modele = m ;
 
 		File repertoire = new File(Controleur.REPERTOIRE);
-		//		File data = new File(Controleur.DATA);
-		//		String[] ContenuData = data.list();
-		//		Boolean DataEstPresent = false;
 
-		//		//Test si fichier data exsite
-		//		for(String s : ContenuData) {
-		//			if(s.equals("photo.dat")) {
-		//				DataEstPresent= true;
-		//
-		//			}
-		//		}
-		//
-		//		System.out.println(DataEstPresent);
-		//		Iterator<Photo> it = this.modele.images.iterator();
-		//		ArrayList<String> StringNom = new ArrayList<String>();
-		//		if(DataEstPresent) {
-		//			SerialPhoto sp = new SerialPhoto(modele.images);
-		//			modele.images=sp.DeserialPhoto();
-		//
-		//		}
 
 
 		this.noms = repertoire.list();

@@ -20,11 +20,11 @@ import javax.swing.event.PopupMenuListener;
 
 import Modele.Photo;
 
-public class PopupMenuExample  extends JPanel{
+public class PopupMenuContext  extends JPanel{
 
 	public JPopupMenu popup;
 	public Photo photo;
-	public PopupMenuExample(Photo p){
+	public PopupMenuContext(Photo p){
 		this.photo=p;
 		popup = new JPopupMenu();
 		ActionListener menuListener = new ActionListener() {
@@ -157,25 +157,11 @@ public class PopupMenuExample  extends JPanel{
 		private void checkPopup(MouseEvent e) {
 			if (e.isPopupTrigger()) {
 				System.out.println(e.getComponent());
-				popup.show(PopupMenuExample.this, e.getX(), e.getY());
+				popup.show(PopupMenuContext.this, e.getX(), e.getY());
 			}
 		}
 	}
 
-	// An inner class to show when popup events occur
-//	class PopupPrintListener implements PopupMenuListener {
-//		public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
-//			System.out.println("Popup menu will be visible!");
-//		}
-//
-//		public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
-//			System.out.println("Popup menu will be invisible!");
-//		}
-//
-//		public void popupMenuCanceled(PopupMenuEvent e) {
-//			System.out.println("Popup menu is hidden!");
-//		}
-//	}
 
 
 }

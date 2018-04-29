@@ -56,9 +56,9 @@ public class Modele extends Observable {
 		//Ajout dans les différents index
 		Color couleur = rim.obtenirCouleur();
 
-		if (!this.Couleurs.containsKey(couleur)) 
-			this.Couleurs.put(couleur, new HashSet());
-		this.Couleurs.get(couleur).add(photo);
+		if (!Modele.Couleurs.containsKey(couleur)) 
+			Modele.Couleurs.put(couleur, new HashSet());
+		Modele.Couleurs.get(couleur).add(photo);
 
 		int taille = rim.obtenirTaille();
 
@@ -69,38 +69,38 @@ public class Modele extends Observable {
 		}
 
 		if (151 < taille && taille < 200) {
-			if (!this.Tailles.containsKey("Moyenne"))
-				this.Tailles.put("Moyenne", new HashSet());
-			this.Tailles.get("Moyenne").add(photo);
+			if (!Modele.Tailles.containsKey("Moyenne"))
+				Modele.Tailles.put("Moyenne", new HashSet());
+			Modele.Tailles.get("Moyenne").add(photo);
 		}
 
 		if (taille > 200) {
-			if (!this.Tailles.containsKey("Grande"))
-				this.Tailles.put("Grande", new HashSet());
-			this.Tailles.get("Grande").add(photo);
+			if (!Modele.Tailles.containsKey("Grande"))
+				Modele.Tailles.put("Grande", new HashSet());
+			Modele.Tailles.get("Grande").add(photo);
 		}
 
 		String date = rim.obtenirDate();
 
-		this.Dates.put(date, this.images);
-		if (!this.Dates.containsKey(date))
-			this.Dates.put(date, new HashSet());
-		this.Dates.get(date).add(photo);
+		Modele.Dates.put(date, Modele.images);
+		if (!Modele.Dates.containsKey(date))
+			Modele.Dates.put(date, new HashSet());
+		Modele.Dates.get(date).add(photo);
 	}
 
 	public void triage(String n){
 		Trieur t = new Trieur(n);
-		this.photos_triés = t.tri();
+		Modele.photos_triés = t.tri();
 		this.setChanged();
-		this.notifyObservers(this.photos_triés);
+		this.notifyObservers(Modele.photos_triés);
 	}
 
 	public void triage_tag(String n) {
-		this.demande_tag = n;
+		Modele.demande_tag = n;
 		Trieur_tag t = new Trieur_tag(n);
-		this.photos_triés = t.tri();
+		Modele.photos_triés = t.tri();
 		this.setChanged();
-		this.notifyObservers(this.photos_triés);
+		this.notifyObservers(Modele.photos_triés);
 	}
 
 	public static void serialPhoto() {

@@ -18,13 +18,12 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-import javax.swing.JMenuItem;
+
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
+
 
 import Controleur.Controleur;
-import Controleur.PopupMenuExample;
+import Controleur.PopupMenuContext;
 import Modele.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
@@ -57,7 +56,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 		while(i.hasNext()){
 
 			Photo tmp = (Photo)i.next();
-			PopupMenuExample popup = new PopupMenuExample(tmp);
+			PopupMenuContext popup = new PopupMenuContext(tmp);
 			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
@@ -66,18 +65,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 			cases.setComponentPopupMenu(popup.popup);
 			this.add(cases);}
 
-		//		}
-		//		JMenuItem item;
-		//		popup = new JPopupMenu();
-		//		item = new JMenuItem("Click me");
-		//		item.addActionListener(menuListener);
-		//		popup.add(item);
-		//Interface_panneau.f.add(popup);
-		/*
-		JScrollPane scroll = new JScrollPane();
-		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		add(scroll);
-		 */
+
 
 	}
 
@@ -91,7 +79,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton()==1) {
-			this.panl = (ImagePanel)e.getSource();
+			Interface_miniatures.panl = (ImagePanel)e.getSource();
 
 			try {
 				Interface_Agrandie im = new Interface_Agrandie(panl.photo);
@@ -114,7 +102,6 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	 * Fait le tri à chaque modification du modèle
 	 */
 
-	@Override
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
@@ -122,12 +109,12 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 
 		this.removeAll();
 
-		if (modele.photos_triés instanceof Set) {
+		if (Modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
-			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
-				Iterator<Photo> i = modele.images.iterator();
+			if (((Set<Photo>) Modele.photos_triés).isEmpty() && Modele.demandes.isEmpty() && Modele.demande_tag.equals("")) {
+				Iterator<Photo> i = Modele.images.iterator();
 				Photo myPicture;
 				while(i.hasNext()){
 					try {
@@ -143,7 +130,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 				}
 				revalidate();
 			}			
-			else if (! ((Set<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+			else if (! ((Set<Photo>)Modele.photos_triés).isEmpty() && ! Modele.demande_tag.equals("")){
 				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
 				Photo myPicture;
 				ImagePanel cases;
@@ -181,7 +168,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 			}
 		}
 		else { //si c'est par ordre particulier avec la combo box
-			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
+			ArrayList<Photo> actu = (ArrayList<Photo>) Modele.photos_triés;
 			Photo myPicture;
 			ImagePanel cases;
 			for(int i = 0; i<actu.size();i++) {
