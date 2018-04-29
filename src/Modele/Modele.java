@@ -35,12 +35,12 @@ public class Modele extends Observable {
 
 	public Modele(){
 
-		this.Dates = new Hashtable<String, HashSet<Photo>>();
-		this.Tailles = new Hashtable<String, HashSet<Photo>>();
-		this.Couleurs = new Hashtable<Color, HashSet<Photo>>();
+		Modele.Dates = new Hashtable<String, HashSet<Photo>>();
+		Modele.Tailles = new Hashtable<String, HashSet<Photo>>();
+		Modele.Couleurs = new Hashtable<Color, HashSet<Photo>>();
 
-		this.images = new HashSet<Photo>();
-		this.data=new File("Photo.dat");
+		Modele.images = new HashSet<Photo>();
+		Modele.data=new File("Photo.dat");
 	}
 
 	public void ajouterImage(Recuperateur rim) throws IOException{
@@ -51,7 +51,7 @@ public class Modele extends Observable {
 				rim.obtenirCouleur(),
 				rim.obtenirImage());
 		//Ajout dans la base des photos de l'appli.
-		this.images.add(photo);
+		Modele.images.add(photo);
 
 		//Ajout dans les différents index
 		Color couleur = rim.obtenirCouleur();
@@ -63,9 +63,9 @@ public class Modele extends Observable {
 		int taille = rim.obtenirTaille();
 
 		if (taille < 150) {
-			if (!this.Tailles.containsKey("Petite"))
-				this.Tailles.put("Petite", new HashSet());
-			this.Tailles.get("Petite").add(photo);
+			if (!Modele.Tailles.containsKey("Petite"))
+				Modele.Tailles.put("Petite", new HashSet());
+			Modele.Tailles.get("Petite").add(photo);
 		}
 
 		if (151 < taille && taille < 200) {
