@@ -54,12 +54,24 @@ public class Photo implements Serializable {
 		this.tags.add(t);
 	}
 	
-	public String Nom() {
+	public String getNom() {
 		return this.nom;
 	}
 	
 	public int getNote() {
 		return this.note;
+	}
+	
+	public String getDate() {
+		return this.date;
+	}
+	
+	public Color getColor() {
+		return this.couleur;
+	}
+	
+	public int getTaille() {
+		return this.taille;
 	}
 	
 	public void toByte() throws IOException {

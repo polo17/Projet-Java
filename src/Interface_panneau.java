@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Label;
 import java.awt.Panel;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -16,11 +17,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JPopupMenu;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
+	
 
 	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date"};
 	String[] couleurs = {"rouge","vert","bleu"};
@@ -29,10 +35,9 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 	public static Modele modele = new Modele();
 	public static Controleur ctrl = new Controleur(modele);
-
 	public static void main(String[] args) throws IOException {
-		
-		
+
+
 		/*
 		 * Deserialisation du fichier .dat
 		 */
@@ -40,52 +45,55 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		String[] ContenuData = data.list();
 		Boolean DataEstPresent = false;
 
-				//Test si fichier data exsite
-				for(String s : ContenuData) {
-					if(s.equals("Photo.dat")) {
-						DataEstPresent= true;
-					}
-				}
-		
-				System.out.println(DataEstPresent);
-				
-				if(DataEstPresent) {
-					System.out.println("Chargement des images depuis le fichier .dat");
-					Modele.deserialPhoto();
-					Iterator<Photo> it = Modele.images.iterator();
-					while(it.hasNext()) {
-						Photo myCurrentPhoto = it.next();
-						myCurrentPhoto.toBuffered();
-						//Test de serial en affichant les notes
-						System.out.println(myCurrentPhoto.getNote());
-					}
-				}
+		//Test si fichier data exsite
+		for(String s : ContenuData) {
+			if(s.equals("Photo.dat")) {
+				DataEstPresent= true;
+			}
+		}
 
-			
-		
-		
-		
-		
-		
+		System.out.println(DataEstPresent);
+
+		if(DataEstPresent) {
+			System.out.println("Chargement des images depuis le fichier .dat");
+			Modele.deserialPhoto();
+			Iterator<Photo> it = Modele.images.iterator();
+			while(it.hasNext()) {
+				Photo myCurrentPhoto = it.next();
+				myCurrentPhoto.toBuffered();
+				//Test de serial en affichant les notes
+				System.out.println(myCurrentPhoto.getNote());
+			}
+		}
+
+
+		JFrame f = new JFrame();
+
+
 
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 
 		modele.addObserver(i);
 
-		Frame f = new Frame();
-		f.setLayout(new BorderLayout());		
+		
+		f.setLayout(new BorderLayout());
+		
 		f.add(p, BorderLayout.WEST);
 		f.add(i, BorderLayout.CENTER);
-		p.setBackground(new Color(204,255,204));;
+		
+		p.setBackground(new Color(204,255,204));
+
 		p.addMouseListener(p);
 		f.addWindowListener(p);
 		f.setTitle("Gestionnaire d'images");
 		f.setSize(1000, 800);
 		
 
-		 
 		f.setVisible(true);
+	
+
+
 	}
 
 	public Interface_panneau() throws IOException {
@@ -164,6 +172,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 
+
 	}
 
 	@Override
@@ -231,4 +240,6 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public void windowOpened(WindowEvent arg0) {
 
 	}
+	
+
 }

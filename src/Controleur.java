@@ -64,7 +64,7 @@ public class Controleur implements ActionListener, MouseListener{
 
 				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
-				modele.Mot_clé.put(noms[i], modele.images);
+				modele.Mot_clé.put(noms[i], Modele.images);
 
 				try {
 					m.ajouterImage(rim);

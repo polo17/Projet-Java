@@ -1,6 +1,9 @@
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -12,40 +15,62 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
+public class Interface_miniatures extends JPanel implements MouseListener, WindowListener, Observer{
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
-
 	public static ImagePanel panl;
 
 	private Object images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
-
 	public Interface_miniatures() throws IOException {
+		//		ActionListener menuListener = new ActionListener() {
+		//			public void actionPerformed(ActionEvent event) {
+		//				System.out.println(event.getActionCommand());
+		//			}
+		//
+		//		};
 
-		this.setBackground(new Color(204,229,255));
-		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
-		this.setLayout(gl);
 
 		// Affichage de toutes les images au lancement de l'applcation
-		Iterator<Photo> i = modele.images.iterator();
+		Iterator<Photo> i = Modele.images.iterator();
 		Photo myPicture;
 		while(i.hasNext()){
+			
 			Photo tmp = (Photo)i.next();
+			PopupMenuExample popup = new PopupMenuExample(tmp);
 			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
+			cases.setComponentPopupMenu(popup.popup);
 			this.add(cases);
-		}
-		/*
+			
+			//		}
+			//		JMenuItem item;
+			//		popup = new JPopupMenu();
+			//		item = new JMenuItem("Click me");
+			//		item.addActionListener(menuListener);
+			//		popup.add(item);
+			//Interface_panneau.f.add(popup);
+			/*
 		JScrollPane scroll = new JScrollPane();
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		add(scroll);
-		*/
+			 */
+
+		}
+
+		this.setBackground(new Color(204,229,255));
+		FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
+		this.setLayout(gl);
+		
+		
 		this.setVisible(true);	    
 	}
 
@@ -55,18 +80,25 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(e.getButton()==1) {
+			this.panl = (ImagePanel)e.getSource();
 
-		this.panl = (ImagePanel)e.getSource();
+			try {
+				Interface_Agrandie im = new Interface_Agrandie(panl.photo);
+				if (drapeau) {
+					im.setVisible(true);
+					revalidate();}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		}
+		
 
-		try {
-			Interface_Agrandie im = new Interface_Agrandie(panl.photo);
-			if (drapeau) {
-				im.setVisible(true);
-				revalidate();}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}	
+
+
 	}
+
+
 
 	/**
 	 * Fait le tri à chaque modification du modèle
@@ -168,7 +200,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {		
+	public void mouseEntered(MouseEvent e) {	
+
 	}
 
 	@Override
@@ -176,7 +209,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {		
+	public void mousePressed(MouseEvent e) {
+
 	}
 
 	@Override
