@@ -90,5 +90,12 @@ public class Recuperateur {
 		else return "";
 	}
 	
+	public static String getStringExtension(String s) {
+		if(s.lastIndexOf(".")!=-1 && s.lastIndexOf(".")!=0) {
+			return s.substring(s.lastIndexOf(".")+1);
+		}
+		else return "";
+	}
+	
 }
 
