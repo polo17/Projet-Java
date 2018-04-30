@@ -55,35 +55,16 @@ public class Photo implements Serializable {
 		this.tags.add(t);
 	}
 	
-
-
 	public void rmTags() {
 		while(this.tags.size() != 0) this.tags.remove(0);
 	}
 	
-	public String getNom() {
-
+	public String Nom() {
 		return this.nom;
 	}
 	
 	public int getNote() {
 		return this.note;
-	}
-	
-	public String getDate() {
-		return this.date;
-	}
-	
-	public Color getColor() {
-		return this.couleur;
-	}
-	
-	public int getTaille() {
-		return this.taille;
-	}
-	
-	public ArrayList<String> getTags(){
-		return this.tags;
 	}
 	
 	public void toByte() throws IOException {

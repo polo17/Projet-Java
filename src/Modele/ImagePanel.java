@@ -9,11 +9,8 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import javax.swing.JPanel;
-
-public class ImagePanel extends JPanel {
-
-
+@SuppressWarnings("serial")
+public class ImagePanel extends Panel {
 
 	public static int TAILLE_X = 160;
 	public static int TAILLE_Y = 90;
@@ -36,10 +33,6 @@ public class ImagePanel extends JPanel {
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g.drawImage(imgFond, 10, 10, TAILLE_X, TAILLE_Y, null);
 		g.drawString(photo.nom, 20, TAILLE_Y+30);
-	}
-	
-	public Photo getPhoto() {
-		return this.photo;
 	}
 
 }

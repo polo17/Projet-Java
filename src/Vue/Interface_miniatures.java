@@ -1,12 +1,8 @@
 package Vue;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Panel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -18,103 +14,81 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
-
-import javax.swing.JPanel;
-
-
 import Controleur.Controleur;
-import Controleur.PopupMenuContext;
 import Modele.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
 
-
-public class Interface_miniatures extends JPanel implements MouseListener, WindowListener, Observer{
+public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
+
 	public static ImagePanel panl;
-	private PopupMenuContext popup;
+
 	private Object images_triés; //images triées récupérées du modèle
 	public boolean drapeau = true;
+
 	public Interface_miniatures() throws IOException {
-
-
-
-
-		// Affichage de toutes les images au lancement de l'applcation
-		Iterator<Photo> i = Modele.images.iterator();
 
 		setBackground(new Color(204,229,255));
 		//FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
-
+		
 		GridLayout gl = new GridLayout(0,4,10,10);
 		setLayout(gl);	
 
-
+		// Affichage de toutes les images au lancement de l'application
+		Iterator<Photo> i = modele.images.iterator();
 		Photo myPicture;
 		while(i.hasNext()){
-
 			Photo tmp = (Photo)i.next();
-			this.popup = new PopupMenuContext(tmp);
 			myPicture = tmp;
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
-
-			cases.setComponentPopupMenu(popup.popup);
-			this.add(cases);}
-
-
-
+			add(cases);
+		}
+		this.setVisible(true);	    
 	}
-
-
 
 	/**
 	 * Crée une fenêtre pour afficher l'image
 	 * appelée à chaque clic sur un panel
 	 */
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getButton()==1) {
-			Interface_miniatures.panl = (ImagePanel)e.getSource();
 
-			try {
-				Interface_Agrandie im = new Interface_Agrandie(panl.photo);
-				if (drapeau) {
-					im.setVisible(true);
-					revalidate();}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}	
-		}
+		this.panl = (ImagePanel)e.getSource();
 
-
-
-
+		try {
+			Interface_Agrandie im = new Interface_Agrandie(panl.photo);
+			if (drapeau) {
+				im.setVisible(true);
+				revalidate();}
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}	
 	}
-
-
 
 	/**
 	 * Fait le tri à chaque modification du modèle
 	 */
-
+	
+	@Override
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;	
-
+		
 		this.removeAll();
-
-		if (Modele.photos_triés instanceof Set) {
+		
+		if (modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
-			if (((Set<Photo>) Modele.photos_triés).isEmpty() && Modele.demandes.isEmpty() && Modele.demande_tag.equals("")) {
-				Iterator<Photo> i = Modele.images.iterator();
+			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
+				Iterator<Photo> i = modele.images.iterator();
 				Photo myPicture;
 				while(i.hasNext()){
 					try {
@@ -123,15 +97,14 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						ImagePanel cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.add(cases);
-						cases.setComponentPopupMenu(popup.popup);
+						this.add(cases);		
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
 				revalidate();
 			}			
-			else if (! ((Set<Photo>)Modele.photos_triés).isEmpty() && ! Modele.demande_tag.equals("")){
+			else if (! ((Set<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
 				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
 				Photo myPicture;
 				ImagePanel cases;
@@ -143,7 +116,6 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
 						this.add(cases);
-						cases.setComponentPopupMenu(popup.popup);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -162,7 +134,6 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
 						this.add(cases);
-						cases.setComponentPopupMenu(popup.popup);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -171,7 +142,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 			}
 		}
 		else { //si c'est par ordre particulier avec la combo box
-			ArrayList<Photo> actu = (ArrayList<Photo>) Modele.photos_triés;
+			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
 			Photo myPicture;
 			ImagePanel cases;
 			for(int i = 0; i<actu.size();i++) {
@@ -181,7 +152,6 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 					cases.addMouseListener(this);
 					cases.setName(actu.get(i).nom);
 					this.add(cases);
-					cases.setComponentPopupMenu(popup.popup);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -194,8 +164,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {	
-
+	public void mouseEntered(MouseEvent e) {		
 	}
 
 	@Override
@@ -203,8 +172,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-
+	public void mousePressed(MouseEvent e) {		
 	}
 
 	@Override

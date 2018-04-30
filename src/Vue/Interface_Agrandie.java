@@ -46,7 +46,6 @@ public class Interface_Agrandie extends JFrame{
 		String titre = photo.nom;
 		titre = titre.replace(".jpg", "");
 		setTitle(titre);
-
 		this.setBackground(Color.black);
 
 		Panel etoiles = new Panel();

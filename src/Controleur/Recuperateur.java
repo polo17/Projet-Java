@@ -82,20 +82,5 @@ public class Recuperateur {
 		return img;
 	}
 	
-	public static String getFileExtension(File f) {
-		String nom = f.getName();
-		if(nom.lastIndexOf(".")!=-1 && nom.lastIndexOf(".")!=0) {
-			return nom.substring(nom.lastIndexOf(".")+1);
-		}
-		else return "";
-	}
-	
-	public static String getStringExtension(String s) {
-		if(s.lastIndexOf(".")!=-1 && s.lastIndexOf(".")!=0) {
-			return s.substring(s.lastIndexOf(".")+1);
-		}
-		else return "";
-	}
-	
 }
 
