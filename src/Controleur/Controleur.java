@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.swing.JButton;
@@ -43,27 +44,7 @@ public class Controleur implements ActionListener, MouseListener{
 		String[] ContenuData = data.list();
 		Boolean DataEstPresent = false;
 		File repertoire = new File(Controleur.REPERTOIRE);
-		//		File data = new File(Controleur.DATA);
-		//		String[] ContenuData = data.list();
-		//		Boolean DataEstPresent = false;
 
-		//		//Test si fichier data exsite
-		//		for(String s : ContenuData) {
-		//			if(s.equals("photo.dat")) {
-		//				DataEstPresent= true;
-		//
-		//			}
-		//		}
-		//
-		//		System.out.println(DataEstPresent);
-		//		Iterator<Photo> it = this.modele.images.iterator();
-		//		ArrayList<String> StringNom = new ArrayList<String>();
-		//		if(DataEstPresent) {
-		//			SerialPhoto sp = new SerialPhoto(modele.images);
-		//			modele.images=sp.DeserialPhoto();
-		//
-		//		}
-		//Test si fichier data exsite
 		for(String s : ContenuData) {
 			if(s.equals("Photo.dat")) {
 				DataEstPresent= true;
@@ -79,6 +60,39 @@ public class Controleur implements ActionListener, MouseListener{
 			while(it.hasNext()) {
 				Photo myCurrentPhoto = it.next();
 				myCurrentPhoto.toBuffered();
+
+				String date = myCurrentPhoto.getDate();
+				Modele.Dates.put(myCurrentPhoto.date, Modele.images);
+				if (!Modele.Dates.containsKey(myCurrentPhoto.date))
+					Modele.Dates.put(myCurrentPhoto.date, new HashSet());
+				Modele.Dates.get(myCurrentPhoto.date).add(myCurrentPhoto);
+
+				int taille = myCurrentPhoto.getTaille();
+
+				if (taille < 150) {
+					if (!Modele.Tailles.containsKey("Petite"))
+						Modele.Tailles.put("Petite", new HashSet());
+					Modele.Tailles.get("Petite").add(myCurrentPhoto);
+				}
+
+				else if (151 < taille && taille < 200) {
+					if (!Modele.Tailles.containsKey("Moyenne"))
+						Modele.Tailles.put("Moyenne", new HashSet());
+					Modele.Tailles.get("Moyenne").add(myCurrentPhoto);
+				}
+
+				else {
+					if (!Modele.Tailles.containsKey("Grande"))
+						Modele.Tailles.put("Grande", new HashSet());
+					Modele.Tailles.get("Grande").add(myCurrentPhoto);
+				}
+
+
+				if (!Modele.Couleurs.containsKey(myCurrentPhoto.getColor())) 
+					Modele.Couleurs.put(myCurrentPhoto.getColor(), new HashSet());
+				Modele.Couleurs.get(myCurrentPhoto.getColor()).add(myCurrentPhoto);
+
+
 				//Test de serial en affichant les notes
 				System.out.println(myCurrentPhoto.getNote());
 			}
@@ -98,6 +112,7 @@ public class Controleur implements ActionListener, MouseListener{
 					}
 
 				}
+
 			}
 		}
 	}
