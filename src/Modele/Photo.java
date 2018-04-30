@@ -1,5 +1,4 @@
 package Modele;
-
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -16,11 +15,11 @@ public class Photo implements Serializable {
 	
 	public String nom;
 	
-	int taille;
+	public int taille;
 	
 	public String date;
 	
-	Color couleur;
+	public Color couleur;
 	
 	public ArrayList<String> tags;
 	
@@ -47,6 +46,10 @@ public class Photo implements Serializable {
 		this.img=im;
 	}
 	
+	public void rmTags() {
+		this.tags.clear();
+	}
+	
 	public void setNote(int n){
 		this.note = n;
 	}
@@ -55,16 +58,29 @@ public class Photo implements Serializable {
 		this.tags.add(t);
 	}
 	
-	public void rmTags() {
-		while(this.tags.size() != 0) this.tags.remove(0);
-	}
-	
-	public String Nom() {
-		return this.nom;
-	}
 	
 	public int getNote() {
 		return this.note;
+	}
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public String getDate() {
+		return this.date;
+	}
+	
+	public int getTaille() {
+		return this.taille;
+	}
+	
+	public Color getColor() {
+		return this.couleur;
+	}
+	
+	public ArrayList<String> getTags(){
+		return this.tags;
 	}
 	
 	public void toByte() throws IOException {

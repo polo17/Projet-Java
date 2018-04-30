@@ -43,7 +43,7 @@ public class Modele extends Observable {
 		this.data=new File("Photo.dat");
 	}
 
-	public void ajouterImage(Recuperateur rim) throws IOException{
+	public static void ajouterImage(Recuperateur rim) throws IOException{
 		Photo photo = new Photo(
 				rim.file.getName(),
 				rim.obtenirTaille(),
@@ -51,41 +51,41 @@ public class Modele extends Observable {
 				rim.obtenirCouleur(),
 				rim.obtenirImage());
 		//Ajout dans la base des photos de l'appli.
-		this.images.add(photo);
+		Modele.images.add(photo);
 
 		//Ajout dans les différents index
 		Color couleur = rim.obtenirCouleur();
 
-		if (!this.Couleurs.containsKey(couleur)) 
-			this.Couleurs.put(couleur, new HashSet());
-		this.Couleurs.get(couleur).add(photo);
+		if (!Modele.Couleurs.containsKey(couleur)) 
+			Modele.Couleurs.put(couleur, new HashSet());
+		Modele.Couleurs.get(couleur).add(photo);
 
 		int taille = rim.obtenirTaille();
 
 		if (taille < 150) {
-			if (!this.Tailles.containsKey("Petite"))
-				this.Tailles.put("Petite", new HashSet());
-			this.Tailles.get("Petite").add(photo);
+			if (!Modele.Tailles.containsKey("Petite"))
+				Modele.Tailles.put("Petite", new HashSet());
+			Modele.Tailles.get("Petite").add(photo);
 		}
 
 		if (151 < taille && taille < 200) {
-			if (!this.Tailles.containsKey("Moyenne"))
-				this.Tailles.put("Moyenne", new HashSet());
-			this.Tailles.get("Moyenne").add(photo);
+			if (!Modele.Tailles.containsKey("Moyenne"))
+				Modele.Tailles.put("Moyenne", new HashSet());
+			Modele.Tailles.get("Moyenne").add(photo);
 		}
 
 		if (taille > 200) {
-			if (!this.Tailles.containsKey("Grande"))
-				this.Tailles.put("Grande", new HashSet());
-			this.Tailles.get("Grande").add(photo);
+			if (!Modele.Tailles.containsKey("Grande"))
+				Modele.Tailles.put("Grande", new HashSet());
+			Modele.Tailles.get("Grande").add(photo);
 		}
 
 		String date = rim.obtenirDate();
 
-		this.Dates.put(date, this.images);
-		if (!this.Dates.containsKey(date))
-			this.Dates.put(date, new HashSet());
-		this.Dates.get(date).add(photo);
+		Modele.Dates.put(date, Modele.images);
+		if (!Modele.Dates.containsKey(date))
+			Modele.Dates.put(date, new HashSet());
+		Modele.Dates.get(date).add(photo);
 	}
 
 	public void triage(String n){

@@ -15,6 +15,7 @@ import java.util.Observer;
 import java.util.Set;
 
 import Controleur.Controleur;
+import Controleur.PopupMenuContext;
 import Modele.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
@@ -23,7 +24,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
-
+	PopupMenuContext popup;
 	public static ImagePanel panl;
 
 	private Object images_triés; //images triées récupérées du modèle
@@ -33,7 +34,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		setBackground(new Color(204,229,255));
 		//FlowLayout gl = new FlowLayout(FlowLayout.LEADING);
-		
+
 		GridLayout gl = new GridLayout(0,4,10,10);
 		setLayout(gl);	
 
@@ -46,6 +47,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
+			this.popup = new PopupMenuContext(tmp);
+			cases.setComponentPopupMenu(popup.popup);
 			add(cases);
 		}
 		this.setVisible(true);	    
@@ -55,34 +58,35 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	 * Crée une fenêtre pour afficher l'image
 	 * appelée à chaque clic sur un panel
 	 */
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(e.getButton()==1) {
+			this.panl = (ImagePanel)e.getSource();
 
-		this.panl = (ImagePanel)e.getSource();
-
-		try {
-			Interface_Agrandie im = new Interface_Agrandie(panl.photo);
-			if (drapeau) {
-				im.setVisible(true);
-				revalidate();}
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}	
+			try {
+				Interface_Agrandie im = new Interface_Agrandie(panl.photo);
+				if (drapeau) {
+					im.setVisible(true);
+					revalidate();}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}	
+		}
 	}
 
 	/**
 	 * Fait le tri à chaque modification du modèle
 	 */
-	
+
 	@Override
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;	
-		
+
 		this.removeAll();
-		
+
 		if (modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
@@ -97,6 +101,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						ImagePanel cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
+						this.popup = new PopupMenuContext(myPicture);
+						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);		
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -115,6 +121,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
+						this.popup = new PopupMenuContext(myPicture);
+						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -133,6 +141,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
+						this.popup = new PopupMenuContext(myPicture);
+						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -151,6 +161,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 					cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
 					cases.setName(actu.get(i).nom);
+					this.popup = new PopupMenuContext(myPicture);
+					cases.setComponentPopupMenu(popup.popup);
 					this.add(cases);
 				} catch (IOException e) {
 					e.printStackTrace();
