@@ -1,4 +1,4 @@
-package Modele;
+package Vue;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JPanel;
+
+import Modele.Photo;
 
 @SuppressWarnings("serial")
 public class ImagePanel extends JPanel {

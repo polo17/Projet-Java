@@ -15,15 +15,15 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import Modele.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
+import Vue.ImagePanel;
 import Vue.Interface_miniatures;
 import Vue.Interface_panneau;
 
 public class Controleur implements ActionListener, MouseListener{
 
-	public static String REPERTOIRE = "ImagesTest/"; //Images
+	public static String REPERTOIRE = "Images/"; //Images
 
 
 	private Modele modele;
@@ -51,12 +51,11 @@ public class Controleur implements ActionListener, MouseListener{
 			}
 		}
 
-		System.out.println(DataEstPresent);
+		System.out.println("Présence de .dat : "+DataEstPresent);
 /**
  * Deserialisation
  */
 		if(DataEstPresent) {
-			System.out.println("Chargement des images depuis le fichier .dat");
 			Modele.deserialPhoto();
 			Iterator<Photo> it = Modele.images.iterator();
 			while(it.hasNext()) {
@@ -93,10 +92,6 @@ public class Controleur implements ActionListener, MouseListener{
 				if (!Modele.Couleurs.containsKey(myCurrentPhoto.getColor())) 
 					Modele.Couleurs.put(myCurrentPhoto.getColor(), new HashSet());
 				Modele.Couleurs.get(myCurrentPhoto.getColor()).add(myCurrentPhoto);
-
-
-				//Test de serial en affichant les notes
-				System.out.println(myCurrentPhoto.getNote());
 			}
 		}
 		else {
