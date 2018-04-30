@@ -1,4 +1,5 @@
 package Controleur;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -35,23 +36,23 @@ public class PopupMenuContext  extends JPanel{
 					String nom = JOptionPane.showInputDialog(null, "Modifiez le nom de la photo", "Renommer photo", JOptionPane.QUESTION_MESSAGE);
 					String ext = Recuperateur.getStringExtension(photo.getNom());
 
-					if(!nom.equals("") &&!nom.equals(nombase)) {
+					if(nom!=null && !nom.equals("") &&!nom.equals(nombase)) {
 						photo.nom=nom+ext;
 						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
 					}
 
-					else {
+					else if(nom!=null) {
 						JOptionPane.showMessageDialog(null, "Veuillez entrer un nom différent de l'ancien", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				else if(event.getActionCommand().equals("ajoutertag")) {
 					String tag = JOptionPane.showInputDialog(null, "Veuillez entrer tag"   , "Ajout de tag", JOptionPane.QUESTION_MESSAGE);
-					if(!tag.equals("") && tag!=null) {
+					if(tag!=null && !tag.equals("") && tag!=null) {
 						photo.tags.add(tag);
 						JOptionPane.showMessageDialog(null, "Tag ajouté !", "Ajout tag", JOptionPane.INFORMATION_MESSAGE);
 					}
-					else if (tag.equals("") && tag!=null){
+					else if (tag!=null && tag.equals("")){
 						JOptionPane.showMessageDialog(null, "Le tag n'a pas été ajouté, veuillez re-essayer", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -73,7 +74,7 @@ public class PopupMenuContext  extends JPanel{
 
 				else if(event.getActionCommand().equals("modifierdate")) {
 					String date = JOptionPane.showInputDialog(null, "Veuillez entrer une date au format jj/mm/aaaa", "Modifier la date", JOptionPane.QUESTION_MESSAGE);
-					if( date!=null &&date.charAt(2)=='/' && date.charAt(5)=='/' && date.length()==10) {
+					if(date!=null &&date.charAt(2)=='/' && date.charAt(5)=='/' && date.length()==10) {
 						HashSet<Photo> hs = Modele.Dates.get(photo.getDate());
 						Iterator<Photo> it = hs.iterator();
 						while(it.hasNext()) {
@@ -117,10 +118,20 @@ public class PopupMenuContext  extends JPanel{
 				}
 
 				else {
+					Color c = photo.getColor();
+					String color;
+					if(c.equals(Color.red)){
+						color = "Rouge";
+					}
+					else if (c.equals(Color.blue)) {
+						color = "Bleue";
+					}
+					else
+						color = "Vert";
 					String info = "Nom de l'image : "+photo.getNom()+"\n"
-							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+"\n"
+							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+" Ko"+"\n"
 									+ "Date de la photo : "+photo.getDate()+"\n"
-									+ "Couleur principale : "+photo.getColor().toString()+"\n"
+									+ "Couleur principale : "+color+"\n"
 									+ "Liste de tags : "+photo.getTags().toString()+"\n"
 									+ "Note de l'image : "+String.valueOf(photo.getNote()));
 					JOptionPane.showMessageDialog(null, info, "Information de l'image", JOptionPane.INFORMATION_MESSAGE);
