@@ -89,6 +89,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		f.repaint();
 
 		f.setVisible(true);
+		System.out.println("essai");
 
 
 
