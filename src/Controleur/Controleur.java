@@ -62,37 +62,8 @@ public class Controleur implements ActionListener, MouseListener{
 			while(it.hasNext()) {
 				Photo myCurrentPhoto = it.next();
 				myCurrentPhoto.toBuffered();
-
-				String date = myCurrentPhoto.getDate();
-				Modele.Dates.put(myCurrentPhoto.date, Modele.images);
-				if (!Modele.Dates.containsKey(myCurrentPhoto.date))
-					Modele.Dates.put(myCurrentPhoto.date, new HashSet());
-				Modele.Dates.get(myCurrentPhoto.date).add(myCurrentPhoto);
-
-				int taille = myCurrentPhoto.getTaille();
-
-				if (taille < 150) {
-					if (!Modele.Tailles.containsKey("Petite"))
-						Modele.Tailles.put("Petite", new HashSet());
-					Modele.Tailles.get("Petite").add(myCurrentPhoto);
-				}
-
-				else if (151 < taille && taille < 200) {
-					if (!Modele.Tailles.containsKey("Moyenne"))
-						Modele.Tailles.put("Moyenne", new HashSet());
-					Modele.Tailles.get("Moyenne").add(myCurrentPhoto);
-				}
-
-				else {
-					if (!Modele.Tailles.containsKey("Grande"))
-						Modele.Tailles.put("Grande", new HashSet());
-					Modele.Tailles.get("Grande").add(myCurrentPhoto);
-				}
-
-
-				if (!Modele.Couleurs.containsKey(myCurrentPhoto.getColor())) 
-					Modele.Couleurs.put(myCurrentPhoto.getColor(), new HashSet());
-				Modele.Couleurs.get(myCurrentPhoto.getColor()).add(myCurrentPhoto);
+				Modele.addImageToData(myCurrentPhoto);
+				
 
 
 				//Test de serial en affichant les notes

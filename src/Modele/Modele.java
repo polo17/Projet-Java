@@ -42,6 +42,45 @@ public class Modele extends Observable {
 		this.images = new HashSet<Photo>();
 		this.data=new File("Photo.dat");
 	}
+	
+	public static void addImageToData(Photo p) {
+		
+		String date = p.getDate();
+		Modele.Dates.put(p.date, Modele.images);
+		if (!Modele.Dates.containsKey(p.date))
+			Modele.Dates.put(p.date, new HashSet());
+		Modele.Dates.get(p.date).add(p);
+
+		int taille = p.getTaille();
+
+		if (taille < 150) {
+			if (!Modele.Tailles.containsKey("Petite"))
+				Modele.Tailles.put("Petite", new HashSet());
+			Modele.Tailles.get("Petite").add(p);
+		}
+
+		else if (151 < taille && taille < 200) {
+			if (!Modele.Tailles.containsKey("Moyenne"))
+				Modele.Tailles.put("Moyenne", new HashSet());
+			Modele.Tailles.get("Moyenne").add(p);
+		}
+
+		else {
+			if (!Modele.Tailles.containsKey("Grande"))
+				Modele.Tailles.put("Grande", new HashSet());
+			Modele.Tailles.get("Grande").add(p);
+		}
+
+
+		if (!Modele.Couleurs.containsKey(p.getColor())) 
+			Modele.Couleurs.put(p.getColor(), new HashSet());
+		Modele.Couleurs.get(p.getColor()).add(p);
+		
+		
+		
+		
+	}
+	
 
 	public static void ajouterImage(Recuperateur rim) throws IOException{
 		Photo photo = new Photo(
