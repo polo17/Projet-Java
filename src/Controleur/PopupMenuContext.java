@@ -1,6 +1,4 @@
 package Controleur;
-import Modele.ImagePanel;
-import Modele.Modele;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -10,18 +8,15 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
-import javax.swing.event.PopupMenuEvent;
-import javax.swing.event.PopupMenuListener;
 
+import Modele.Modele;
 import Modele.Photo;
+import Vue.ImagePanel;
 
 public class PopupMenuContext  extends JPanel{
 

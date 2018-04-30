@@ -16,7 +16,7 @@ import java.util.Set;
 
 import Controleur.Controleur;
 import Controleur.PopupMenuContext;
-import Modele.ImagePanel;
+import Vue.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
 
