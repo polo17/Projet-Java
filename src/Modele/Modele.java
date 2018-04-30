@@ -57,26 +57,26 @@ public class Modele extends Observable {
 		Color couleur = rim.obtenirCouleur();
 
 		if (!Modele.Couleurs.containsKey(couleur)) 
-			Modele.Couleurs.put(couleur, new HashSet());
+			Modele.Couleurs.put(couleur, new HashSet<Photo>());
 		Modele.Couleurs.get(couleur).add(photo);
 
 		int taille = rim.obtenirTaille();
 
 		if (taille < 150) {
 			if (!Modele.Tailles.containsKey("Petite"))
-				Modele.Tailles.put("Petite", new HashSet());
+				Modele.Tailles.put("Petite", new HashSet<Photo>());
 			Modele.Tailles.get("Petite").add(photo);
 		}
 
 		if (151 < taille && taille < 200) {
 			if (!Modele.Tailles.containsKey("Moyenne"))
-				Modele.Tailles.put("Moyenne", new HashSet());
+				Modele.Tailles.put("Moyenne", new HashSet<Photo>());
 			Modele.Tailles.get("Moyenne").add(photo);
 		}
 
 		if (taille > 200) {
 			if (!Modele.Tailles.containsKey("Grande"))
-				Modele.Tailles.put("Grande", new HashSet());
+				Modele.Tailles.put("Grande", new HashSet<Photo>());
 			Modele.Tailles.get("Grande").add(photo);
 		}
 
@@ -84,7 +84,7 @@ public class Modele extends Observable {
 
 		Modele.Dates.put(date, Modele.images);
 		if (!Modele.Dates.containsKey(date))
-			Modele.Dates.put(date, new HashSet());
+			Modele.Dates.put(date, new HashSet<Photo>());
 		Modele.Dates.get(date).add(photo);
 	}
 

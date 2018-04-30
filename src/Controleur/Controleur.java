@@ -52,7 +52,9 @@ public class Controleur implements ActionListener, MouseListener{
 		}
 
 		System.out.println(DataEstPresent);
-
+/**
+ * Deserialisation
+ */
 		if(DataEstPresent) {
 			System.out.println("Chargement des images depuis le fichier .dat");
 			Modele.deserialPhoto();
@@ -101,12 +103,12 @@ public class Controleur implements ActionListener, MouseListener{
 			this.noms = repertoire.list();
 
 			for (int  i=0 ; i < noms.length ; i++) {
-				if (! modele.images.contains(noms[i])){
+				if (! Modele.images.contains(noms[i])){
 
 					Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
 					try {
-						m.ajouterImage(rim);
+						Modele.ajouterImage(rim);
 					} catch (IOException e) {
 
 					}

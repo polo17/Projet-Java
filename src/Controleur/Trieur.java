@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.swing.JOptionPane;
+
 import Modele.Photo;
 import Modele.Modele;
 
@@ -98,7 +100,10 @@ public class Trieur {
 			if (Modele.demandes.contains(notes[n])){
 				Set<Photo> notés = triNote(not[n]);
 				if (! notés.isEmpty()) photos_t_e.addAll(triNote(not[n]));
-				else System.out.println("Il n'y a pas d'images de note " + not[n]);
+
+				else {
+					JOptionPane.showMessageDialog(null, "Il n'y a pas d'images de note " + not[n], "Erreur", JOptionPane.ERROR_MESSAGE);
+				}
 			}
 		}
 
