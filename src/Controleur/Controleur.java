@@ -39,7 +39,9 @@ public class Controleur implements ActionListener, MouseListener{
 	public Controleur (Modele m) {
 
 		this.modele = m ;
-
+		File data = new File(".");
+		String[] ContenuData = data.list();
+		Boolean DataEstPresent = false;
 		File repertoire = new File(Controleur.REPERTOIRE);
 		//		File data = new File(Controleur.DATA);
 		//		String[] ContenuData = data.list();
@@ -61,21 +63,41 @@ public class Controleur implements ActionListener, MouseListener{
 		//			modele.images=sp.DeserialPhoto();
 		//
 		//		}
+		//Test si fichier data exsite
+		for(String s : ContenuData) {
+			if(s.equals("Photo.dat")) {
+				DataEstPresent= true;
+			}
+		}
 
+		System.out.println(DataEstPresent);
 
-		this.noms = repertoire.list();
+		if(DataEstPresent) {
+			System.out.println("Chargement des images depuis le fichier .dat");
+			Modele.deserialPhoto();
+			Iterator<Photo> it = Modele.images.iterator();
+			while(it.hasNext()) {
+				Photo myCurrentPhoto = it.next();
+				myCurrentPhoto.toBuffered();
+				//Test de serial en affichant les notes
+				System.out.println(myCurrentPhoto.getNote());
+			}
+		}
+		else {
+			this.noms = repertoire.list();
 
-		for (int  i=0 ; i < noms.length ; i++) {
-			if (! modele.images.contains(noms[i])){
+			for (int  i=0 ; i < noms.length ; i++) {
+				if (! modele.images.contains(noms[i])){
 
-				Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
+					Recuperateur rim = new Recuperateur(Controleur.REPERTOIRE+noms[i]);
 
-				try {
-					m.ajouterImage(rim);
-				} catch (IOException e) {
+					try {
+						m.ajouterImage(rim);
+					} catch (IOException e) {
+
+					}
 
 				}
-
 			}
 		}
 	}
