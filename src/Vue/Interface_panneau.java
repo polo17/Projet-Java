@@ -40,17 +40,12 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public static void main(String[] args) throws IOException {
 
 
-
-
-			
-		
-
-
 		Interface_panneau p = new Interface_panneau();
 		Interface_miniatures i = new Interface_miniatures();
 
 		modele.addObserver(i);
 
+		// Fenêtre disposant de panels
 		Frame f = new Frame();
 		f.setLayout(new BorderLayout());		
 		f.add(p, BorderLayout.WEST);
@@ -61,6 +56,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		f.setTitle("Gestionnaire d'images");
 		f.setSize(950, 780);
 		
+		// Ascenseur
 		JScrollPane scroll = new JScrollPane(i);
 		scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		f.add(scroll, BorderLayout.CENTER);
@@ -71,12 +67,15 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	}
 
 	public Interface_panneau() throws IOException {
+
 		super();
 
+		// Specifications du  panel de sélection
 		JPanel pan = new JPanel();
 		pan.setLayout(new BoxLayout(pan, BoxLayout.Y_AXIS));
 		pan.setBackground(new Color(204,255,204));
-		
+
+		// Saisie pour la recherhe de l'image par son nom
 		Label la1 = new Label("Saisir nom :", Label.LEFT);
 		pan.add(la1);
 		JTextField saisie_nom = new JTextField();
@@ -84,6 +83,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		saisie_nom.setName("nameur");
 		pan.add(saisie_nom);
 
+		// Saisie pour la recherche de l'image par tags
 		Label la2 = new Label("Saisir tag :", Label.LEFT);
 		pan.add(la2);
 		JTextField saisie_tag = new JTextField();
@@ -91,6 +91,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 		saisie_tag.setName("cherch_tag");
 		pan.add(saisie_tag);
 
+		// Cases à cocher pour sélectionner la recherche par couleur(s)
 		Label la3 = new Label("Séléctionner couleur :", Label.LEFT);
 		pan.add(la3);
 		for (int i=0;i<couleurs.length;i++) {
@@ -102,6 +103,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			pan.add(cocher_couleur);
 		}
 
+		// Cases à cocher pour sélectionner la recherche par taille
 		Label la4 = new Label("Séléctionner taille :", Label.LEFT);
 		pan.add(la4);
 		for (int i=0;i<tailles.length;i++) {
@@ -113,6 +115,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			pan.add(cocher_taille);
 		}		
 
+		// Cases à cocher pour sélectionner la recherche par note
 		Label la5 = new Label("Séléctionner note :", Label.LEFT);
 		pan.add(la5);
 		for (int i=0;i<notes.length;i++) {
@@ -124,18 +127,20 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 			pan.add(cocher_note);
 		}
 
+		// Liste déroulante pour choisir le type de tri des images (ex: ordre alphabétique)
 		Label la6 = new Label("Trier par : ", Label.LEFT);
 		pan.add(la6);
 		JComboBox l_trier = new JComboBox(trieur);
 		l_trier.addActionListener(ctrl);		
 		pan.add(l_trier);
 
+		// Bouton "trier" qui actionne le tri sélectionné
 		JButton trier = new JButton("trier");
 		trier.setName("b_trier");
 		trier.addActionListener(ctrl);
 		trier.setAlignmentX(CENTER_ALIGNMENT);
 		pan.add(trier,BorderLayout.SOUTH);
-		
+
 		add(pan);
 	}
 
@@ -173,7 +178,10 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
+
+		// Serialisation
 		Iterator<Photo> it = Modele.images.iterator();
+
 		while(it.hasNext()) {
 			Photo myCurrentPhoto = it.next();
 			try {

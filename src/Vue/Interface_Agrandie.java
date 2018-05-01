@@ -28,31 +28,33 @@ public class Interface_Agrandie extends JFrame{
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
-	
+
 	public BufferedImage select;
 	public Photo photo;
-	
+
 	public static int TAILLE_X = 700;
-	public static int TAILLE_Y = 390;
+	public static int TAILLE_Y = 390; // taille de l'image agrandie
 
 	public Interface_Agrandie (Photo img) throws IOException{
-		
+
 		super();
+
 		this.photo = img;
-		this.select = (BufferedImage)img.img; 
+		this.select = (BufferedImage)img.img;   // conversion de la bufferedImage en objet photo
 		setLayout(new FlowLayout());
 		setSize(TAILLE_X+200,TAILLE_Y+100);
 		setBackground(new Color(204, 255, 255));
 		String titre = photo.nom;
 		titre = titre.replace(".jpg", "");
 		setTitle(titre);
-		this.setBackground(Color.black);
 
+		// panel pour noter l'image
 		Panel etoiles = new Panel();
 		etoiles.setLayout(new BoxLayout(etoiles, BoxLayout.Y_AXIS));
 		etoiles.setBackground(new Color(204, 255, 255));
 		add(etoiles);
 
+		// Cases à cocher pour donner une note à l'image
 		ButtonGroup group = new ButtonGroup();
 		Label lab = new Label("Notez l'image :", Label.LEFT);
 		etoiles.add(lab);
@@ -65,24 +67,29 @@ public class Interface_Agrandie extends JFrame{
 			group.add(cocher_etoile);
 			etoiles.add(cocher_etoile);
 		}
-		
+
+		// Panel pour donner des tags à l'image
 		Panel tags = new Panel();
 		tags.setLayout(new BoxLayout(tags, BoxLayout.Y_AXIS));
 		tags.setBackground(new Color(204, 255, 255));
 		add(tags);
 
+		// Saisie du/des tags
 		Label la2 = new Label("Ajoutez un tag :", Label.LEFT);
 		tags.add(la2);
 		JTextField saisie_tag = new JTextField();
 		saisie_tag.setName("tageur");
 		saisie_tag.addActionListener(ctrl);
 		tags.add(saisie_tag);
+
+		// bouton pour effacer tous les tags
 		JButton effacer = new JButton("effacer les tags");
 		effacer.setName("b_effacer");
 		effacer.addActionListener(ctrl);
 		effacer.setAlignmentX(CENTER_ALIGNMENT);
 		tags.add(effacer,BorderLayout.SOUTH);
 
+		// Liste de tous les tags de l'image
 		Panel list_tags = new Panel();
 		list_tags.setLayout(new BoxLayout(list_tags, BoxLayout.Y_AXIS));
 		list_tags.setBackground(new Color(204, 255, 255));
@@ -94,18 +101,17 @@ public class Interface_Agrandie extends JFrame{
 			Label la0 = new Label(photo.tags.get(i), Label.LEFT);
 			list_tags.add(la0);
 		}
+
 		revalidate();
 		setVisible(true);
 	}
 
 	public void paint(Graphics g) {
 		((Graphics2D)g).setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-		g.drawImage(select, 0, 100, TAILLE_X, TAILLE_Y, null);
+		g.drawImage(select, 0, 100, TAILLE_X, TAILLE_Y, null); // Affichage de l'image sélectionnée
 	}
 
 	public void actionPerformed(ActionEvent e) {
 
 	}
 }
-
-
