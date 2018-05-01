@@ -88,7 +88,8 @@ public class Modele extends Observable {
 				rim.obtenirTaille(),
 				rim.obtenirDate(),
 				rim.obtenirCouleur(),
-				rim.obtenirImage());
+				rim.obtenirImage(),
+				rim.getPath());
 		//Ajout dans la base des photos de l'appli.
 		Modele.images.add(photo);
 

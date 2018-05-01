@@ -38,9 +38,7 @@ public class Interface_panneau extends Panel implements WindowListener, MouseLis
 	public static Controleur ctrl = new Controleur(modele);
 
 	public static void main(String[] args) throws IOException {
-		/**
-		 * Deserialisation du fichier .dat
-		 */
+
 
 
 

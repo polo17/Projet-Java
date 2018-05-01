@@ -70,6 +70,10 @@ public class Recuperateur {
 		}
 
 	}
+	
+	public String getPath() {
+		return this.file.getAbsolutePath();
+	}
 
 	/**
 	 * 

@@ -29,6 +29,8 @@ public class Photo implements Serializable {
 	
 	byte[] bufferedToByte;
 	
+	String path;
+	
 	/**
 	 * @param n Nom de la photo
 	 * @param t Taille de photo
@@ -36,7 +38,7 @@ public class Photo implements Serializable {
 	 * @param color Couleur dominante de la photo
 	 * @param im L'image de la photo
 	 */
-	public Photo(String n, int t, String d, Color color, BufferedImage im){
+	public Photo(String n, int t, String d, Color color, BufferedImage im, String path){
 		this.nom = n;
 		this.taille = t;
 		this.date = d;
@@ -44,6 +46,7 @@ public class Photo implements Serializable {
 		this.tags = new ArrayList<String>();
 		this.note = 0;
 		this.img=im;
+		this.path=path;
 	}
 	
 	public void rmTags() {
@@ -81,6 +84,10 @@ public class Photo implements Serializable {
 	
 	public ArrayList<String> getTags(){
 		return this.tags;
+	}
+	
+	public String getPath() {
+		return this.path;
 	}
 	
 	public void toByte() throws IOException {

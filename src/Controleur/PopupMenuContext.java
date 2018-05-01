@@ -18,13 +18,16 @@ import javax.swing.border.BevelBorder;
 import Modele.Modele;
 import Modele.Photo;
 import Vue.ImagePanel;
+import Vue.Interface_miniatures;
 
 public class PopupMenuContext  extends JPanel{
 
 	public JPopupMenu popup;
 	public Photo photo;
-	public PopupMenuContext(Photo p){
+	public static Interface_miniatures im;
+	public PopupMenuContext(Photo p, Interface_miniatures im){
 		this.photo=p;
+		PopupMenuContext.im=im;
 		popup = new JPopupMenu();
 		ActionListener menuListener = new ActionListener() {
 
@@ -38,6 +41,7 @@ public class PopupMenuContext  extends JPanel{
 
 					if(nom!=null && !nom.equals("") &&!nom.equals(nombase)) {
 						photo.nom=nom+ext;
+						PopupMenuContext.im.miseAJour();
 						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
 					}
 
@@ -99,10 +103,12 @@ public class PopupMenuContext  extends JPanel{
 						Recuperateur r = new Recuperateur(f.getPath());
 						try {
 							Modele.ajouterImage(r);
+							PopupMenuContext.im.miseAJour();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+						JOptionPane.showMessageDialog(null, "Photo importée avec succés", "Importation", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
@@ -113,7 +119,9 @@ public class PopupMenuContext  extends JPanel{
 						Modele.Tailles.remove(photo.getTaille());
 						Modele.Dates.remove(photo.getDate());
 						Modele.images.remove(photo);
+						PopupMenuContext.im.miseAJour();
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
+						
 					}
 				}
 
@@ -128,8 +136,11 @@ public class PopupMenuContext  extends JPanel{
 					}
 					else
 						color = "Vert";
+
+
 					String info = "Nom de l'image : "+photo.getNom()+"\n"
 							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+" Ko"+"\n"
+									+ "Emplacement : "+photo.getPath()+"\n"
 									+ "Date de la photo : "+photo.getDate()+"\n"
 									+ "Couleur principale : "+color+"\n"
 									+ "Liste de tags : "+photo.getTags().toString()+"\n"
@@ -139,7 +150,10 @@ public class PopupMenuContext  extends JPanel{
 
 				}
 
-			}
+				
+				}
+			
+			
 		};
 		JMenuItem item;
 		popup.add(item = new JMenuItem("Renommer"));
@@ -179,12 +193,16 @@ public class PopupMenuContext  extends JPanel{
 
 		addMouseListener(new MousePopupListener());
 
+
+
+
+
+
 	}
 
 	class MousePopupListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
-			ImagePanel ip  =(ImagePanel) e.getSource();
-			checkPopup(e);
+
 
 		}
 
@@ -196,18 +214,14 @@ public class PopupMenuContext  extends JPanel{
 
 		public void mouseReleased(MouseEvent e) {
 
-			checkPopup(e);
+
 
 		}
 
 		private void checkPopup(MouseEvent e) {
 			if (e.isPopupTrigger()) {
-				System.out.println(e.getComponent());
 				popup.show(PopupMenuContext.this, e.getX(), e.getY());
 			}
 		}
 	}
-
-
-
 }

@@ -13,7 +13,7 @@ public class Trieur_tag {
 	Set<Photo> photos_t = new HashSet<Photo>(); //set de photo triés à envoyer a la vue
 
 	public Trieur_tag (String d){
-		this.demande = d;
+		Trieur_tag.demande = d;
 	}
 
 	/**
@@ -30,7 +30,7 @@ public class Trieur_tag {
 			Photo tmp = (Photo)i.next();
 			for (int j = 0; j<tmp.tags.size();j++) {
 				String recherche = tmp.tags.get(j);
-				if((recherche).equals(this.demande)) {	
+				if((recherche).equals(Trieur_tag.demande)) {	
 					this.photos_t.add(tmp);
 				}
 			}

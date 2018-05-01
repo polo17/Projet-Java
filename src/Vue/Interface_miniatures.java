@@ -14,13 +14,15 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 import Controleur.Controleur;
 import Controleur.PopupMenuContext;
 import Vue.ImagePanel;
 import Modele.Modele;
 import Modele.Photo;
 
-public class Interface_miniatures extends Panel implements MouseListener, WindowListener, Observer{
+public class Interface_miniatures extends JPanel implements MouseListener, WindowListener, Observer{
 
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
@@ -39,7 +41,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		setLayout(gl);	
 
 		// Affichage de toutes les images au lancement de l'application
-		Iterator<Photo> i = modele.images.iterator();
+		Iterator<Photo> i = Modele.images.iterator();
 		Photo myPicture;
 		while(i.hasNext()){
 			Photo tmp = (Photo)i.next();
@@ -47,7 +49,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
-			this.popup = new PopupMenuContext(tmp);
+			this.popup = new PopupMenuContext(tmp, this);
 			cases.setComponentPopupMenu(popup.popup);
 			add(cases);
 		}
@@ -62,7 +64,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getButton()==1) {
-			this.panl = (ImagePanel)e.getSource();
+			Interface_miniatures.panl = (ImagePanel)e.getSource();
 
 			try {
 				Interface_Agrandie im = new Interface_Agrandie(panl.photo);
@@ -87,12 +89,12 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		this.removeAll();
 
-		if (modele.photos_triés instanceof Set) {
+		if (Modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
-			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
-				Iterator<Photo> i = modele.images.iterator();
+			if (((Set<Photo>) Modele.photos_triés).isEmpty() && Modele.demandes.isEmpty() && Modele.demande_tag.equals("")) {
+				Iterator<Photo> i = Modele.images.iterator();
 				Photo myPicture;
 				while(i.hasNext()){
 					try {
@@ -101,7 +103,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						ImagePanel cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.popup = new PopupMenuContext(myPicture);
+						this.popup = new PopupMenuContext(myPicture, this);
 						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);		
 					} catch (IOException e) {
@@ -110,7 +112,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 				}
 				revalidate();
 			}			
-			else if (! ((Set<Photo>)modele.photos_triés).isEmpty() && ! modele.demande_tag.equals("")){
+			else if (! ((Set<Photo>)Modele.photos_triés).isEmpty() && ! Modele.demande_tag.equals("")){
 				Iterator<Photo> i = ((Set<Photo>) images_triés).iterator();
 				Photo myPicture;
 				ImagePanel cases;
@@ -121,7 +123,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.popup = new PopupMenuContext(myPicture);
+						this.popup = new PopupMenuContext(myPicture, this);
 						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);
 					} catch (IOException e) {
@@ -141,7 +143,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 						cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.popup = new PopupMenuContext(myPicture);
+						this.popup = new PopupMenuContext(myPicture,this);
 						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);
 					} catch (IOException e) {
@@ -152,7 +154,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 			}
 		}
 		else { //si c'est par ordre particulier avec la combo box
-			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
+			ArrayList<Photo> actu = (ArrayList<Photo>) Modele.photos_triés;
 			Photo myPicture;
 			ImagePanel cases;
 			for(int i = 0; i<actu.size();i++) {
@@ -161,7 +163,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 					cases = new ImagePanel(myPicture);
 					cases.addMouseListener(this);
 					cases.setName(actu.get(i).nom);
-					this.popup = new PopupMenuContext(myPicture);
+					this.popup = new PopupMenuContext(myPicture, this);
 					cases.setComponentPopupMenu(popup.popup);
 					this.add(cases);
 				} catch (IOException e) {
@@ -173,6 +175,35 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 		repaint();
 		this.setVisible(true);
+	}
+	
+	
+	public void miseAJour() {
+		ImagePanel.TAILLE_X=160;
+		ImagePanel.TAILLE_Y=90;	
+
+		this.removeAll();
+		
+		Iterator<Photo> i = Modele.images.iterator();
+		Photo myPicture;
+		while(i.hasNext()){
+			try {
+				Photo tmp = (Photo)i.next();
+				myPicture = tmp;
+				ImagePanel cases = new ImagePanel(myPicture);
+				cases.addMouseListener(this);
+				cases.setName(tmp.nom);
+				this.popup = new PopupMenuContext(myPicture, this);
+				cases.setComponentPopupMenu(popup.popup);
+				this.add(cases);		
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		revalidate();
+		repaint();
+
+		
 	}
 
 	@Override
