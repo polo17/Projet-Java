@@ -28,7 +28,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 	public static ImagePanel panl;
 
 	private Object images_triés; //images triées récupérées du modèle
-	public boolean drapeau = true;
+	public boolean drapeau = true; // ce drapeau sert à la fermeture de l'interface_Agrandie sans la fermeture du programme
 
 	public Interface_miniatures() throws IOException {
 
@@ -54,13 +54,10 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		this.setVisible(true);	    
 	}
 
-	/**
-	 * Crée une fenêtre pour afficher l'image
-	 * appelée à chaque clic sur un panel
-	 */
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		
+		// A chaque clic sur une miniature, création d'une nouvelle fenêtre contenant l'image et d'autres fonctions (interface_Agrandie)
 		if(e.getButton()==1) {
 			this.panl = (ImagePanel)e.getSource();
 
@@ -75,22 +72,20 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 		}
 	}
 
-	/**
-	 * Fait le tri à chaque modification du modèle
-	 */
-
 	@Override
 	public void update(Observable o, Object photo_t) {
 
 		ImagePanel.TAILLE_X=160;
 		ImagePanel.TAILLE_Y=90;	
 
-		this.removeAll();
-
+		this.removeAll(); // supprime l'ancien contenu pour afficher le nouveau
+		
+		// Affiche le nouveau contenu selon la recherche demandée (chaque modification du modèle)
 		if (modele.photos_triés instanceof Set) {
 
 			images_triés =  (Set<Photo>)photo_t;
 
+			// S'il n'y a pas de recherche effectuée, on affiche toutes les images, sion on affiche la recheche
 			if (((Set<Photo>) modele.photos_triés).isEmpty() && modele.demandes.isEmpty() && modele.demande_tag.equals("")) {
 				Iterator<Photo> i = modele.images.iterator();
 				Photo myPicture;
@@ -151,7 +146,8 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 				}
 			}
 		}
-		else { //si c'est par ordre particulier avec la combo box
+		 // si c'est par ordre particulier avec la Jcombobox
+		else {
 			ArrayList<Photo> actu = (ArrayList<Photo>) modele.photos_triés;
 			Photo myPicture;
 			ImagePanel cases;
@@ -201,7 +197,7 @@ public class Interface_miniatures extends Panel implements MouseListener, Window
 
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		drapeau=false;
+		drapeau=false; // pour la fermeture de la fenêtre agrandie
 	}
 
 	@Override
