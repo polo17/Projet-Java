@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
 /**
  * 
@@ -47,7 +48,9 @@ public class Recuperateur {
 	 * @throws IOException
 	 */
 	public Color obtenirCouleur() throws IOException{
+		System.out.println(this.file.toString());
 		BufferedImage img = ImageIO.read(this.file);
+		
 		int red = 0;
 		int green = 0;
 		int blue = 0;
@@ -72,7 +75,7 @@ public class Recuperateur {
 	}
 	
 	public String getPath() {
-		return this.file.getAbsolutePath();
+		return this.file.getPath();
 	}
 
 	/**

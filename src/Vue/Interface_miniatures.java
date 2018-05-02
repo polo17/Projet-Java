@@ -24,6 +24,10 @@ import Modele.Photo;
 
 public class Interface_miniatures extends JPanel implements MouseListener, WindowListener, Observer{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Modele modele = Interface_panneau.modele;
 	Controleur ctrl = Interface_panneau.ctrl;
 	PopupMenuContext popup;
@@ -49,7 +53,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 			ImagePanel cases = new ImagePanel(myPicture);
 			cases.addMouseListener(this);
 			cases.setName(tmp.nom);
-			this.popup = new PopupMenuContext(tmp, this);
+			this.popup = new PopupMenuContext(myPicture, this);
 			cases.setComponentPopupMenu(popup.popup);
 			add(cases);
 		}
@@ -100,7 +104,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						ImagePanel cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.popup = new PopupMenuContext(myPicture, this);
+						this.popup = new PopupMenuContext(myPicture,this);
 						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);		
 					} catch (IOException e) {
@@ -140,7 +144,7 @@ public class Interface_miniatures extends JPanel implements MouseListener, Windo
 						cases = new ImagePanel(myPicture);
 						cases.addMouseListener(this);
 						cases.setName(tmp.nom);
-						this.popup = new PopupMenuContext(myPicture,this);
+						this.popup = new PopupMenuContext(myPicture, this);
 						cases.setComponentPopupMenu(popup.popup);
 						this.add(cases);
 					} catch (IOException e) {

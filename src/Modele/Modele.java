@@ -127,6 +127,14 @@ public class Modele extends Observable {
 			Modele.Dates.put(date, new HashSet<Photo>());
 		Modele.Dates.get(date).add(photo);
 	}
+	
+	public static void removeImage(Photo p) {
+		Modele.Couleurs.remove(p.getColor());
+		Modele.Tailles.remove(p.getTaille());
+		Modele.Dates.remove(p.getDate());
+		Modele.images.remove(p);
+		
+	}
 
 	public void triage(String n){
 		Trieur t = new Trieur(n);

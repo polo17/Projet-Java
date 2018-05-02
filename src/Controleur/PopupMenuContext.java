@@ -1,5 +1,7 @@
 package Controleur;
-import java.awt.Color;
+import Vue.ImagePanel;
+import Vue.Interface_miniatures;
+import Modele.Modele;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -9,26 +11,32 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.border.BevelBorder;
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
-import Modele.Modele;
 import Modele.Photo;
-import Vue.ImagePanel;
-import Vue.Interface_miniatures;
 
 public class PopupMenuContext  extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public JPopupMenu popup;
 	public Photo photo;
-	public static Interface_miniatures im;
+	public Interface_miniatures im;
 	public PopupMenuContext(Photo p, Interface_miniatures im){
 		this.photo=p;
-		PopupMenuContext.im=im;
 		popup = new JPopupMenu();
+		this.im=im;
 		ActionListener menuListener = new ActionListener() {
 
 
@@ -39,24 +47,23 @@ public class PopupMenuContext  extends JPanel{
 					String nom = JOptionPane.showInputDialog(null, "Modifiez le nom de la photo", "Renommer photo", JOptionPane.QUESTION_MESSAGE);
 					String ext = Recuperateur.getStringExtension(photo.getNom());
 
-					if(nom!=null && !nom.equals("") &&!nom.equals(nombase)) {
+					if(!nom.equals("") &&!nom.equals(nombase)) {
 						photo.nom=nom+ext;
-						PopupMenuContext.im.miseAJour();
 						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
 					}
 
-					else if(nom!=null) {
+					else {
 						JOptionPane.showMessageDialog(null, "Veuillez entrer un nom différent de l'ancien", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				else if(event.getActionCommand().equals("ajoutertag")) {
 					String tag = JOptionPane.showInputDialog(null, "Veuillez entrer tag"   , "Ajout de tag", JOptionPane.QUESTION_MESSAGE);
-					if(tag!=null && !tag.equals("") && tag!=null) {
+					if(!tag.equals("") && tag!=null) {
 						photo.tags.add(tag);
 						JOptionPane.showMessageDialog(null, "Tag ajouté !", "Ajout tag", JOptionPane.INFORMATION_MESSAGE);
 					}
-					else if (tag!=null && tag.equals("")){
+					else if (tag.equals("") && tag!=null){
 						JOptionPane.showMessageDialog(null, "Le tag n'a pas été ajouté, veuillez re-essayer", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -74,11 +81,12 @@ public class PopupMenuContext  extends JPanel{
 							JOptionPane.showMessageDialog(null, nom + " a bien été retiré de la liste des tags", "Suppresion effectuée", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
+					
 				}
 
 				else if(event.getActionCommand().equals("modifierdate")) {
 					String date = JOptionPane.showInputDialog(null, "Veuillez entrer une date au format jj/mm/aaaa", "Modifier la date", JOptionPane.QUESTION_MESSAGE);
-					if(date!=null &&date.charAt(2)=='/' && date.charAt(5)=='/' && date.length()==10) {
+					if( date!=null &&date.charAt(2)=='/' && date.charAt(5)=='/' && date.length()==10) {
 						HashSet<Photo> hs = Modele.Dates.get(photo.getDate());
 						Iterator<Photo> it = hs.iterator();
 						while(it.hasNext()) {
@@ -97,52 +105,37 @@ public class PopupMenuContext  extends JPanel{
 
 
 				else if(event.getActionCommand().equals("ajouterphoto")) {
-					ChoixImage ci = new ChoixImage();
+					ImageChoice ci = new ImageChoice();
 					File f = ci.imageSelected();
 					if(f!=null && ci.fileIsNotIsNoGood(f)) {
 						Recuperateur r = new Recuperateur(f.getPath());
 						try {
+							im.miseAJour();
 							Modele.ajouterImage(r);
-							PopupMenuContext.im.miseAJour();
+							im.miseAJour();
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(null, "Probleme lors de l'import de l'image", "Erreur", JOptionPane.ERROR_MESSAGE);
 							e.printStackTrace();
 						}
-						JOptionPane.showMessageDialog(null, "Photo importée avec succés", "Importation", JOptionPane.INFORMATION_MESSAGE);
 					}
+					
 				}
 
 				else if(event.getActionCommand().equals("supprimer")) {
 					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(suppres == JOptionPane.OK_OPTION) {
-						Modele.Couleurs.remove(photo.getColor());
-						Modele.Tailles.remove(photo.getTaille());
-						Modele.Dates.remove(photo.getDate());
-						Modele.images.remove(photo);
-						PopupMenuContext.im.miseAJour();
+						Modele.removeImage(photo);
+						im.miseAJour();
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
-						
 					}
 				}
 
 				else {
-					Color c = photo.getColor();
-					String color;
-					if(c.equals(Color.red)){
-						color = "Rouge";
-					}
-					else if (c.equals(Color.blue)) {
-						color = "Bleue";
-					}
-					else
-						color = "Vert";
-
-
 					String info = "Nom de l'image : "+photo.getNom()+"\n"
-							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+" Ko"+"\n"
-									+ "Emplacement : "+photo.getPath()+"\n"
+							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+"\n"
 									+ "Date de la photo : "+photo.getDate()+"\n"
-									+ "Couleur principale : "+color+"\n"
+									+ "Couleur principale : "+photo.getColor().toString()+"\n"
 									+ "Liste de tags : "+photo.getTags().toString()+"\n"
 									+ "Note de l'image : "+String.valueOf(photo.getNote()));
 					JOptionPane.showMessageDialog(null, info, "Information de l'image", JOptionPane.INFORMATION_MESSAGE);
@@ -150,10 +143,7 @@ public class PopupMenuContext  extends JPanel{
 
 				}
 
-				
-				}
-			
-			
+			}
 		};
 		JMenuItem item;
 		popup.add(item = new JMenuItem("Renommer"));
@@ -193,16 +183,11 @@ public class PopupMenuContext  extends JPanel{
 
 		addMouseListener(new MousePopupListener());
 
-
-
-
-
-
 	}
 
 	class MousePopupListener extends MouseAdapter {
 		public void mousePressed(MouseEvent e) {
-
+			checkPopup(e);
 
 		}
 
@@ -214,14 +199,18 @@ public class PopupMenuContext  extends JPanel{
 
 		public void mouseReleased(MouseEvent e) {
 
-
+			checkPopup(e);
 
 		}
 
 		private void checkPopup(MouseEvent e) {
 			if (e.isPopupTrigger()) {
+				System.out.println(e.getComponent());
 				popup.show(PopupMenuContext.this, e.getX(), e.getY());
 			}
 		}
 	}
+
+
+
 }

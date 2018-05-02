@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Observable;
@@ -29,6 +28,10 @@ import Modele.Photo;
 
 public class Interface_panneau extends Panel implements WindowListener, MouseListener, Observer{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public static String[] trieur = {"ordre alphabétique","couleurs","note","taille","date"};
 	String[] couleurs = {"rouge","vert","bleu"};
 	String[] tailles = {"petites","moyennes","grandes"};

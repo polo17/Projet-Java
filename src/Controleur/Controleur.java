@@ -75,7 +75,7 @@ public class Controleur implements ActionListener, MouseListener{
 					try {
 						Modele.ajouterImage(rim);
 					} catch (IOException e) {
-
+						e.getStackTrace();
 					}
 
 				}

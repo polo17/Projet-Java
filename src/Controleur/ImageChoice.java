@@ -4,14 +4,14 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-public class ChoixImage {
+public class ImageChoice {
 	
 
 	final JFileChooser fc;
 	public int result;
 	
 	
-	public ChoixImage() {
+	public ImageChoice() {
 		this.fc = new JFileChooser();
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -20,6 +20,7 @@ public class ChoixImage {
 	
 	public File imageSelected() {
 		if(this.result == JFileChooser.APPROVE_OPTION) {
+			System.out.println("ok");
 			File f = this.fc.getSelectedFile();
 			return f;
 		}
