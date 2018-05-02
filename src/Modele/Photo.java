@@ -3,6 +3,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
@@ -31,6 +32,8 @@ public class Photo implements Serializable {
 	
 	String path;
 	
+	File file;
+	
 	/**
 	 * @param n Nom de la photo
 	 * @param t Taille de photo
@@ -38,7 +41,7 @@ public class Photo implements Serializable {
 	 * @param color Couleur dominante de la photo
 	 * @param im L'image de la photo
 	 */
-	public Photo(String n, int t, String d, Color color, BufferedImage im, String path){
+	public Photo(String n, int t, String d, Color color, BufferedImage im, String path, File f){
 		this.nom = n;
 		this.taille = t;
 		this.date = d;
@@ -47,6 +50,7 @@ public class Photo implements Serializable {
 		this.note = 0;
 		this.img=im;
 		this.path=path;
+		this.file=f;
 	}
 	
 	public void rmTags() {
@@ -88,6 +92,10 @@ public class Photo implements Serializable {
 	
 	public String getPath() {
 		return this.path;
+	}
+	
+	public File getFile() {
+		return this.file;
 	}
 	
 	public void toByte() throws IOException {

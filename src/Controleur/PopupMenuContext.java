@@ -2,6 +2,8 @@ package Controleur;
 import Vue.ImagePanel;
 import Vue.Interface_miniatures;
 import Modele.Modele;
+
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -52,24 +54,29 @@ public class PopupMenuContext  extends JPanel{
 					String nom = JOptionPane.showInputDialog(null, "Modifiez le nom de la photo", "Renommer photo", JOptionPane.QUESTION_MESSAGE);
 					String ext = Recuperateur.getStringExtension(photo.getNom());
 
-					if(!nom.equals("") &&!nom.equals(nombase)) {
-						photo.nom=nom+ext;
+					if(nom!=null && !nom.equals("") &&!nom.equals(nombase)) {
+						photo.nom=nom+"."+ext;
+						System.out.println(photo.getFile());
+						boolean rename = photo.getFile().renameTo(new File("Images"+File.separator+nom+"."+ext));
 						im.miseAJour();
-						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
+						if(rename)
+							JOptionPane.showMessageDialog(null, "La photo à bien été renommée", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
+						else
+							JOptionPane.showMessageDialog(null, "La photo n'a pas été renommée", "renommage ok", JOptionPane.ERROR_MESSAGE);
 					}
 
-					else {
+					else if (nom!=null) {
 						JOptionPane.showMessageDialog(null, "Veuillez entrer un nom différent de l'ancien", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				else if(event.getActionCommand().equals("ajoutertag")) {
 					String tag = JOptionPane.showInputDialog(null, "Veuillez entrer tag"   , "Ajout de tag", JOptionPane.QUESTION_MESSAGE);
-					if(!tag.equals("") && tag!=null) {
+					if(tag!=null && !tag.equals("")) {
 						photo.tags.add(tag);
 						JOptionPane.showMessageDialog(null, "Tag ajouté !", "Ajout tag", JOptionPane.INFORMATION_MESSAGE);
 					}
-					else if (tag.equals("") && tag!=null){
+					else if (tag!=null && tag.equals("")){
 						JOptionPane.showMessageDialog(null, "Le tag n'a pas été ajouté, veuillez re-essayer", "Erreur", JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -87,9 +94,9 @@ public class PopupMenuContext  extends JPanel{
 							JOptionPane.showMessageDialog(null, nom + " a bien été retiré de la liste des tags", "Suppresion effectuée", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
-					
+
 				}
-				
+
 				else if(event.getActionCommand().equals("supprimertags")) {
 					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer tout les tags de cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(suppres == JOptionPane.OK_OPTION) {
@@ -124,41 +131,64 @@ public class PopupMenuContext  extends JPanel{
 					if(f!=null && ci.fileIsNotIsNoGood(f)) {
 						Path source = Paths.get(f.getAbsolutePath());
 						Path dest = Paths.get("Images/"+f.getName());
+						boolean exist = false;
+
 						try {
-							Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+							Files.copy(source, dest, StandardCopyOption.COPY_ATTRIBUTES);
 						} catch (IOException e1) {
 							// TODO Auto-generated catch block
-							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "L'image existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
+							exist=true;
 						}
-						Recuperateur r = new Recuperateur(f.getPath());
-						try {
-							im.miseAJour();
-							Modele.ajouterImage(r);
-							im.miseAJour();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							JOptionPane.showMessageDialog(null, "Probleme lors de l'import de l'image", "Erreur", JOptionPane.ERROR_MESSAGE);
-							e.printStackTrace();
+						if(!exist) {
+							Recuperateur r = new Recuperateur("Images/"+f.getName());
+							try {
+								
+								Modele.ajouterImage(r);
+								im.miseAJour();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								JOptionPane.showMessageDialog(null, "Probleme lors de l'import de l'image", "Erreur", JOptionPane.ERROR_MESSAGE);
+								e.printStackTrace();
+							}
 						}
 					}
-					
+
 				}
 
 				else if(event.getActionCommand().equals("supprimer")) {
 					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 					if(suppres == JOptionPane.OK_OPTION) {
+						try {
+							Files.delete(Paths.get(photo.getPath()));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						Modele.removeImage(photo);
+
 						im.miseAJour();
 						JOptionPane.showMessageDialog(null, "Photo supprimée avec succés", "Suppression", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				else {
+
+					String s;
+					if (photo.getColor().equals(Color.red)){
+						s="Rouge";
+					}
+					else if(photo.getColor().equals(Color.green)) {
+						s="Vert";
+					}
+					else
+						s="Bleu";
+
 					String info = "Nom de l'image : "+photo.getNom()+"\n"
 							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+" Ko \n"
 									+ "Emplacement : "+photo.getPath()+"\n"
 									+ "Date de la photo : "+photo.getDate()+"\n"
-									+ "Couleur principale : "+photo.getColor().toString()+"\n"
+									+ "Couleur principale : "+s+"\n"
 									+ "Liste de tags : "+photo.getTags().toString()+"\n"
 									+ "Note de l'image : "+String.valueOf(photo.getNote()));
 					JOptionPane.showMessageDialog(null, info, "Information de l'image", JOptionPane.INFORMATION_MESSAGE);

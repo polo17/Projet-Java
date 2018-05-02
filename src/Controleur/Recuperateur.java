@@ -77,6 +77,10 @@ public class Recuperateur {
 	public String getPath() {
 		return this.file.getPath();
 	}
+	
+	public File getFile() {
+		return this.file;
+	}
 
 	/**
 	 * 
