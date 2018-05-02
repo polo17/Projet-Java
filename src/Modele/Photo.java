@@ -30,7 +30,7 @@ public class Photo implements Serializable {
 	
 	byte[] bufferedToByte;
 	
-	String path;
+	public String path;
 	
 	File file;
 	

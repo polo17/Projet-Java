@@ -56,8 +56,10 @@ public class PopupMenuContext  extends JPanel{
 
 					if(nom!=null && !nom.equals("") &&!nom.equals(nombase)) {
 						photo.nom=nom+"."+ext;
-						System.out.println(photo.getFile());
-						boolean rename = photo.getFile().renameTo(new File("Images"+File.separator+nom+"."+ext));
+						File path = new File("Images/");
+	
+						boolean rename = photo.getFile().renameTo(new File(path.getAbsolutePath()+File.separator+nom+"."+ext));
+						photo.path=path.getAbsolutePath()+File.separator+nom+"."+ext;
 						im.miseAJour();
 						if(rename)
 							JOptionPane.showMessageDialog(null, "La photo à bien été renommée", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
