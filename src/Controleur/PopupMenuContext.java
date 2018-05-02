@@ -8,6 +8,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.CopyOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -49,6 +54,7 @@ public class PopupMenuContext  extends JPanel{
 
 					if(!nom.equals("") &&!nom.equals(nombase)) {
 						photo.nom=nom+ext;
+						im.miseAJour();
 						JOptionPane.showMessageDialog(null, "La photo à bien été renommée  ", "renommage ok", JOptionPane.INFORMATION_MESSAGE);
 					}
 
@@ -83,6 +89,14 @@ public class PopupMenuContext  extends JPanel{
 					}
 					
 				}
+				
+				else if(event.getActionCommand().equals("supprimertags")) {
+					int suppres = JOptionPane.showConfirmDialog(null, "Etes vous sur de vouloir supprimer tout les tags de cette photo ?", "Suppression photo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+					if(suppres == JOptionPane.OK_OPTION) {
+						photo.rmTags();
+						JOptionPane.showMessageDialog(null, "Tags supprimés avec succès", "Suppression", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
 
 				else if(event.getActionCommand().equals("modifierdate")) {
 					String date = JOptionPane.showInputDialog(null, "Veuillez entrer une date au format jj/mm/aaaa", "Modifier la date", JOptionPane.QUESTION_MESSAGE);
@@ -108,6 +122,14 @@ public class PopupMenuContext  extends JPanel{
 					ImageChoice ci = new ImageChoice();
 					File f = ci.imageSelected();
 					if(f!=null && ci.fileIsNotIsNoGood(f)) {
+						Path source = Paths.get(f.getAbsolutePath());
+						Path dest = Paths.get("Images/"+f.getName());
+						try {
+							Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						Recuperateur r = new Recuperateur(f.getPath());
 						try {
 							im.miseAJour();
@@ -133,7 +155,8 @@ public class PopupMenuContext  extends JPanel{
 
 				else {
 					String info = "Nom de l'image : "+photo.getNom()+"\n"
-							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+"\n"
+							+ "Taille de l'image : "+String.valueOf(photo.getTaille()+" Ko \n"
+									+ "Emplacement : "+photo.getPath()+"\n"
 									+ "Date de la photo : "+photo.getDate()+"\n"
 									+ "Couleur principale : "+photo.getColor().toString()+"\n"
 									+ "Liste de tags : "+photo.getTags().toString()+"\n"
@@ -158,6 +181,10 @@ public class PopupMenuContext  extends JPanel{
 		popup.add(item = new JMenuItem("Supprimer un tag"));
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
 		item.setActionCommand("supprimertag");
+		item.addActionListener(menuListener);
+		popup.add(item = new JMenuItem("Supprimer les tags de l'image"));
+		item.setHorizontalTextPosition(JMenuItem.RIGHT);
+		item.setActionCommand("supprimertags");
 		item.addActionListener(menuListener);
 		popup.add(item = new JMenuItem("Modifier date"));
 		item.setHorizontalTextPosition(JMenuItem.RIGHT);
