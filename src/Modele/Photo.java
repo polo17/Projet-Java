@@ -40,6 +40,8 @@ public class Photo implements Serializable {
 	 * @param d Date de la photo
 	 * @param color Couleur dominante de la photo
 	 * @param im L'image de la photo
+	 * @param path chemin de l'image physique
+	 * @param f Fichier de l'image
 	 */
 	public Photo(String n, int t, String d, Color color, BufferedImage im, String path, File f){
 		this.nom = n;
@@ -98,6 +100,10 @@ public class Photo implements Serializable {
 		return this.file;
 	}
 	
+
+	/*
+	 * Tranforme BufferedImage en byte[]
+	 */
 	public void toByte() throws IOException {
 		try {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -112,6 +118,9 @@ public class Photo implements Serializable {
 		
 	}
 	
+	/*
+	 * Tranforme byte[] en BufferedImages
+	 */
 	public void toBuffered() {
 		try {
 			InputStream ips = new ByteArrayInputStream(this.bufferedToByte);

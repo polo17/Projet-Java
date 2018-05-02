@@ -11,7 +11,6 @@ import javax.imageio.stream.ImageInputStream;
 
 /**
  * 
- * @author Ludovic
  * Classe permettant de récupérer toutes les propriétés d'un fichier
  */
 public class Recuperateur {
@@ -48,7 +47,7 @@ public class Recuperateur {
 	 * @throws IOException
 	 */
 	public Color obtenirCouleur() throws IOException{
-		System.out.println(this.file.toString());
+
 		BufferedImage img = ImageIO.read(this.file);
 		
 		int red = 0;
@@ -74,10 +73,17 @@ public class Recuperateur {
 
 	}
 	
+	
+	/*
+	 * Retourne le AbsolutePath du fichier
+	 */
 	public String getPath() {
 		return this.file.getAbsolutePath();
 	}
 	
+	/*
+	 * Retourne le fichier
+	 */
 	public File getFile() {
 		return this.file;
 	}
@@ -92,8 +98,9 @@ public class Recuperateur {
 		return img;
 	}
 	
-	
-	
+	/*
+	 * Retourne l'extension sous la forme d'un String d'un fichier
+	 */
 	public static String getFileExtension(File f) {
 		String nom = f.getName();
 		if(nom.lastIndexOf(".")!=-1 && nom.lastIndexOf(".")!=0) {
@@ -101,7 +108,9 @@ public class Recuperateur {
 		}
 		else return "";
 	}
-	
+	/*
+	 * Retourne l'extension sous la forme d'un string d'un nom de fichier
+	 */
 	public static String getStringExtension(String s) {
 		if(s.lastIndexOf(".")!=-1 && s.lastIndexOf(".")!=0) {
 			return s.substring(s.lastIndexOf(".")+1);

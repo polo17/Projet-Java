@@ -10,7 +10,9 @@ public class ImageChoice {
 	final JFileChooser fc;
 	public int result;
 	
-	
+	/*
+	 * Classe utile pour le JOptionPane d'import d'image
+	 */
 	public ImageChoice() {
 		this.fc = new JFileChooser();
 		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -18,9 +20,12 @@ public class ImageChoice {
 		this.result = fc.showOpenDialog(new JFrame());
 	}
 	
+	/*
+	 * Retourne le fichier selectionné
+	 */
+	
 	public File imageSelected() {
 		if(this.result == JFileChooser.APPROVE_OPTION) {
-			System.out.println("ok");
 			File f = this.fc.getSelectedFile();
 			return f;
 		}
@@ -28,7 +33,9 @@ public class ImageChoice {
 	}
 	
 	
-	
+	/*
+	 * Test si l'image est au format approprié 
+	 */
 	public boolean fileIsNotIsNoGood(File f) {
 		String extension = Recuperateur.getFileExtension(f);
 		if(extension.equals("jpg") || extension.equals("jpeg")) {

@@ -35,21 +35,24 @@ public class Modele extends Observable {
 
 	public Modele(){
 
-		this.Dates = new Hashtable<String, HashSet<Photo>>();
-		this.Tailles = new Hashtable<String, HashSet<Photo>>();
-		this.Couleurs = new Hashtable<Color, HashSet<Photo>>();
+		Modele.Dates = new Hashtable<String, HashSet<Photo>>();
+		Modele.Tailles = new Hashtable<String, HashSet<Photo>>();
+		Modele.Couleurs = new Hashtable<Color, HashSet<Photo>>();
 
-		this.images = new HashSet<Photo>();
-		this.data=new File("Photo.dat");
+		Modele.images = new HashSet<Photo>();
+		Modele.data=new File("Photo.dat");
 	}
 	
+	
+	/*
+	 * Ajoute aux data les caracteristiques d'une image
+	 */
 	public static void addImageToData(Photo p) {
 		
-		String date = p.getDate();
 		Modele.Dates.put(p.date, Modele.images);
 		if (!Modele.Dates.containsKey(p.date))
-			Modele.Dates.put(p.date, new HashSet());
-		Modele.Dates.get(p.date).add(p);
+			Modele.Dates.put(p.getDate(), new HashSet());
+		Modele.Dates.get(p.getDate()).add(p);
 
 		int taille = p.getTaille();
 
@@ -129,6 +132,10 @@ public class Modele extends Observable {
 		Modele.Dates.get(date).add(photo);
 	}
 	
+	/*
+	 * Retire une image de la banque d'Image
+	 */
+	@SuppressWarnings("unlikely-arg-type")
 	public static void removeImage(Photo p) {
 		Modele.Couleurs.remove(p.getColor());
 		Modele.Tailles.remove(p.getTaille());
@@ -139,19 +146,22 @@ public class Modele extends Observable {
 
 	public void triage(String n){
 		Trieur t = new Trieur(n);
-		this.photos_triés = t.tri();
+		Modele.photos_triés = t.tri();
 		this.setChanged();
-		this.notifyObservers(this.photos_triés);
+		this.notifyObservers(Modele.photos_triés);
 	}
 
 	public void triage_tag(String n) {
-		this.demande_tag = n;
+		Modele.demande_tag = n;
 		Trieur_tag t = new Trieur_tag(n);
-		this.photos_triés = t.tri();
+		Modele.photos_triés = t.tri();
 		this.setChanged();
-		this.notifyObservers(this.photos_triés);
+		this.notifyObservers(Modele.photos_triés);
 	}
 
+	/*
+	 * Methode de serialisation 
+	 */
 	public static void serialPhoto() {
 		try {
 			FileOutputStream fos = new FileOutputStream(Modele.data);
@@ -166,6 +176,9 @@ public class Modele extends Observable {
 		}
 	}
 	
+	/*
+	 * Methode de deserialisation
+	 */
 	public static void deserialPhoto() {
 		try {
 			FileInputStream fis = new FileInputStream(Modele.data);
