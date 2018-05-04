@@ -40,9 +40,9 @@ public class PopupMenuContext  extends JPanel{
 
 	public JPopupMenu popup;
 	public Photo photo;
-	public Interface_miniatures im;
+	final Interface_miniatures im;
 
-	public PopupMenuContext(Photo p, Interface_miniatures im){
+	public PopupMenuContext(Photo p, final Interface_miniatures im){
 		this.photo=p;
 		popup = new JPopupMenu();
 		this.im=im;
